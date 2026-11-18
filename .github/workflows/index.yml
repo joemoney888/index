@@ -1,0 +1,32 @@
+name: index
+# 5-minute runner for the US-index rule on the SECOND practice account. Triggered by cron-job.org (workflow_dispatch). INDEX_TRADING must be 'true' to place orders; otherwise it only logs.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: index
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python index_run.py
+        env:
+          OANDA_API_TOKEN_INDEX: ${{ secrets.OANDA_API_TOKEN_INDEX }}
+          OANDA_ACCOUNT_ID_INDEX: ${{ secrets.OANDA_ACCOUNT_ID_INDEX }}
+          INDEX_TRADING: ${{ vars.INDEX_TRADING }}
+      - run: |
+          git config user.name "gbpusd-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add logs/index_events.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "index run $(date -u +%FT%TZ)"
+            for i in 1 2 3 4 5; do git pull --rebase && git push && break || sleep 4; done
+          fi
