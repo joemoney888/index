@@ -1,0 +1,21 @@
+//@version=5
+indicator("Blue Falcon Green trades 2026-11-19", overlay=true, max_labels_count=200, max_lines_count=200)
+// Paste into the Pine Editor on a NAS100 / SPX500 / US30 chart (any OANDA-style symbol), press Add to chart. Times are UTC.
+f(ms) => ms
+if barstate.islast
+    if str.contains(syminfo.ticker, "NAS100")
+        label.new(1795099596000, 27694.2, "SHORT 27694.2", xloc=xloc.bar_time, style=label.style_label_down, color=color.black, textcolor=color.white)
+        line.new(1795099596000, 27509.1, 1795100493756, 27509.1, xloc=xloc.bar_time, color=color.green, style=line.style_dashed)
+        line.new(1795099596000, 27838.8, 1795100493000, 27838.8, xloc=xloc.bar_time, color=color.red, style=line.style_dashed)
+        line.new(1795100493000, 27618.6, 1795100493756, 27618.6, xloc=xloc.bar_time, color=color.red, style=line.style_dashed)
+        label.new(1795100493756, 27694.2, "closed +1.01 GBP", xloc=xloc.bar_time, style=label.style_label_left, color=color.blue, textcolor=color.white)
+    if str.contains(syminfo.ticker, "SPX500")
+        label.new(1795099898000, 7409.1, "SHORT 7409.1", xloc=xloc.bar_time, style=label.style_label_down, color=color.black, textcolor=color.white)
+        line.new(1795099898000, 7377.6, 1795100241709, 7377.6, xloc=xloc.bar_time, color=color.green, style=line.style_dashed)
+        line.new(1795099898000, 7433.9, 1795100241709, 7433.9, xloc=xloc.bar_time, color=color.red, style=line.style_dashed)
+        label.new(1795100241709, 7409.1, "closed +6.19 GBP", xloc=xloc.bar_time, style=label.style_label_left, color=color.blue, textcolor=color.white)
+    if str.contains(syminfo.ticker, "NAS100")
+        label.new(1795100797000, 27677.0, "SHORT 27677.0", xloc=xloc.bar_time, style=label.style_label_down, color=color.black, textcolor=color.white)
+        line.new(1795100797000, 27479.1, 1795101314066, 27479.1, xloc=xloc.bar_time, color=color.green, style=line.style_dashed)
+        line.new(1795100797000, 27817.8, 1795101314066, 27817.8, xloc=xloc.bar_time, color=color.red, style=line.style_dashed)
+        label.new(1795101314066, 27677.0, "closed +5.99 GBP", xloc=xloc.bar_time, style=label.style_label_left, color=color.blue, textcolor=color.white)
