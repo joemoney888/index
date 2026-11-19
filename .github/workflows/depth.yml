@@ -1,0 +1,34 @@
+name: depth
+# Concept test: records a free public crypto order book (Kraken) to see whether order book imbalance predicts price. Reads only; places NO orders. Public repo: unlimited minutes.
+on:
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "minutes to record"
+        default: "10"
+permissions:
+  contents: write
+concurrency:
+  group: depth
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install websockets
+      - run: python depth_collect.py
+        env:
+          MINUTES: ${{ inputs.minutes }}
+      - run: |
+          git config user.name "gbpusd-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add depth
+          if ! git diff --cached --quiet; then
+            git commit -m "depth data $(date -u +%FT%TZ)"
+            for i in 1 2 3 4 5; do git pull --rebase && git push && break || sleep 5; done
+          fi
