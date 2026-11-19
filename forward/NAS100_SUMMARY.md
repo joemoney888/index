@@ -8,7 +8,7 @@ Forward period starts 2026-11-19. Paper replay of the exact tested rule; no orde
 | SPX500 | 0 | +0.000 | +0.0 | 0% | 0.00 |
 | US30 | 0 | +0.000 | +0.0 | 0% | 0.00 |
 
-Pooled: 0 trades, +0.000R average, t 0.00. Data to 2026-11-19 21:00 UTC.
+Pooled: 0 trades, +0.000R average, t 0.00. Data to 2026-11-19 23:00 UTC.
 - Verdict: TOO EARLY until about 300 trades per market (about 2 months); then it counts only if the average stays positive with t >= 2.
 
 
