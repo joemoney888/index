@@ -9,9 +9,9 @@ import numpy as np
 
 
 def main():
-    L = ["# Real Nasdaq order book (ITCH, 30 Jan 2020): does imbalance predict the next move?", ""]
+    L = ["# Order book imbalance: does it predict the next move? ({})".format(os.environ.get("LABEL", "Nasdaq ITCH, 30 Jan 2020")) + "", ""]
     pooled = {}
-    for p in sorted(glob.glob("depth/itch/*.csv.gz")):
+    for p in sorted(glob.glob(os.environ.get("DIR", "depth/itch") + "/*.csv.gz")):
         sym = os.path.basename(p).split(".")[0]
         with gzip.open(p, "rt") as f:
             a = np.array([[float(x) for x in r] for r in list(csv.reader(f))[1:]])
@@ -43,7 +43,7 @@ def main():
         L.append(f"- {h}s {nm}: mean corr {np.mean([x[1] for x in v]):+.3f}, mean gross {np.mean([x[3] for x in v]):+.2f} bp, mean net after spread {np.mean([x[4] for x in v]):+.2f} bp ({len(v)} stocks)")
     L.append("")
     L.append("Reading it: a usable signal needs correlation clearly above zero AND net basis points above zero after the spread, consistently across stocks. One day on Nasdaq's own book (not the consolidated market).")
-    open("depth/ITCH_REPORT.md", "w").write("\n".join(L) + "\n")
+    open(os.environ.get("OUT", "depth/ITCH_REPORT.md"), "w").write("\n".join(L) + "\n")
     print("\n".join(L))
 
 
