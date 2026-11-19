@@ -38,7 +38,7 @@ def fetch_chunked(client, instrument, start, end, step_days=15):
     return sorted(out, key=lambda c: c.start)
 
 
-def run_market(name, p, client):
+def run_market(name, p, client, tag="shadow"):
     inst = f"{name}_USD"
     end = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
     cs = [c for c in fetch_chunked(client, inst, FORWARD_START - timedelta(days=WARMUP_DAYS), end) if c.complete]
@@ -48,7 +48,7 @@ def run_market(name, p, client):
     lo = int(np.searchsorted(d["t"], int(FORWARD_START.timestamp())))
     tr = search.trades(p, d, f, lo, len(d["t"]))
     os.makedirs("forward", exist_ok=True)
-    with open(f"forward/{name}_shadow.csv", "w", newline="") as fh:
+    with open(f"forward/{name}_{tag}.csv", "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["entry_utc", "R"])
         for t, r in tr:
@@ -74,6 +74,16 @@ def main():
     ps = search.day_t(pool) if len(pool) else {"n": 0, "mean": 0.0, "t": 0.0}
     L += ["", f"Pooled: {ps['n']} trades, {ps['mean']:+.3f}R average, t {ps['t']:.2f}. Data to {end:%Y-%m-%d %H:%M} UTC.",
           "- Verdict: TOO EARLY until about 300 trades per market (about 2 months); then it counts only if the average stays positive with t >= 2.", ""]
+    # registered 19 Nov 2026: second forward variant, target effectively removed (kt 20, trailing stop unchanged). Exploratory (train+validation only, 48 exit variants tried); paper only.
+    p2 = dict(p, kt=20.0)
+    L += ["", "## Variant: no fixed target (let winners run; kt 20, same trailing stop). Exploratory, started 2026-11-19.", "", "| Market | Trades | Avg R | Cumulative R | Win rate | t-stat |", "|---|---|---|---|---|---|"]
+    alt = []
+    for name in MARKETS:
+        tr, s, _ = run_market(name, p2, client, "open_shadow")
+        alt.append(tr)
+        cum = float(tr[:, 1].sum()) if len(tr) else 0.0
+        wins = float((tr[:, 1] > 0).mean()) if len(tr) else 0.0
+        L.append(f"| {name} | {s['n']} | {s['mean']:+.3f} | {cum:+.1f} | {wins:.0%} | {s['t']:.2f} |")
     open("forward/NAS100_SUMMARY.md", "w").write("\n".join(L))
     print("\n".join(L))
 
