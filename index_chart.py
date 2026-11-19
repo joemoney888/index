@@ -60,10 +60,23 @@ def draw(market, candles, trades, moves, closed, path, day):
             pl = closed[tid].realized_pl
             ax.plot(ct, near.close, marker="o", color="#1d3557", ms=9, zorder=5)
             ax.annotate(f"closed {pl:+.2f} GBP", (ct, near.close), textcoords="offset points", xytext=(6, -16), fontsize=9, color="#1d3557", fontweight="bold")
-    ax.set_title(f"Blue Falcon Green - {market} - {day} (UTC). Black triangle = entry, red dashed = stop (steps when moved), green dashed = target, blue dot = close")
+    mine = [t for t in trades.values() if t["market"] == market]
+    if mine:
+        t_lo = min(t["t"] for t in mine) - timedelta(minutes=40)
+        t_hi = max((closed[k].close_time for k, t in trades.items() if t["market"] == market and k in closed and closed[k].close_time), default=candles[-1].start) + timedelta(minutes=50)
+        vis = [c for c in candles if t_lo <= c.start <= t_hi]
+        if vis:
+            ax.set_xlim(t_lo, t_hi)
+            lo, hi = min(c.low for c in vis), max(c.high for c in vis)
+            lv = [v for t in mine for v in (t["stop"], t["target"])]
+            lo, hi = min([lo] + lv), max([hi] + lv)
+            pad = (hi - lo) * 0.06
+            ax.set_ylim(lo - pad, hi + pad)
+    ax.set_title(f"Blue Falcon Green - {market} - {day} (UTC)", fontsize=12)
+    fig.text(0.01, 0.01, "Black triangle = entry | red dashed = stop (steps when moved) | green dashed = target | blue dot = close", fontsize=9)
     ax.grid(alpha=0.25)
     fig.autofmt_xdate()
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
     fig.savefig(path, dpi=130)
     plt.close(fig)
 
