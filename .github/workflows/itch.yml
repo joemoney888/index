@@ -1,0 +1,31 @@
+name: itch
+# One-off: streams Nasdaq's free ITCH order-book file for 30 Jan 2020 (about 5.2 GB, from emi.nasdaq.com), rebuilds the book for QQQ, SPY, AAPL, MSFT, NVDA, AMZN, TSLA, keeps one-second samples only. Reads only; places NO orders. Nothing large is saved.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: itch
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest && python -m pytest -q tests/test_itch.py
+      - name: Check the file exists
+        run: curl -sIL "https://emi.nasdaq.com/ITCH/Nasdaq%20ITCH/01302020.NASDAQ_ITCH50.gz" | grep -iE "^HTTP|content-length"
+      - name: Stream and rebuild the book
+        run: curl -sL --fail "https://emi.nasdaq.com/ITCH/Nasdaq%20ITCH/01302020.NASDAQ_ITCH50.gz" | gzip -dc | python itch_book.py
+      - run: |
+          git config user.name "gbpusd-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add depth/itch
+          if ! git diff --cached --quiet; then
+            git commit -m "ITCH one-second book samples"
+            for i in 1 2 3 4 5; do git pull --rebase && git push && break || sleep 5; done
+          fi
