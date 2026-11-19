@@ -1,0 +1,2 @@
+timestamp_utc,market,event,details
+2026-11-19T14:46:36Z,NAS100,order_placed,"{""key"": ""NAS100|2026-11-19T14:40"", ""side"": -1, ""entry"": 27693.7, ""stop"": 27838.8, ""target"": 27509.1, ""units"": -0.04, ""atr"": 48.69861111111075, ""filled"": true, ""trade_id"": ""6"", ""price"": 27694.2}"
