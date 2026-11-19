@@ -1,0 +1,33 @@
+//@version=5
+// Blue Falcon Green - score pane. Use on a 5-MINUTE chart of NAS100 / SPX500 / US30. Mirrors the tested rule (search/NAS100/finalists.json).
+indicator("BFG score (pane)", overlay=false)
+thr  = input.float(0.47, "Signal threshold")
+// the four features the rule uses
+hi24 = ta.highest(high, 288)
+lo24 = ta.lowest(low, 288)
+pos24  = math.max(-4, math.min(4, (close - lo24) / math.max(hi24 - lo24, 1e-12) * 2 - 1))
+rsi5   = math.max(-4, math.min(4, (ta.rsi(close, 14)  - 50) / 15))     // RSI(14) on 5-minute bars
+rsi1h  = math.max(-4, math.min(4, (ta.rsi(close, 168) - 50) / 15))     // RSI(14) of a 1-hour chart, built from 5-minute bars (14 x 12)
+stoch5 = math.max(-4, math.min(4, (close - ta.lowest(low, 14)) / math.max(ta.highest(high, 14) - ta.lowest(low, 14), 1e-12) * 2 - 1))
+// weights: pos24 -0.5, rsi5 -1, rsi1h -1, stoch5 -0.5 (mean reversion: stretched up = negative score = SELL)
+score = (-0.5 * pos24 - 1.0 * rsi5 - 1.0 * rsi1h - 0.5 * stoch5) / 3.0 * 2.0
+// gates
+tr      = ta.tr(true)
+atr24   = ta.sma(tr, 288)
+expand  = ta.sma(tr, 12) / atr24 > 1.0                                  // gate: volatility expanding
+hh      = hour(time, "UTC")
+inSess  = hh >= 13 and hh < 21                                          // 13:00-21:00 UTC
+dsma    = request.security(syminfo.tickerid, "D", ta.sma(close, 20)[1], lookahead=barmerge.lookahead_off)   // 20-day trend (daily-close proxy for the 5-minute 20-day mean)
+trendOk = math.sign(close - dsma) == math.sign(score)
+sig     = math.abs(score) >= thr and inSess and expand and trendOk
+bgcolor(inSess ? color.new(color.gray, 92) : na)
+hline(0, "zero", color.gray)
+hline(thr, "+threshold", color.red, hline.style_dashed)
+hline(-thr, "-threshold", color.green, hline.style_dashed)
+plot(score, "score", color=color.new(color.blue, 0), linewidth=2)
+plot(pos24, "pos24", color=color.new(color.orange, 60))
+plot(rsi5, "rsi5", color=color.new(color.purple, 60))
+plot(rsi1h, "rsi1h", color=color.new(color.teal, 60))
+plot(stoch5, "stoch5", color=color.new(color.yellow, 40))
+plotshape(sig and score < 0, "SELL signal", shape.triangledown, location.top, color.red, size=size.small)
+plotshape(sig and score > 0, "BUY signal", shape.triangleup, location.bottom, color.green, size=size.small)

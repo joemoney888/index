@@ -1,0 +1,28 @@
+//@version=5
+// Blue Falcon Green - signals on the PRICE chart with stop and target. Use on a 5-MINUTE chart of NAS100 / SPX500 / US30. Mirrors the tested rule.
+indicator("BFG signals (overlay)", overlay=true, max_labels_count=200, max_lines_count=200)
+thr = input.float(0.47, "Signal threshold")
+ks  = input.float(2.98, "Stop = ks x ATR")
+kt  = input.float(3.79, "Target = kt x ATR")
+hi24 = ta.highest(high, 288)
+lo24 = ta.lowest(low, 288)
+pos24  = math.max(-4, math.min(4, (close - lo24) / math.max(hi24 - lo24, 1e-12) * 2 - 1))
+rsi5   = math.max(-4, math.min(4, (ta.rsi(close, 14)  - 50) / 15))
+rsi1h  = math.max(-4, math.min(4, (ta.rsi(close, 168) - 50) / 15))
+stoch5 = math.max(-4, math.min(4, (close - ta.lowest(low, 14)) / math.max(ta.highest(high, 14) - ta.lowest(low, 14), 1e-12) * 2 - 1))
+score  = (-0.5 * pos24 - 1.0 * rsi5 - 1.0 * rsi1h - 0.5 * stoch5) / 3.0 * 2.0
+tr     = ta.tr(true)
+atr24  = ta.sma(tr, 288)
+expand = ta.sma(tr, 12) / atr24 > 1.0
+hh     = hour(time, "UTC")
+inSess = hh >= 13 and hh < 21
+dsma   = request.security(syminfo.tickerid, "D", ta.sma(close, 20)[1], lookahead=barmerge.lookahead_off)
+trendOk = math.sign(close - dsma) == math.sign(score)
+sig    = math.abs(score) >= thr and inSess and expand and trendOk and barstate.isconfirmed
+// when a signal prints, the rule enters at the NEXT bar's open; this draws entry (close), stop, target. Trailing stop: once 0.5 ATR in profit, stop follows 1.0 ATR behind the best price.
+if sig
+    s = score < 0 ? -1 : 1
+    label.new(bar_index, s < 0 ? high : low, s < 0 ? "SELL" : "BUY", style=s < 0 ? label.style_label_down : label.style_label_up, color=s < 0 ? color.red : color.green, textcolor=color.white)
+    line.new(bar_index, close - s * ks * atr24, bar_index + 36, close - s * ks * atr24, color=color.red, style=line.style_dashed)
+    line.new(bar_index, close + s * kt * atr24, bar_index + 36, close + s * kt * atr24, color=color.green, style=line.style_dashed)
+plot(dsma, "20-day mean (trend)", color=color.new(color.gray, 50))
