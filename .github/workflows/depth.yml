@@ -1,6 +1,8 @@
 name: depth
 # Concept test: records a free public crypto order book (Kraken) to see whether order book imbalance predicts price. Reads only; places NO orders. Public repo: unlimited minutes.
 on:
+  schedule:
+    - cron: "5 0,6,12,18 * * *"
   workflow_dispatch:
     inputs:
       minutes:
@@ -23,7 +25,7 @@ jobs:
       - run: pip install websockets
       - run: python depth_collect.py
         env:
-          MINUTES: ${{ inputs.minutes }}
+          MINUTES: ${{ inputs.minutes || '330' }}
       - run: |
           git config user.name "gbpusd-agent"
           git config user.email "agent@users.noreply.github.com"
