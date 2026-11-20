@@ -1,0 +1,36 @@
+name: gamma_day
+# One-day verification slice: QQQ option open interest from Databento (about $0.13, cost-capped), naive dealer GEX. Reads only.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "trading date YYYY-MM-DD"
+        default: "2026-11-20"
+      max_usd:
+        description: "stop if quoted cost is above this"
+        default: "1"
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install databento pandas numpy scipy
+      - run: python gamma/pull_day.py
+        env:
+          DATABENTO_API_KEY: ${{ secrets.DATABENTO_API_KEY }}
+          DATE: ${{ inputs.date }}
+          MAX_USD: ${{ inputs.max_usd }}
+      - run: |
+          git config user.name "gbpusd-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add gamma/out
+          if ! git diff --cached --quiet; then
+            git commit -m "QQQ gamma verification slice"
+            for i in 1 2 3 4 5; do git pull --rebase && git push && break || sleep 5; done
+          fi
