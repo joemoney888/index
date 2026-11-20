@@ -192,6 +192,15 @@ class OandaPractice:
         )
         return [self._trade(t) for t in data["trades"]]
 
+    def closed_trades_raw(self, count: int = 50) -> list:
+        """Recently closed trades as OANDA returns them (adds averageClosePrice, closingTransactionIDs, financing). Read only."""
+        data = self._request("GET", f"/v3/accounts/{self.account}/trades", params={"state": "CLOSED", "count": count})
+        return data["trades"]
+
+    def transaction(self, transaction_id: str) -> dict:
+        """One transaction (e.g. the order fill that closed a trade: reason, price, bid/ask at the fill). Read only."""
+        return self._request("GET", f"/v3/accounts/{self.account}/transactions/{transaction_id}").get("transaction", {})
+
     def place_order(self, instrument: str, units: float, stop: float, target: float,
                     decimals: int, units_precision: int) -> dict:
         body = {

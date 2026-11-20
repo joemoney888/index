@@ -32,12 +32,36 @@ def seen(key):
     return key in open(LOG).read()
 
 
+def log_closed_trades(client, count=50):
+    """Record the REAL exit of every trade this agent opened (fill price, reason, bid/ask at the fill, P&L, financing) once, as a 'trade_closed' event, so live exits can be compared with the backtest.
+    Read only; it never raises (a failure here must not stop trading)."""
+    try:
+        text = open(LOG).read() if os.path.exists(LOG) else ""
+        for t in client.closed_trades_raw(count):
+            tid = str(t.get("id"))
+            if f'"trade_id": "{tid}"' not in text or f"closed|{tid}" in text:
+                continue
+            reason = fill = None
+            ids = t.get("closingTransactionIDs") or []
+            if ids:
+                tx = client.transaction(str(ids[-1]))
+                fill = {"reason": tx.get("reason"), "fill_price": tx.get("price")}
+                fp = tx.get("fullPrice") or {}
+                if fp.get("bids") and fp.get("asks"):
+                    fill["bid"], fill["ask"] = fp["bids"][0].get("price"), fp["asks"][0].get("price")
+            log(t.get("instrument", "?"), "trade_closed", {"key": f"closed|{tid}", "trade": tid, "open_price": t.get("price"), "close_price": t.get("averageClosePrice"),
+                "units": t.get("initialUnits"), "open_time": t.get("openTime"), "close_time": t.get("closeTime"), "realized_pl": t.get("realizedPL"), "financing": t.get("financing"), **(fill or {})})
+    except Exception as e:      # logging only
+        print("log_closed_trades failed:", repr(e)[:200], flush=True)
+
+
 def main():
     live = os.environ.get("INDEX_TRADING", "").lower() == "true"
     client = oanda.OandaPractice(os.environ["OANDA_API_TOKEN_INDEX"], os.environ["OANDA_ACCOUNT_ID_INDEX"])
     p = json.load(open("search/NAS100/finalists.json"))[0]["p"]
     now = datetime.now(timezone.utc)
     open_trades = client.open_trades()
+    log_closed_trades(client)
     gbpusd = None
     for name, inst in MARKETS.items():
         cs = client.get_candles_range(inst, now - timedelta(days=34), now + timedelta(minutes=1), "M5", price="MBA")
