@@ -18,3 +18,18 @@ Scripts: `ftmo/cost_stack.py`, `ftmo/stop_1min.py`.
 - Exits re-simulated on 1-MINUTE bars (Nov 2023 - Nov 2026, 4,434 trades, same entries): stop updated every 5 min like the live agent: -0.007R (t -0.78), last 365 days +0.014R (t 0.89). Stop updated every minute (native trailing stop): -0.002R (t -0.27), last year +0.012R. Not distinguishable from zero.
 - Live log check: entries fill close to plan (8 fills, mean adverse slippage -0.009R, i.e. no entry cost problem). The live log does NOT record exit fill prices, so live exits cannot yet be compared with the backtest.
 Conclusion: on current evidence the +0.04 to +0.07R headline edge is mostly an artefact of idealised trailing-stop fills on 5-minute bars. Realistic expected edge is about zero (95% interval roughly +/-0.03R). The FTMO simulation was not rerun because with ~0R edge the pass rate is no better than chance and the fee refund only applies after a pass. Do NOT buy an FTMO challenge on this rule.
+
+## RECORD FIXES (20 Nov 2026, late) - three corrections requested in review
+**1. Luck bar recomputed against the final ledger N.** The NAS100 finalist (train t 5.31, validation t 2.26) cleared the bar recorded at the time of its search (N = 31,740 variants in the NAS100 ledger, bar 5.05). Recomputed with the cumulative ledger (sum of all `runs/*.json` ledgers in both repos; may double count a little):
+
+| N used | N | bar = sqrt(2 ln N)+0.5 | train t 5.31 clears it? |
+|---|---|---|---|
+| NAS100 ledger (as recorded) | 31,740 | 5.05 | yes |
+| US-index markets (NAS100+SPX500+US30) | 115,348 | 5.33 | no (by 0.02) |
+| all main-engine ledgers (12 markets/runs) | 669,283 | 5.68 | no |
+| everything incl. scalp and pattern families | 941,367 | 5.75 | no |
+
+Outcome: at any cumulative N the finalist does NOT clear the pre-registered train bar; it passed only under the per-market N. The exam (t 4.28, one year, used once) is a fresh test of one pre-selected rule, so it is not subject to this bar, but it can only support the SIGN of an edge and, since the cost re-test below, even that is now unsupported. Record status: candidate under the original per-market bar; not a finalist under the cumulative bar.
+**2. The FTMO-compliant configuration versus the pre-registered validation gate (validation mean >= +0.03R and t >= 2.0).** With the conservative CPI blackout (the one most likely to match FTMO's real "major news" list) validation is +0.021R, t 1.39: **FAILS the gate**, even though the exam stays positive (+0.062R, t 3.85). Other variants: close windows only +0.030 (t 2.03) marginal pass; NFP/FOMC +-2h +0.032 (t 2.11) narrow pass; NFP/FOMC whole day +0.033 (t 2.11) narrow pass; CPI proxy whole day t 1.81 fails. Passing the exam does not repair a failed validation gate. The compliant rule must be treated as a NEW, unvalidated hypothesis, not as the validated BFG rule; its exam has already been seen.
+**3. FTMO sizing recommendation cut to <= 0.75% risk per trade, with floating P&L modelled** (`ftmo/ftmo_sim2.py`: equity = closed balance + open trade at its worst price each 5-minute bar, daily loss versus equity at the 00:00 CE(S)T reset, non-overlapping monthly starts, phase 2 conditional, Wilson 95% intervals, 24 starts, validation+exam period). Idealised R: 0.50% risk 88% pass both phases (CI 69-96%); 0.75% 96% (80-99%); 1.00% 67% (47-82%, five phase-1 failures) - so 1% is too aggressive even before costs. Gap-aware R: 0-8% at every size. The earlier "0.75-1%" recommendation is withdrawn: maximum 0.75%, and only if the realistic-fill edge is first shown to be positive.
+**Bottom line (unchanged): nothing here justifies real money, including an FTMO fee.**
