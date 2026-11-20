@@ -9,8 +9,17 @@ import numpy as np
 from agent import patterns, search
 
 
+FAMILY = os.environ.get("FAMILY", "classic")   # classic | geo | cycle
+
+
 def sample(rng):
     h0 = int(rng.choice([13, 14, 15]))
+    ex = {"ks": round(float(rng.uniform(1.0, 4.0)), 2), "kt": round(float(rng.uniform(0.5, 4.0)), 2), "H": int(rng.choice([12, 24, 48, 96, 192])), "h0": h0, "h1": int(min(24, h0 + rng.choice([4, 6, 8])))}
+    if FAMILY == "geo":
+        return dict(ex, pattern=str(rng.choice(["gartley", "bat", "butterfly", "crab", "cypher", "abcd", "drives", "elliott"])), K=int(rng.choice([6, 12, 24, 48])),
+                    rt=float(rng.choice([0.05, 0.1, 0.15])), mode=str(rng.choice(["follow", "fade"])), ew=str(rng.choice(["w5", "corr"])))
+    if FAMILY == "cycle":
+        return dict(ex, pattern="cycle", W=int(rng.choice([288, 576, 864])), thr=float(rng.choice([0.05, 0.1, 0.2])), tol=float(rng.choice([0.3, 0.6])), mode=str(rng.choice(["follow", "fade"])))
     return {"pattern": str(rng.choice(["dt", "hs", "tri"])), "K": int(rng.choice([6, 12, 24, 48])), "tol": float(rng.choice([0.3, 0.5, 1.0, 1.5])),
             "depth": float(rng.choice([1.0, 2.0, 3.0])), "brk": int(rng.choice([0, 1])), "mode": str(rng.choice(["follow", "fade"])),
             "ks": round(float(rng.uniform(1.0, 4.0)), 2), "kt": round(float(rng.uniform(0.5, 4.0)), 2), "H": int(rng.choice([12, 24, 48, 96, 192])),
@@ -38,11 +47,23 @@ def main():
 
     def get_sig(name, p):
         d, f, _, _ = mk[name]
+        if FAMILY == "cycle":
+            key = (name, "cycle", p["W"], p["thr"], p["tol"], p["mode"])
+            if key not in sigc:
+                if (name, p["W"]) not in piv:
+                    piv[(name, p["W"])] = patterns.cycle_raw(d["c"], p["W"])
+                sigc[key] = patterns.cycle_signals(piv[(name, p["W"])], p["thr"], p["tol"], p["mode"])
+            return sigc[key]
+        pk = (name, p["K"])
+        if pk not in piv:
+            piv[pk] = patterns.pivots(d["h"], d["l"], p["K"])
+        if FAMILY == "geo":
+            key = (name, p["pattern"], p["K"], p["rt"], p["mode"], p["ew"] if p["pattern"] == "elliott" else "")
+            if key not in sigc:
+                sigc[key] = patterns.signals_geo(p["pattern"], piv[pk], p["K"], p["rt"], p["mode"], f["atr"], d["c"], p["ew"])
+            return sigc[key]
         key = (name, p["pattern"], p["K"], p["tol"], p["depth"], p["brk"], p["mode"])
         if key not in sigc:
-            pk = (name, p["K"])
-            if pk not in piv:
-                piv[pk] = patterns.pivots(d["h"], d["l"], p["K"])
             sigc[key] = patterns.signals(p["pattern"], piv[pk], p["K"], p["tol"], p["depth"], p["brk"], p["mode"], f["atr"], d["c"])
         return sigc[key]
 

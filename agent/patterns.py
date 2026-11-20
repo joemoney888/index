@@ -138,3 +138,109 @@ def simulate(sig, d, f, p, lo, hi):
         out.append((d["t"][t], side * (ex - e) / risk))
         free = t + 1 + n + 1
     return np.array(out) if out else np.empty((0, 2))
+
+
+# ---------- harmonic, three drives, Elliott (swing-point rules; confirmed pivots only) ----------
+HARMONIC = {  # name: (B retrace of XA lo, hi, D of XA lo, hi) ; cypher handled separately
+    "gartley": (0.618, 0.618, 0.786, 0.786), "bat": (0.382, 0.5, 0.886, 0.886),
+    "butterfly": (0.786, 0.786, 1.27, 1.27), "crab": (0.382, 0.618, 1.618, 1.618)}
+
+
+def _in(v, lo, hi, rt):
+    return lo - rt <= v <= hi + rt
+
+
+def signals_geo(pattern, P, K, rt, mode, atr, c, ew="w5"):
+    """pattern in HARMONIC, cypher, abcd, drives, elliott. Trigger at the confirmation of the last pivot. Returns sorted (bar, side)."""
+    out = []
+    sg = 1 if mode == "follow" else -1
+    n = len(P)
+    clen = len(c)
+
+    def emit(last_i, side_text):
+        conf = last_i + K
+        if conf < clen and np.isfinite(atr[conf]) and atr[conf] > 0:
+            out.append((conf, sg * side_text))
+
+    if pattern in HARMONIC or pattern == "cypher":
+        for i in range(n - 4):
+            X, A, B, C, D = (P[i + j][1] for j in range(5))
+            xa = A - X
+            if xa == 0:
+                continue
+            ab, bc, cd = B - A, C - B, D - C
+            if abs(ab) == 0 or abs(bc) == 0:
+                continue
+            rB, rC = abs(ab) / abs(xa), abs(bc) / abs(ab)
+            bull = xa > 0                      # X low, D low -> buy
+            if pattern == "cypher":
+                xc = abs(C - X) / abs(xa)
+                xcd = abs(D - C) / max(abs(C - X), 1e-12)
+                ok = _in(rB, 0.382, 0.618, rt) and _in(xc, 1.13, 1.414, rt) and _in(xcd, 0.786, 0.786, rt) and ((C > A) if bull else (C < A))
+            else:
+                bl, bh, dl, dh = HARMONIC[pattern]
+                rD = abs(D - A) / abs(xa)
+                ok = _in(rB, bl, bh, rt) and _in(rC, 0.382, 0.886, rt) and _in(rD, dl, dh, rt)
+            if ok:
+                emit(P[i + 4][0], 1 if bull else -1)
+    elif pattern == "abcd":
+        for i in range(n - 3):
+            A, B, C, D = (P[i + j][1] for j in range(4))
+            ab, bc, cd = abs(B - A), abs(C - B), abs(D - C)
+            if ab == 0 or bc == 0:
+                continue
+            if _in(bc / ab, 0.382, 0.886, rt) and _in(cd / ab, 1.0, 1.0, rt):
+                emit(P[i + 3][0], 1 if D < C else -1)     # D is a low -> buy
+    elif pattern == "drives":
+        for i in range(n - 5):
+            p = [P[i + j][1] for j in range(6)]
+            d1, c1, d2, c2, d3 = abs(p[1] - p[0]), abs(p[1] - p[2]), abs(p[3] - p[2]), abs(p[3] - p[4]), abs(p[5] - p[4])
+            if min(d1, c1, d2, c2, d3) == 0:
+                continue
+            if _in(c1 / d1, 0.5, 0.786, rt) and _in(c2 / d2, 0.5, 0.786, rt) and _in(d2 / c1, 1.13, 1.618, rt) and _in(d3 / c2, 1.13, 1.618, rt):
+                emit(P[i + 5][0], -1 if P[i + 5][2] == 1 else 1)   # three drives up -> expect reversal down
+    else:  # elliott impulse (simple rule check, not a subjective count)
+        for i in range(n - 5):
+            q = P[i:i + 6]
+            p = [x[1] for x in q]
+            up = q[0][2] == -1
+            s = 1 if up else -1
+            w1, w3, w5 = (p[1] - p[0]) * s, (p[3] - p[2]) * s, (p[5] - p[4]) * s
+            if min(w1, w3, w5) <= 0:
+                continue
+            if (p[2] - p[0]) * s <= 0 or (p[4] - p[1]) * s <= 0 or w3 < min(w1, w5):
+                continue
+            if ew == "w5":     # known after wave 4 is confirmed: expect wave 5 in the impulse direction
+                emit(q[4][0], s)
+            else:              # known after wave 5: expect the correction
+                emit(q[5][0], -s)
+    out.sort()
+    return out
+
+
+def cycle_raw(c, W, stride=6):
+    """Dominant cycle in the last W closes (FFT of the detrended window): returns (bars, phase at the last bar in [0,2pi), power share, period). Uses only data up to each bar."""
+    idx, ph, sh, pr = [], [], [], []
+    x = np.arange(W)
+    for t in range(W, len(c), stride):
+        w = c[t - W + 1:t + 1]
+        w = w - np.polyval(np.polyfit(x, w, 1), x)
+        F = np.fft.rfft(w * np.hanning(W))
+        P = np.abs(F[2:W // 6]) ** 2           # periods between 6 and W/2 bars... k from 2
+        k = int(np.argmax(P)) + 2
+        idx.append(t)
+        ph.append((np.angle(F[k]) + 2 * np.pi * k * (W - 1) / W) % (2 * np.pi))
+        sh.append(float(P[k - 2] / P.sum()))
+        pr.append(W / k)
+    return np.array(idx), np.array(ph), np.array(sh), np.array(pr)
+
+
+def cycle_signals(raw, thr, tol, mode):
+    idx, ph, sh, pr = raw
+    sg = 1 if mode == "follow" else -1
+    ok = sh >= thr
+    trough = ok & (np.abs(ph - np.pi) < tol)       # cosine at its minimum -> expect a rise
+    crest = ok & ((ph < tol) | (ph > 2 * np.pi - tol))
+    sig = [(int(t), sg) for t in idx[trough]] + [(int(t), -sg) for t in idx[crest]]
+    sig.sort()
+    return sig
