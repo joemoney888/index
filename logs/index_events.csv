@@ -10,3 +10,5 @@ timestamp_utc,market,event,details
 2026-11-20T14:56:35Z,US30,order_placed,"{""key"": ""US30|2026-11-20T14:50"", ""side"": -1, ""entry"": 49446.4, ""stop"": 49632.4, ""target"": 49209.9, ""units"": -0.03, ""atr"": 62.40277777777778, ""filled"": true, ""trade_id"": ""46"", ""price"": 49446.4}"
 2026-11-20T15:11:26Z,NAS100,move_stop,"{""trade"": ""38"", ""from"": 26558.2, ""to"": 26311.1}"
 2026-11-20T15:11:27Z,SPX500,move_stop,"{""trade"": ""42"", ""from"": 7215.2, ""to"": 7181.1}"
+2026-11-20T15:16:35Z,NAS100,move_stop,"{""trade"": ""38"", ""from"": 26311.1, ""to"": 26238.7}"
+2026-11-20T15:16:36Z,SPX500,move_stop,"{""trade"": ""42"", ""from"": 7181.1, ""to"": 7168.0}"
