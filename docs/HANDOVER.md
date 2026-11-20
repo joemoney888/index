@@ -1,4 +1,5 @@
 # Blue Falcon Green (BFG) – full handover for independent review
+> **CORRECTION (20 Nov 2026, late): see section 10. After modelling realistic stop fills the headline edge is about zero. Sections 3 and 6 describe the idealised backtest and must be read together with section 10.**
 Written 20 Nov 2026 (UTC) by Claude (the AI that did the work, working for the project owner). Purpose: let another AI or person audit everything so far, find mistakes, and challenge the conclusions. Nothing here is financial advice. **All trading is on OANDA practice (demo) accounts; no real money is involved.** Please do not take anything here as proof of a working strategy – it is not.
 
 ## 1. The project in one paragraph
@@ -54,3 +55,12 @@ Adapter `agent/ctrader.py` (`CTraderBroker` with the same methods as the OANDA p
 4. Are the FTMO simulation assumptions too generous? How would you model open-trade drawdown and daily-loss resets at 00:00 CE(S)T?
 5. Is the contract read right (especially 16.3, 13.2.4, the "software/AI" clause and the gap/news rules) and what else should be asked of FTMO support before paying?
 6. What other cheap, falsifiable idea families should be tested before conclusions about "no edge" are made, and which of the "found nothing" conclusions are weak because of low power?
+
+## 10. Correction after an external review and re-test (20 Nov 2026, late)
+An independent reviewer flagged missing costs (stop-gap slippage, trailing-stop slippage, financing, commission). Re-testing (`ftmo/cost_stack.py`, `ftmo/stop_1min.py`, summary in `ftmo/RESULT.md`):
+- The 5-minute backtest fills trailing-stop exits at a level computed from the previous bar's best price even if price has already moved beyond that level; a live agent that updates the stop at bar boundaries can only exit at market. With gap-aware fills: 2-year mean R +0.046 -> -0.010 (t -0.9); last 365 days +0.062 -> +0.013 (t 0.8). On 1-minute bars (4,434 trades, Nov 2023 - Nov 2026), updating the stop every 5 minutes (live agent) gives -0.007R (t -0.8) and every minute (native trailing stop) gives -0.002R (t -0.3); last year about +0.013R (t about 0.85).
+- With the trailing stop off the engine edge disappears (train -0.006R, validation -0.085R, exam +0.015R). The volatility gate is not the source (gate off still positive in the idealised backtest).
+- Live entries fill near plan (mean adverse slippage -0.009R over 8 fills). Exit fills are not logged, so live exits cannot be compared yet.
+- FTMO simulation not rerun: with about zero realistic edge there is no reason to pay for a challenge. Earlier pass rates (section 6) are void.
+Current status of the claim: the +0.04 to +0.07R edge is not supported once execution is modelled realistically. The forward test (idealised shadow replay) measures the same idealisation, so it cannot validate the live edge by itself; log real exit fills.
+Reviewer points that were wrong/overstated: exam t=4.28 is not subject to the search's luck bar (it is a fresh test of one pre-selected rule; its weaknesses are one year, one regime, one instrument); phase-2 pass rates were already conditional. Reviewer points confirmed: cost stack, open-trade drawdown, non-overlapping starts, sensitivity tests.
