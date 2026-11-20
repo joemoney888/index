@@ -1,0 +1,53 @@
+name: search
+# Random strategy search on one market (own variant ledger in search/<market>/runs). Downloads the pinned 5-minute history from OANDA each run (not stored). Train/validation only; the locked exam is never loaded. Places NO orders.
+on:
+  workflow_dispatch:
+    inputs:
+      market:
+        description: "Market name, e.g. SPX500"
+        default: SPX500
+      seconds:
+        description: "Time budget per job in seconds"
+        default: "1800"
+      first_seed:
+        description: "Seed base (use a new value each time so runs never repeat)"
+        default: "1"
+permissions:
+  contents: write
+concurrency:
+  group: search
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        k: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy pandas requests
+      - run: python research_fetch.py
+        env:
+          MARKET: ${{ inputs.market }}
+          OANDA_API_TOKEN_INDEX: ${{ secrets.OANDA_API_TOKEN_INDEX }}
+          OANDA_ACCOUNT_ID_INDEX: ${{ secrets.OANDA_ACCOUNT_ID_INDEX }}
+      - run: python search_run.py
+        env:
+          MARKETS: ${{ inputs.market }}
+          SEARCH_DIR: search/${{ inputs.market }}
+          SEED_BASE: ${{ inputs.first_seed }}
+          SEED_K: ${{ matrix.k }}
+          SECONDS: ${{ inputs.seconds }}
+      - run: |
+          git config user.name "gbpusd-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add search
+          if ! git diff --cached --quiet; then
+            git commit -m "search run ${{ inputs.market }}"
+            for i in 1 2 3 4 5; do git pull --rebase && git push && break || sleep $((RANDOM % 10 + 3)); done
+          fi

@@ -43,26 +43,26 @@ def rolling_ext(x: np.ndarray, n: int, fn) -> np.ndarray:
     return (s.rolling(n).max() if fn == "max" else s.rolling(n).min()).to_numpy()
 
 
-def build_features(d: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
-    """All features use only bars up to and including bar i (known at its close)."""
+def build_features(d: Dict[str, np.ndarray], day: int = DAY) -> Dict[str, np.ndarray]:
+    """All features use only bars up to and including bar i (known at its close). `day` = bars per 24h (288 for 5-minute bars, 1440 for 1-minute scalping bars: every other window is a bar count, so on 1-minute bars the fast features look at minutes)."""
     o, h, l, c = d["o"], d["h"], d["l"], d["c"]
     pc = np.concatenate([[c[0]], c[:-1]])
     tr = np.maximum(h - l, np.maximum(abs(h - pc), abs(l - pc)))
-    atr = rolling_mean(tr, DAY)
+    atr = rolling_mean(tr, day)
     lc = np.log(c)
 
     def mom(n):
         m = np.full(len(c), np.nan)
         m[n:] = (lc[n:] - lc[:-n]) / np.maximum(atr[n:] / c[n:] * math.sqrt(n), 1e-12)
         return m
-    hi, lo = rolling_ext(h, DAY, "max"), rolling_ext(l, DAY, "min")
+    hi, lo = rolling_ext(h, day, "max"), rolling_ext(l, day, "min")
     rngw = np.maximum(hi - lo, 1e-12)
     pos = (c - lo) / rngw * 2 - 1
-    dev = (c - rolling_mean(c, DAY)) / np.maximum(atr * math.sqrt(12), 1e-12)
+    dev = (c - rolling_mean(c, day)) / np.maximum(atr * math.sqrt(12), 1e-12)
     rng = np.maximum(h - l, 1e-12)
     wick_raw = ((h - np.maximum(o, c)) - (np.minimum(o, c) - l)) / rng   # + = long upper wick (rejection of highs)
     wick = -np.nan_to_num(rolling_mean(wick_raw, 3))                      # + = bullish rejection of lows
-    trend = np.sign(c - rolling_mean(c, DAY * 20))
+    trend = np.sign(c - rolling_mean(c, day * 20))
     hour = ((d["t"] % 86400) // 3600).astype(np.int64)
     import pandas as pd
     cs = pd.Series(c)
@@ -90,7 +90,7 @@ def build_features(d: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
         ph = pd.Series(h).shift(1).rolling(n).max().to_numpy()
         pl = pd.Series(l).shift(1).rolling(n).min().to_numpy()
         return np.where(c > ph, 1.0, np.where(c < pl, -1.0, 0.0))
-    F = np.vstack([mom(12), mom(48), mom(DAY), pos, dev, wick, rsi(14), rsi(14 * 12), macd(1), macd(12), boll(20), boll(240), stoch, vwapd, donchian(12), donchian(48)]).T
+    F = np.vstack([mom(12), mom(48), mom(day), pos, dev, wick, rsi(14), rsi(14 * 12), macd(1), macd(12), boll(20), boll(240), stoch, vwapd, donchian(12), donchian(48)]).T
     # compression gates (they say WHEN to trade; the weighted score says WHICH way)
     m20, sd20 = cs.rolling(20).mean(), cs.rolling(20).std()
     tr20 = pd.Series(tr).rolling(20).mean()
@@ -99,8 +99,8 @@ def build_features(d: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
     sq_recent = sq_on.shift(1).rolling(6).max().fillna(0).astype(bool)
     fired = (sq_recent & ~sq_on).to_numpy()
     bbw = (4 * sd20 / m20)
-    bbw_pct = bbw.rolling(DAY).rank(pct=True).to_numpy()
-    ratio = (pd.Series(tr).rolling(12).mean() / pd.Series(tr).rolling(DAY).mean()).to_numpy()
+    bbw_pct = bbw.rolling(day).rank(pct=True).to_numpy()
+    ratio = (pd.Series(tr).rolling(12).mean() / pd.Series(tr).rolling(day).mean()).to_numpy()
     gates = {"none": np.ones(len(c), bool), "squeeze_fired": np.nan_to_num(fired).astype(bool), "bbw_low": np.nan_to_num(bbw_pct, nan=1.0) <= 0.2,
              "atr_expanding": np.nan_to_num(ratio, nan=0.0) > 1.0, "atr_contracted": np.nan_to_num(ratio, nan=9.0) < 0.7}
     F = np.clip(np.nan_to_num(F, nan=0.0), -4, 4)
@@ -108,14 +108,14 @@ def build_features(d: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
     return {"F": F, "atr": atr, "trend": np.nan_to_num(trend), "hour": hour, "valid": valid, "gates": gates, "htf": np.sign(np.nan_to_num(F[:, 1]))}
 
 
-def sample(rng: np.random.Generator) -> dict:
+def sample(rng: np.random.Generator, scalp: bool = False) -> dict:
     w = np.zeros(len(FEATURES))
     k = int(rng.integers(1, 5))                       # 1 to 4 active features: sparse, so combinations are interpretable
     for j in rng.choice(len(FEATURES), size=k, replace=False):
         w[j] = rng.choice([-1.0, -0.5, 0.5, 1.0])
     h0 = int(rng.choice([0, 6, 7, 8, 12, 13, 14]))
     return {"w": [float(x) for x in w], "theta": round(float(rng.uniform(0.4, 2.5)), 2), "ks": round(float(rng.uniform(0.5, 3.0)), 2),
-            "kt": round(float(rng.uniform(0.5, 4.0)), 2), "H": int(rng.choice([12, 24, 48, 96, 192, 576])), "h0": h0, "h1": int(min(24, h0 + rng.choice([4, 6, 8, 12]))),
+            "kt": round(float(rng.uniform(0.5, 4.0)), 2), "H": int(rng.choice([5, 10, 20, 40, 90, 180] if scalp else [12, 24, 48, 96, 192, 576])), "h0": h0, "h1": int(min(24, h0 + rng.choice([4, 6, 8, 12]))),
             "trend": int(rng.integers(0, 2)), "gate": str(rng.choice(["none", "none", "squeeze_fired", "bbw_low", "atr_expanding", "atr_contracted"])), "htf": int(rng.integers(0, 2)),
             "td": float(rng.choice([0, 0, 1.0, 1.5, 2.0, 3.0])), "ts": float(rng.choice([0.5, 1.0, 1.5]))}
 
