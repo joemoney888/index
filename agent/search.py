@@ -129,6 +129,8 @@ def trades(p: dict, d: Dict[str, np.ndarray], f: Dict[str, np.ndarray], lo: int,
     if p["trend"]:
         ok &= np.sign(score) == f["trend"][lo:hi]
     ok &= f["gates"][p.get("gate", "none")][lo:hi]
+    if p.get("longonly"):
+        ok &= score > 0                                  # owned-ETF style: no shorting
     if p.get("htf"):
         ok &= np.sign(score) == f["htf"][lo:hi]      # the 4-hour momentum must agree (higher-timeframe bias)
     idx = np.flatnonzero(ok) + lo
