@@ -136,7 +136,7 @@ def trades(p: dict, d: Dict[str, np.ndarray], f: Dict[str, np.ndarray], lo: int,
     if len(idx) == 0:
         return np.empty((0, 2))
     H = p["H"]
-    out, free = [], -1
+    out, free, seen_days = [], -1, set()
     cand = idx
     # one position at a time: resolve sequentially but only over candidate entries
     side_all = np.sign(score[cand - lo])
@@ -178,6 +178,36 @@ def trades(p: dict, d: Dict[str, np.ndarray], f: Dict[str, np.ndarray], lo: int,
                 st = np.full(len(hh), stop)
                 hs = hh + half >= stop
             ht = ll + half <= tgt
+        run_now = bool(p.get("run")) and (int(d["t"][i]) // 86400) not in seen_days   # runner variant: the first trade of each UTC day only
+        seen_days.add(int(d["t"][i]) // 86400)
+        if run_now:
+            # bank half at +1R (stake back), stop on the rest to breakeven (or the trailing stop if higher), no target, hold to the end of the session
+            one = e + side * risk
+            h1 = (hh - half >= one) if side > 0 else (ll + half <= one)
+            j1 = int(np.argmax(h1)) if h1.any() else H
+            js = int(np.argmax(hs)) if hs.any() else H
+            hours = f["hour"][i + 1:i + 1 + H]
+            ends = np.flatnonzero(hours >= p["h1"])
+            nend = int(ends[0]) if len(ends) else H - 1
+            if js <= j1 and js < H and js <= nend:
+                ex_r, n = side * (st[js] - e) / risk, js
+            elif j1 >= H or j1 > nend:
+                ex_r, n = side * (d["c"][i + 1 + min(nend, H - 1)] - side * half - e) / risk, min(nend, H - 1)
+            else:
+                be = np.maximum(st, e) if side > 0 else np.minimum(st, e)
+                hs2 = (ll - half <= be) if side > 0 else (hh + half >= be)
+                hs2 = hs2[j1 + 1:nend + 1]
+                if hs2.any():
+                    jj = j1 + 1 + int(np.argmax(hs2))
+                    ex2, n = be[jj], jj
+                else:
+                    n = nend
+                    ex2 = d["c"][i + 1 + n] - side * half
+                ex_r = 0.5 + 0.5 * side * (ex2 - e) / risk
+            out.append((d["t"][i], ex_r))
+            free = i + 1 + n + 1
+            k = int(np.searchsorted(cand, free))
+            continue
         js = int(np.argmax(hs)) if hs.any() else H
         jt = int(np.argmax(ht)) if ht.any() else H
         if js <= jt and js < H:
