@@ -14,6 +14,6 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install databento pandas numpy
-      - run: python gamma/quote.py
+      - run: python gamma/quote2.py
         env:
           DATABENTO_API_KEY: ${{ secrets.DATABENTO_API_KEY }}
