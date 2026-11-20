@@ -43,13 +43,28 @@ def main():
     print(f"QUOTED COST ${cost:.2f} for {size/1e9:.2f} GB ({start} to {end}, {sym}, mbp-10)", flush=True)
     if cost > max_usd:
         sys.exit(f"Quoted cost ${cost:.2f} is above the cap ${max_usd:.2f}: stopping without downloading.")
-    path = "nq_raw.dbn.zst"
-    client.timeseries.get_range(**args, path=path)
-    store = db.DBNStore.from_file(path)
+    import pandas as pd, time
     rows = []
-    for chunk in store.to_df(count=2_000_000):
-        rows += process_frame(chunk)
-    os.remove(path)
+    edges = pd.date_range(pd.Timestamp(start, tz="UTC"), pd.Timestamp(end, tz="UTC"), freq="30min")
+    if edges[-1] < pd.Timestamp(end, tz="UTC"):
+        edges = edges.append(pd.DatetimeIndex([pd.Timestamp(end, tz="UTC")]))
+    for s0, s1 in zip(edges[:-1], edges[1:]):
+        a2 = dict(args, start=s0.isoformat(), end=s1.isoformat())
+        path = "nq_raw.dbn.zst"
+        for attempt in range(4):
+            try:
+                client.timeseries.get_range(**a2, path=path)
+                break
+            except Exception as e:
+                print("retry", s0, attempt, e, flush=True)
+                time.sleep(5)
+        else:
+            sys.exit("chunk failed after retries: " + str(s0))
+        store = db.DBNStore.from_file(path)
+        for chunk in store.to_df(count=2_000_000):
+            rows += process_frame(chunk)
+        os.remove(path)
+        print("chunk done", s0, len(rows), flush=True)
     # keep the last row per second across chunk boundaries
     seen = {}
     for r in rows:
