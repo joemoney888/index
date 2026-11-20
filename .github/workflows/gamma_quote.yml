@@ -1,0 +1,19 @@
+name: gamma_quote
+# Quote-only: prints what QQQ option open-interest history would cost on Databento. Downloads nothing, spends nothing.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install databento pandas numpy
+      - run: python gamma/quote.py
+        env:
+          DATABENTO_API_KEY: ${{ secrets.DATABENTO_API_KEY }}
