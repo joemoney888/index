@@ -14,6 +14,15 @@ from agent import oanda  # noqa: E402
 MARKETS = ["NAS100", "SPX500", "US30"]
 
 
+def r_of(t, px, pl=None):
+    """Profit or loss as a multiple of the initial risk (1R = entry-to-initial-stop distance), from prices not pounds.
+    px = exit price (on the chart: the close of the 5-minute bar nearest the exit, so the label is approximate; the EOD report uses the logged fill price)."""
+    if px is None or not t.get("stop"):
+        return 0.0
+    side = 1 if t["side"] > 0 else -1
+    return side * (float(px) - float(t["price"])) / abs(float(t["price"]) - float(t["stop"]))
+
+
 def ts(s):
     return datetime.strptime(s, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
 
@@ -58,8 +67,9 @@ def draw(market, candles, trades, moves, closed, path, day):
             ct = closed[tid].close_time
             near = min(candles, key=lambda c: abs((c.start - ct).total_seconds()))
             pl = closed[tid].realized_pl
+            r_mult = r_of(t, near.close)
             ax.plot(ct, near.close, marker="o", color="#1d3557", ms=9, zorder=5)
-            ax.annotate(f"closed {pl:+.2f} GBP", (ct, near.close), textcoords="offset points", xytext=(6, -16), fontsize=9, color="#1d3557", fontweight="bold")
+            ax.annotate(f"closed {r_mult:+.2f}R", (ct, near.close), textcoords="offset points", xytext=(6, -16), fontsize=9, color="#1d3557", fontweight="bold")
     mine = [t for t in trades.values() if t["market"] == market]
     if mine:
         t_lo = min(t["t"] for t in mine) - timedelta(minutes=40)
@@ -100,7 +110,7 @@ def pine(trades, moves, closed, day):
             stop, tm = to, m
         L.append(f'        line.new({tm}, {stop}, {end}, {stop}, xloc=xloc.bar_time, color=color.red, style=line.style_dashed)')
         if tid in closed and closed[tid].close_time:
-            L.append(f'        label.new({end}, {t["price"]}, "closed {closed[tid].realized_pl:+.2f} GBP", xloc=xloc.bar_time, style=label.style_label_left, color=color.blue, textcolor=color.white)')
+            L.append(f'        label.new({end}, {t["price"]}, "closed", xloc=xloc.bar_time, style=label.style_label_left, color=color.blue, textcolor=color.white)')
     return "\n".join(L) + "\n"
 
 
