@@ -1,0 +1,20 @@
+name: list_instruments
+# One-off, read-only: lists the instruments the second practice account can trade. Places no orders.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python list_instruments.py
+        env:
+          OANDA_API_TOKEN_INDEX: ${{ secrets.OANDA_API_TOKEN_INDEX }}
+          OANDA_ACCOUNT_ID_INDEX: ${{ secrets.OANDA_ACCOUNT_ID_INDEX }}
