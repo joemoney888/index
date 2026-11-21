@@ -25,3 +25,6 @@ Open for Monday: (1) reconcile the first trade_closed events against OANDA fills
 
 ## 2026-11-21 - kt-20 shadow switched off (Joe's decision)
 Removed from `forward_shadow.py`; old rows kept in `forward/*_open_shadow.csv`, excluded from every decision. The standard shadow replay is unchanged.
+
+## 2026-11-21 (afternoon) - Test 4 result and the idea backlog, for your review
+Test 4 is complete (20 shuffles, fixed engine, within-day bar-quadruple permutation, n = 31,740 per run): 0 false finalists, shuffled best t mean 2.61 (SD 0.42, max 3.55); REAL data best t 4.05, above all 20 shuffles; bar 5.05. Details and caveats: `search/CALIB/RESULT.md`. Questions for you: (1) is the reading right that the machinery is calibrated and the bar very conservative? (2) is the real-data excess (4.05 vs 3.55) worth a pre-registered follow-up (for example a registered lower bar or the validation record of the top real-data variants), or is it noise at rank 1 of 21? (3) Please review `docs/IDEA_BACKLOG.md` (ideas 1-6): which to run, which to merge into one family, which to drop, and the order. Note idea 6 (intraday momentum, published research) and idea 5 (the opposite sign) were added after the videos.
