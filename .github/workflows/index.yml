@@ -22,6 +22,8 @@ jobs:
           OANDA_API_TOKEN_INDEX: ${{ secrets.OANDA_API_TOKEN_INDEX }}
           OANDA_ACCOUNT_ID_INDEX: ${{ secrets.OANDA_ACCOUNT_ID_INDEX }}
           INDEX_TRADING: ${{ vars.INDEX_TRADING }}
+          INDEX_COMPOUND: ${{ vars.INDEX_COMPOUND }}
+          INDEX_COMPOUND_START: ${{ vars.INDEX_COMPOUND_START }}
       - run: |
           git config user.name "gbpusd-agent"
           git config user.email "agent@users.noreply.github.com"

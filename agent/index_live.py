@@ -39,7 +39,17 @@ def trail_stop(p: dict, side: int, entry: float, stop0: float, current_stop: flo
     return min(current_stop, new)
 
 
-def units_for(risk_distance_usd: float, gbpusd: float) -> float:
-    """Units so that the stop distance risks RISK_GBP, rounded DOWN to 0.01 (the minimum size)."""
-    raw = RISK_GBP * gbpusd / risk_distance_usd
+BASE_EQUITY_GBP = 500.0
+RISK_FRACTION = 0.01
+
+
+def compound_risk_gbp(closed_pl, base=BASE_EQUITY_GBP, frac=RISK_FRACTION, floor=0.0):
+    """Risk per trade when sizing at 1% of VIRTUAL equity = base + the closed P&L (realized + financing, GBP) of this agent's own trades since the switch-on date.
+    Off by default (INDEX_COMPOUND != 'true' -> the old fixed RISK_GBP). Equity is floored at `floor`; the result never goes below 0."""
+    return round(max(base + sum(closed_pl), floor) * frac, 4)
+
+
+def units_for(risk_distance_usd: float, gbpusd: float, risk_gbp: float = None) -> float:
+    """Units so that the stop distance risks risk_gbp (default RISK_GBP), rounded DOWN to 0.01 (the minimum size)."""
+    raw = (RISK_GBP if risk_gbp is None else risk_gbp) * gbpusd / risk_distance_usd
     return max(int(raw * 100) / 100.0, 0.0)

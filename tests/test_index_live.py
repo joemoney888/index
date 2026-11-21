@@ -34,3 +34,10 @@ def test_trailing_and_sizing():
 def test_plan():
     pl = il.plan({"ks": 3.0, "kt": 4.0}, -1, 100.0, 2.0)
     assert pl["stop"] == 106.0 and pl["target"] == 92.0
+
+
+def test_compound_risk():
+    assert il.compound_risk_gbp([]) == 5.0
+    assert il.compound_risk_gbp([100.0, -50.0]) == 5.5
+    assert il.compound_risk_gbp([-600.0]) == 0.0
+    assert il.units_for(75.0, 1.31, 10.0) == 0.17 and il.units_for(75.0, 1.31) == 0.08

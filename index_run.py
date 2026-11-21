@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 import numpy as np
 
 from agent import oanda, search
-from agent.index_live import MARKETS, MAX_OPEN_TOTAL, plan, signal_at, trail_stop, units_for
+from agent.index_live import MARKETS, MAX_OPEN_TOTAL, RISK_GBP, compound_risk_gbp, plan, signal_at, trail_stop, units_for
 
 LOG = "logs/index_events.csv"
 DEC = 1
@@ -53,6 +53,23 @@ def log_closed_trades(client, count=50):
                 "units": t.get("initialUnits"), "open_time": t.get("openTime"), "close_time": t.get("closeTime"), "realized_pl": t.get("realizedPL"), "financing": t.get("financing"), **(fill or {})})
     except Exception as e:      # logging only
         print("log_closed_trades failed:", repr(e)[:200], flush=True)
+
+
+def current_risk_gbp():
+    """Fixed RISK_GBP unless INDEX_COMPOUND=true and INDEX_COMPOUND_START (ISO date) is set; then 1% of 500 + closed P&L (trade_closed events at or after that date). Never raises."""
+    try:
+        start = os.environ.get("INDEX_COMPOUND_START", "")
+        if os.environ.get("INDEX_COMPOUND", "").lower() != "true" or not start:
+            return RISK_GBP
+        pl = []
+        for r in csv.DictReader(open(LOG)):
+            if r["event"] == "trade_closed" and r["timestamp_utc"] >= start:
+                d = json.loads(r["details"])
+                pl.append(float(d.get("realized_pl") or 0) + float(d.get("financing") or 0))
+        return compound_risk_gbp(pl)
+    except Exception as e:
+        print("current_risk_gbp failed, using fixed:", repr(e)[:200], flush=True)
+        return RISK_GBP
 
 
 def main():
@@ -113,11 +130,12 @@ def main():
         pl = plan(p, side, entry, float(f["atr"][i]))
         if gbpusd is None:
             gbpusd = client.get_pricing("GBP_USD").mid
-        units = units_for(pl["risk"], gbpusd)
+        risk_gbp = current_risk_gbp()
+        units = units_for(pl["risk"], gbpusd, risk_gbp)
         if units < 0.01:
             log(name, "skip", {"key": key, "reason": "size below 0.01", "risk": pl["risk"]})
             continue
-        info = {"key": key, "side": side, "entry": entry, "stop": round(pl["stop"], DEC), "target": round(pl["target"], DEC), "units": units * side, "atr": float(f["atr"][i])}
+        info = {"key": key, "side": side, "entry": entry, "stop": round(pl["stop"], DEC), "target": round(pl["target"], DEC), "units": units * side, "risk_gbp": risk_gbp, "atr": float(f["atr"][i])}
         if live:
             res = client.place_order(inst, units * side, pl["stop"], pl["target"], DEC, 2)
             log(name, "order_placed" if res.get("filled") else "order_rejected", {**info, **res})
