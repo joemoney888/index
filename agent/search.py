@@ -120,6 +120,9 @@ def sample(rng: np.random.Generator, scalp: bool = False) -> dict:
             "td": float(rng.choice([0, 0, 1.0, 1.5, 2.0, 3.0])), "ts": float(rng.choice([0.5, 1.0, 1.5]))}
 
 
+GAP_AWARE = False   # Test 4 (21 Nov 2026): when True, a stop exit whose bar OPENS beyond the stop level fills at that open (minus/plus half spread), not at the stop level. Default False = historical engine, unchanged.
+
+
 def trades(p: dict, d: Dict[str, np.ndarray], f: Dict[str, np.ndarray], lo: int, hi: int) -> np.ndarray:
     """Simulate over bars [lo, hi). Returns array of (entry_time, R)."""
     w = np.array(p["w"])
@@ -214,6 +217,8 @@ def trades(p: dict, d: Dict[str, np.ndarray], f: Dict[str, np.ndarray], lo: int,
         jt = int(np.argmax(ht)) if ht.any() else H
         if js <= jt and js < H:
             ex, n = st[js], js
+            if GAP_AWARE:
+                ex = min(ex, d["o"][i + 1 + js] - half) if side > 0 else max(ex, d["o"][i + 1 + js] + half)
         elif jt < js:
             ex, n = tgt, jt
         else:
