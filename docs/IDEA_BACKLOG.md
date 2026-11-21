@@ -1,3 +1,10 @@
+# STATUS UPDATE 21 Nov 2026 (after GLM round F; Joe agreed): decisions in writing
+- Ideas 2, 3, 4 and the daily swing-failure note: DROPPED. The validation windows (about 250 days) could only detect 0.2-0.35R per trade; arithmetically unreachable.
+- Idea 1 (opening-range breakout): deferred; prior revised to about 3-5%; at most one spec (market entry, opposite-side stop), N +1, only after Family A resolves.
+- Ideas 5 and 6: merged into Family A with fixes (DST via zoneinfo, no noise filter, two-sided test, late-day predictor registered now). Frozen spec: docs/FAMILY_A_SPEC.md. Idea 6's predictor definition follows GLM and is unverified against the paper.
+- Optional later: a Fed-announcement family (pre/post drift), N +2, science-only (FTMO forbids trading around Fed decisions).
+- Stopping rule: write-up of all results by 2026-12-19; total further N capped at +6.
+
 # Idea backlog - NOT TESTED. Send to the reviewer (GLM) for a second opinion BEFORE any test is run.
 Rule: nothing here is run until (a) the exact rule is frozen in writing, (b) the reviewer has criticised it, (c) Joe says go. Every test uses realistic (gap-aware) fills, a locked final-365-day exam and counts in the cumulative N. Add new ideas at the bottom; keep the same fields.
 
