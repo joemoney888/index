@@ -1,5 +1,5 @@
 # Ideas and checks for an independent reviewer to validate (20 Nov 2026)
-Context: see `docs/HANDOVER.md` (sections 10-12). BFG's edge disappeared under realistic exit fills; the entry signal alone shows no detectable edge. Everything below is falsifiable and cheap. Each idea counts toward the global variant total (941,542 so far). Pre-register thresholds BEFORE looking at results; keep a locked final-365-day exam.
+Context: see `docs/HANDOVER.md` (sections 10-12). BFG's edge disappeared under realistic exit fills; exits that keep the old fitted stop/target/horizon show no edge under realistic fills; whether the entry carries any drift with NO exits was open until test B.1 (see ftmo/RESULT.md, 21 Nov). Everything below is falsifiable and cheap. Each idea counts toward the global variant total (941,542 so far). Pre-register thresholds BEFORE looking at results; keep a locked final-365-day exam.
 
 ## A. Validate our own correction (highest value)
 1. Independently re-implement the exit simulation on 1-minute NAS100 bars (`ftmo/stop_1min.py`, `search/exits_realistic.py`): bid/ask-aware fills, stop filled at the minute's open when it opens beyond the stop, stop wins ties. Do you get mean R about -0.01 to 0 for BFG? Is any fill rule too pessimistic (e.g. should a resting stop fill at the stop price inside a gapless minute)?
