@@ -74,16 +74,8 @@ def main():
     ps = search.day_t(pool) if len(pool) else {"n": 0, "mean": 0.0, "t": 0.0}
     L += ["", f"Pooled: {ps['n']} trades, {ps['mean']:+.3f}R average, t {ps['t']:.2f}. Data to {end:%Y-%m-%d %H:%M} UTC.",
           "- Verdict: TOO EARLY until about 300 trades per market (about 2 months); then it counts only if the average stays positive with t >= 2.", ""]
-    # registered 19 Nov 2026: second forward variant, target effectively removed (kt 20, trailing stop unchanged). Exploratory (train+validation only, 48 exit variants tried); paper only.
-    p2 = dict(p, kt=20.0)
-    L += ["", "## Variant: no fixed target (let winners run; kt 20, same trailing stop). Exploratory, started 2026-11-19.", "", "| Market | Trades | Avg R | Cumulative R | Win rate | t-stat |", "|---|---|---|---|---|---|"]
-    alt = []
-    for name in MARKETS:
-        tr, s, _ = run_market(name, p2, client, "open_shadow")
-        alt.append(tr)
-        cum = float(tr[:, 1].sum()) if len(tr) else 0.0
-        wins = float((tr[:, 1] > 0).mean()) if len(tr) else 0.0
-        L.append(f"| {name} | {s['n']} | {s['mean']:+.3f} | {cum:+.1f} | {wins:.0%} | {s['t']:.2f} |")
+    # The no-target variant (kt 20) registered 19 Nov 2026 was switched OFF on 21 Nov 2026 (exploratory, chosen after 48 exit variants were seen; no decision value). Its logged rows in forward/*_open_shadow.csv are kept as history and excluded from every decision.
+    L += ["", "_The no-target variant (kt 20) was switched off on 2026-11-21; its earlier rows are kept in forward/*_open_shadow.csv and count for nothing._"]
     open("forward/NAS100_SUMMARY.md", "w").write("\n".join(L))
     print("\n".join(L))
 

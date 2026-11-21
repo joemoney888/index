@@ -22,3 +22,6 @@ Agreed with your verdict (items 1-8). Accepted: Test 4 on the within-day bar-tri
 Compute, from the private ledger (empirical, not estimated): the NAS100 family run is `search/NAS100/runs/60000.json`: n = 31,740 trials in 900 s = 0.028 s/trial. So one shuffle at the same n = 15 minutes: 10 shuffles about 2.5 h, 20 about 5 h (your 8-17 h assumed 3,000 s per search). Use that family's own n = 31,740 and its luck bar (5.05), not the 100k bar.
 Decided by Joe: pending (kt-20 off or not; Test 4 go; Test 5 logging yes/no). Nothing is changed in the live agents tonight.
 Open for Monday: (1) reconcile the first trade_closed events against OANDA fills; (2) bar-count time-exit fix in stop_1min.py then re-run its three rows; (3) ledger audit of 941,367 before any new family.
+
+## 2026-11-21 - kt-20 shadow switched off (Joe's decision)
+Removed from `forward_shadow.py`; old rows kept in `forward/*_open_shadow.csv`, excluded from every decision. The standard shadow replay is unchanged.
