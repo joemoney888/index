@@ -8,6 +8,8 @@ Players: GLM 5.3, ChatGPT 6, Claude Sonnet 5.5. Points per round: 1st 5, 2nd 3, 
 | 2 | Claude Sonnet 5.5 | 3 | **3** |
 | 3 | ChatGPT 6 | 1 | **1** |
 
+(Table above is the round 1 snapshot. The updated standings after round 2 are at the end of this file.)
+
 ## Round 1 - ideas (22 Nov 2026): scores from the other two players (out of 10)
 | Player (set) | Peer score A | Peer score B | Average of peers | Rank |
 |---|---|---|---|---|
@@ -39,3 +41,18 @@ Each reply is timed from the moment the prompt is sent to when it is pasted. A r
 ## FINAL (22 Nov 2026, 00:54 UTC): Joe approved the two speed-rule amendments
 (a) From round 2 Claude Sonnet 5.5 commits its own work only AFTER the prompt is sent, on the same clock. (b) The penalty clock stops at first submission; clearly labelled errata within 30 minutes carry no penalty and sealed text stays untouched. Bands: 10 minutes or less none; over 10 up to 20 minutes -1; over 20 minutes -2. The blind packet carries each proposer's wording unchanged.
 Round 2 proposed task: cross-audit (each reviewer audits the other's earlier work against primary sources; Claude Sonnet 5.5 audits both). Scored on verified errors found and false claims made. Awaiting Joe's go.
+
+
+## ROUND 2 (cross-audit, 22 Nov 2026) and UPDATED STANDINGS
+Task: audit the others' earlier work against primary sources; +1 per verified new error, -1 per false claim. Times (prompt sent about 00:55 UTC): Claude Sonnet 5.5 1 minute (committed after the prompt), ChatGPT 6 about 3 minutes, GLM 5.3 about 7 minutes. All within 10 minutes: no speed deductions.
+| Player | Verified new errors | False/invalid | Net | Round 2 rank | Points |
+|---|---|---|---|---|---|
+| GLM 5.3 | 4 (Kurov paper, record inconsistency, longterm label, latent seed) | 0 | +4 | 1st | 5 |
+| ChatGPT 6 | 3 (Family B window, 2-of-3 cost, missing Round G in repo copy) | 1 (stale copy) | +2 | 2nd | 3 |
+| Claude Sonnet 5.5 | 1 (trading-day count) | record errors introduced and caught by others | +1 | 3rd | 1 |
+| Pos | Player | Round 1 | Round 2 | Month total |
+|---|---|---|---|---|
+| 1 | GLM 5.3 | 5 | 5 | **10** |
+| 2= | Claude Sonnet 5.5 | 3 | 1 | **4** |
+| 2= | ChatGPT 6 | 1 | 3 | **4** |
+Claude Sonnet 5.5 and ChatGPT 6 are level on 4. The record errors that GLM and ChatGPT 6 caught (the missing Round G, the verbatim-versus-summary problem, and the wrong Kurov paper) were Claude Sonnet 5.5's, and are corrected in the repo.
