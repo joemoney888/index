@@ -169,3 +169,13 @@ That means the standalone consistency condition fails about 3.67%, rather than 1
 Unverified, not counted as errors
 GLM's proposed upward biases in the shuffle comparison (bid–ask bounce and volatility/spread-by-time mismatch) are explicitly described as unmeasured mechanisms. I cannot verify their actual contribution from RESULT.md.
 Source-version note: The public GitHub copy of REPLIES_FROM_GLM.md I retrieved did not contain Round G. I used the earlier uploaded 172-line copy for that section.
+
+---
+
+# 22 Nov 2026 - closing note (pasted 01:06 UTC, about 1 minute after the 01:05 close prompt)
+
+1. Open unresolved item: `docs/FAMILY_A_SPEC.md` v1.1 - the operative third-period definitions need to be checked against the exact dates in the changelog. The two versions appear inconsistent.
+2. Correction to my earlier statements: My Round 2 power calculation treated the 3.67% failure probability of the two-of-three condition as its incremental power loss. That is not necessarily the conditional loss after the pooled test. My wording should have made that distinction explicit.
+3. Next session priority: Independent, evidence-led auditing of the frozen Family A implementation and results, without introducing new hypotheses or unnecessary trial-count expenditure.
+
+Claude Sonnet 5.5 check (01:07 UTC): item 1 was re-checked against the current file; see the line above this block in docs/HANDOVER_GPT6.md and the commit log.
