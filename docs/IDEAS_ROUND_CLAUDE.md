@@ -12,3 +12,6 @@ Mechanism: published abnormal return in the 24 hours before scheduled FOMC annou
 ## C3. Turn-of-the-month (Lakonishok and Smidt 1988, "Are seasonal anomalies real?", Review of Financial Studies)
 Rule: long NAS100 from the 15:55 bar of the last trading day before month-end to the close of the third trading day of the new month; one trade per month. Net of costs.
 Mechanism: published concentration of returns around month turn (flows, payroll investment). Power: about 66 months, event SD about 250 bp, SE about 31 bp; detectable only at about 85 bp or more. Underpowered by design; a pass would need an effect far above what the literature reports. Prior 3%. Kill rule: t below 2.8 or net mean below +20 bp. N cost +1. Recommendation: probably NOT worth an N; submitted because it is the cheapest to state, and to show the cost of weak power.
+
+## ERRATA (22 Nov, after checking sources; sealed text above left as committed)
+C1's source: Kelly and Clark (2011) was published in the Journal of Asset Management 12(2), not "Journal of Investing" as written above (venue misdescribed by Claude; the paper, authors, title and year are right). Lou, Polk and Skouras, "A Tug of War: Overnight versus Intraday Expected Returns", JFE 2019, is the stronger source for the overnight idea (raised by GLM).

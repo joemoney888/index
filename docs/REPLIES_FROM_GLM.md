@@ -57,3 +57,35 @@ Second slot: deliberately empty. Considered and rejected: overnight effect (real
 6. Then Family B (FOMC pre/post drift, N+2) only if the program continues.
 7. Stopping rule: if Family A nulls on its registered rule, the intraday-NAS100 search is closed permanently (no idea 1); Family B may run once; write-up of all nulls, the calibration result and backlog decisions by 2026-12-19.
 8. Hard cap: remaining ideas <= +6 N total (3+1+2); after the cap or the date, stop looking and write up regardless of outcome.
+
+---
+
+# Ideas round 1 (22 Nov 2026) — GLM proposals
+
+Repo a284c22. Read: the round-1 file, notes, spec v1.1, backlog. Other reviewers' proposals unopened until this was sent. No price data touched; N stays 941,542.
+
+**Verdict: nothing I can source honestly reaches 50% power at the frozen gate (t>=2.8, net >=+1 bp, 2-of-3 thirds).** Detectability decides: a last-half-hour window (SD ~25 bp, n ~1,230) detects ~2 bp — why GHLZ 2018 (Family A) and pre-FOMC drift (Lucca-Moench, AER 2015; my round-F "JF 2011" was wrong — verify) were registerable. A full session (SD ~90 bp, n ~1,400) needs ~7 bp/day ~ 17%/yr; event days worse. Best two below; priors 4-5%; register neither unless Joe wants the science value. Slot 3 deliberately empty.
+
+## P1 — macro-announcement-day premium (NFP+CPI days, long NAS100)
+1. Rule: frozen BLS dates, payrolls + CPI, 2021-05-20 to 2026-11-17; skip FOMC decision days (frozen list), early closes (frozen NYSE list U <78 bars 09:30-16:00), missing 08:25 bar. LONG at the open of the 5-minute bar opening 08:25 America/New_York (5 min before the 08:30 release), exit at the close of the 15:55-16:00 bar. Each side pays its own bar's half-spread; no stop (the premium is compensation for holding the release); no financing; one trade/day; n ~128 (24/yr x 5.5 yr minus skips; estimate).
+2. Source: Savor & Wilson, "How Much Do Investors Care About Macroeconomic Risk? Evidence from Scheduled Economic Announcements", Journal of Finance 2013 or 2014 (unsure — verify). Announcement-day mean market excess return far above other days (roughly +10-15 bp vs ~0; unsure of figures — verify before freezing). Mechanism: premium for bearing scheduled macro risk. Their effect is close-to-close; our slice forfeits the prior-close->08:25 part.
+3. Power: SD ~140 bp/event (estimate ~1.5x the 90 bp session SD; measure pre-run, non-decisionally). SE = 140/sqrt(128) = 12.4 bp -> detectable 35 bp net. At published ~12 bp: power ~3%; at 25 bp: 22%.
+4. Net cost: ~0.8-2 bp round trip (08:25 slot measured pre-run; abort if its median half-spread > 5 bp).
+5. Kill rule: closed in writing unless ALL: one-sided t >= 2.8 (Newey-West 5 lags), net mean >= +1 bp, >= 2 of 3 Family-A thirds positive, AND event-day minus other-day session mean >= 0 (drift benchmark; failing only that = "drift, not premium"). Significant negative: recorded, never traded or re-tested.
+6. Prior: 4-5%. 7. N: +1.
+
+## P2 — pre-holiday effect (long NAS100, session only)
+1. Rule: last full trading day before each frozen NYSE full-closure holiday (same source as famA/calendar.json); skip if itself an early close or <78 bars. LONG at the 09:30 America/New_York bar open, exit at the 15:55-16:00 bar close; same costs; no financing; n ~48 (estimate).
+2. Source: Ariel, "High Stock Returns Before Holidays: Existence and Evidence on Possible Causes", JFQA 1990 (fairly sure — verify): pre-holiday means several times ordinary days (roughly +0.3-0.5% vs +0.05-0.1%, 1963-82; unsure of figures), later decay documented. Mechanism: pre-holiday buying, thin liquidity. Close-to-close effect; session slice forfeits any overnight part.
+3. Power: SD ~85 bp (calm-day estimate). SE = 85/sqrt(48) = 12.3 bp -> detectable 34 bp. At decayed ~20 bp: power ~12%.
+4. Net cost: ~1-2 bp (09:30 slot; same >5 bp abort).
+5. Kill rule: identical to P1, including the drift benchmark. 6. Prior: 5%. 7. N: +1.
+
+## Slot 3: deliberately empty — rejected with arithmetic
+- Overnight vs intraday (Lou-Polk-Skouras, "A Tug of War", JFE 2019): n ~1,390, SD ~80 bp -> detectable 6 bp net/night; costs ~2.5 bp/night -> needs ~8.5 bp gross ~ 21%/yr overnight-only. No.
+- Turn-of-month (Lakonishok & Smidt, JFE 1988 — verify): round F rejected it; the intraday slice likely forfeits the premium to the overnight session; at 5 bp/day, n=450, SD=90 bp, power ~5%.
+- VIX/yield/DXY/HYG-conditioned daily rules: no credible published effect size for next-day index returns (Acharya-Johnson, JFE 2007, is single-name CDS, not HYG->index).
+- Cross-index intraday lead-lag: no credible citation.
+
+## Recommendation
+Priority unchanged: Family A, then the Fed family (+2) if the program continues, write-up by 2026-12-19. P1/P2 are the Fed family's economic class (scheduled-event/seasonal risk premia): if P1 is registered, register it INSIDE the Fed family — shared Bonferroni, pooled report — never both independently. Spending the whole +3 on my two is not justified by 4-5% priors. Ready to blind-score the other sets when asked.

@@ -48,3 +48,13 @@ Submitted no proposal; screened one candidate (non-FOMC macro-announcement premi
 (e) Feasible: 1/2 - by its own arithmetic it is not testable at our sample size; net cost left blank (it said it could not give a number without spreads - honest).
 Calibrated: +1 (honest prior below 2%, preserved N, refused to invent).
 Overall: very calibrated and honest, but it generated no usable idea. The value so far is in what it refuses to claim, not in what it proposes.
+
+### GLM - session (ideas round 1, 22 Nov 2026) - Claude score 8/10 (provisional until blind cross-scoring)
+Two proposals (P1 NFP+CPI announcement-day long; P2 pre-holiday long), third slot deliberately empty with arithmetic; priors 4-5%; recommends registering neither unless Joe wants the science value, and folding P1 into the Fed family.
+(a) Source real and correctly described: 1/2 each - papers, authors, titles and years right, but journal venues wrong in four places: Savor and Wilson is JFQA 48(2) 2013 (GLM: "Journal of Finance 2013 or 2014 (unsure)"); Ariel 1990 is the Journal of Finance 45(5), 1611-1626 (GLM: JFQA); Lakonishok and Smidt 1988 is the Review of Financial Studies (GLM: JFE); and Lucca and Moench is Journal of Finance 70(1) 2015, which GLM asserted WITHOUT hedging as "AER 2015" while "correcting" an earlier near-miss. Three were hedged "verify"; the Lucca-Moench one was not (-1). Lou, Polk and Skouras (JFE 2019) and Acharya-Johnson (JFE 2007, single-name CDS) are right. Effect sizes quoted (roughly 10-15 bp announcement days) are consistent with the verified 11.4 bp vs 1.1 bp.
+(b) Power/effect size: 2/2 - all arithmetic re-computed and right (140/sqrt(128)=12.4 bp; detectable 34.7; power at 12 bp about 3%, at 25 bp 22%; P2 85/sqrt(48)=12.3, detectable 34.4, power at 20 bp 12%; overnight 80/sqrt(1390)=2.1, detectable 6.0).
+(c) Pre-registerable: 2/2 - exact rules, times, frozen calendars, numeric kill rule, drift benchmark.
+(d) Novel: P1 1/2 (same class as the Fed family; GLM says so), P2 2/2.
+(e) Feasible: 1/2 each - by its own arithmetic neither is testable above about 35 bp.
+Best proposal 8/10 (P2), +1 calibrated, -1 for the unhedged wrong venue = 8/10.
+Overall: more concrete and more complete than GPT6's reply, but with the sloppiest sourcing; it caught nothing wrong in itself while stating a wrong venue with confidence. Independently converged with GPT6 on the macro-announcement premium and with Claude on rejecting overnight and turn-of-month.
