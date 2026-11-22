@@ -20,3 +20,6 @@ Re-computed and CORRECT: 13.9% upper bound; 941,367 + 175 = 941,542; CAGR 6.8 / 
 1. The yearly data were transcribed from Damodaran's page through the web-reading tool (a summariser), not from a downloaded file. Spot-checked against values Claude knows (1931 -43.84, 1954 +52.56, 1974 -25.90, 2008 -36.55, 1928 +43.81) and all match; the rest are NOT independently verified, and 2025 was not checkable.
 2. One rule, one market, 97 yearly observations; the valuation tilt and the daily 200-day rule were not tested (stated in the file).
 3. The "worse in both halves" criterion is correct as run, but the sample has only two independent halves; "reliably worse" overstates; "worse in this sample, 95% bootstrap range wholly below zero" is the right wording.
+
+## Addendum (00:5x UTC, after reading GPT6's audit; sealed text above unchanged)
+Claude missed one point GPT6 found: GLM's "the 2-of-3 gate costs about 1-3% power" is loose; with GLM's own numbers the loss is about 1% at 2.0 bp and 3.7% at 1.5 bp (so "1-4%"). Claude also found that the repo copy of docs/REPLIES_FROM_GLM.md was missing GLM's Round G (Claude's record error: it had appended only later sections); Round G has now been inserted in order.

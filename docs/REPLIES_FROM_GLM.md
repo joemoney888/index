@@ -60,6 +60,53 @@ Second slot: deliberately empty. Considered and rejected: overnight effect (real
 
 ---
 
+# Round G (21 Nov 2026) — Family A sign-off review
+
+Repo state audited: bd2674b (FAMILY_A_SPEC.md v1, backlog status, notes). I re-checked the paper text question. Bottom line up front: **I was wrong in round F on the paper's predictor; Joe's original draft was right.** The published JFE 2018 abstract says, verbatim: "the first half-hour return on the market **as measured from the previous day's market close** predicts the last half-hour return" (verified verbatim from two independent mirrors of the abstract: ScienceDirect S0304405X18301351 and researchwithnj.com; the full text is paywalled, so section-level price conventions are adapted to our CFD bars). Confidence: HIGH on the definition, and the abstract adds that the effect is "stronger on more volatile days, on higher volume days, on recession days, and on major macroeconomic news release days", and exists for ten other actively traded ETFs. Consequences below.
+
+## 1. Required changes (blocking / non-blocking)
+
+BLOCKING (all are pre-run fixes; apply all four as spec v1.1):
+1. **A6a predictor → the paper's definition**: return from the previous trading day's close to the 10:00 New York bar close. The frozen 09:30-open→10:00 variant is NOT the published effect; keeping it would gut the "published replication" premise and the prior. The 09:30-10:00 variant is recorded as "considered at sign-off, discarded, never to be run without a new registration". N stays +3: this is a sign-off correction before any data look at either variant, which is exactly what the review gate exists for — it does not count as a new spec.
+2. **Define "previous close" precisely**: the close of the last 5-minute bar at or before 16:00 New York on the previous trading day (handles early closes — a 13:00 close is that day's anchor — and Mondays anchor to Friday 16:00). One line in the spec.
+3. **Early-close skipping cannot rely on the 78-bar test alone.** 09:30→16:00 NY = exactly 78 five-minute bars; if the CFD feed keeps quoting past a 13:00 cash close (unknown for OANDA without a check), an early-close day has 78 bars and A6a/A6b would trade a degenerate half-day afternoon. Require a frozen list of US full holidays and early closes for 2021-2026 taken from the public NYSE calendar (an input like the FOMC calendar — no look at outcomes), with the 78-bar test kept as the data-gap net. The paper itself excludes early closures.
+4. **Pin the exact dates**: sample start (first complete day >= 2021-11-19) and the three third boundaries (currently prose "2021-11 to 2023-06" etc.) — freeze to exact dates.
+
+NON-BLOCKING:
+5. Status-line honesty: "no data for these hypotheses has been looked at" should read "no prior evaluation of these rules; the same window has ~941k prior random-search looks (different rules, R-based, costed gates), which is a mild negative prior for LARGE effects only and has no bearing on 1-3 bp effects those gates could not detect".
+6. A5: one line stating the direction table (London return > 0 → short at the 09:30 open; < 0 → long).
+7. Reporting additions: per-third GROSS means (net is already there), and the correlation of the A6a/A6b daily return series (computed inside the run, costs nothing).
+8. Wording: "the bar opening 15:55 and closing 16:00 New York"; note the CFD 16:00 close stands in for the paper's cash close.
+9. The spread convention as written (each bar pays its OWN half-spread, entry and exit) is right — keep it; do not import the engine's signal-bar-spread-on-exit convention.
+
+## 2. Your three choices — verdicts
+
+(a) **Keep all three.** Arithmetic (estimates marked): n ≈ 1,200 days (5y × ~252 minus ~45 early closes minus data-gap days); SE = 25 bp / sqrt(1,200) = 0.72 bp (25 bp is my estimate of the last-half-hour SD — measure it pre-run, non-decisionally); detectable mean at t 2.8 = 2.8 × 0.72 = **2.0 bp**. The +1.0 bp mean bar is slack next to that (non-binding). Thirds: per-third n ≈ 400, SE ≈ 1.25 bp; at a true 2.0 bp effect, P(third > 0) = Φ(1.6) = 0.945 → P(>=2 of 3) = 0.99; at 1.5 bp it is 0.96 — the 2-of-3 gate costs about 1-3% power. Family-wise error under your rule: one-sided 3 × 0.0026 = 0.0077, comfortably inside the 0.05/3 two-sided budget (exact z = 2.39; 2.8 carries margin). Sound and slightly conservative.
+(b) **Keep.** Both endpoints are tz-anchored (Europe/London open bar; America/New_York bar closing 09:15), so the London↔NY DST mismatch weeks are handled with no seam; the bar exists every trading day. This matches the round-F fix.
+(c) **Keep.** Two-sided inference, claimed direction traded, opposite-sign results recorded and never traded or re-tested — consistent with round F, and the recorded opposite-sign finding does not become a new look by being written down.
+
+## 3. The paper (question 3 answered)
+
+Quote and confidence as at the top: definition verified, HIGH confidence, from the published abstract (paywalled full text prevents checking the exact close-price convention — our CFD anchor approximates it, note this in the report). Do NOT register the 09:30-10:00 sub-window: it has no published prior, and adding it would weaken the family Bonferroni for no hypothesis gain. The paper's secondary result (overnight return predicts the morning/first half-hour) is a different trade (a 09:30-10:00 hold) — also not registered now. One extra prior note in your favour: the effect is documented strongest on high-volatility and macro-news days, which the 2021-2026 window has in abundance; decay since 2013 remains the main risk, hence the modest detectable threshold of ~2 bp net.
+
+## 4. Pre-run checklist (none of it looks at outcomes)
+
+1. Ledger audit reconciled (Monday item) and the +3 entries pre-created (N 941,542 → 941,545) BEFORE the run.
+2. Coverage report: bar count 09:30-16:00 NY per day over the window; the skip list = frozen calendar list ∪ <78-bar days ∪ missing-bar days; review the skip list by COUNTS AND DATES only.
+3. Early-close verification: on 3-4 dates from the frozen calendar list, count the 13:00-16:00 bars (coverage only). If bars exist there, blocking item 3 was necessary — record which.
+4. Spread sanity: median/p95 spread by half-hour slot, especially 15:30-16:00 and the 16:00 anchor bar; flag zeros and >10× median as data errors. Cost inputs only.
+5. Optional, non-decisional: record the SD of gross 15:30→16:00 daily returns BEFORE the run, used only in the power statement; it must not change any threshold.
+6. Timezone unit tests with known dates (09:30 NY = 14:30 UTC in January, 13:30 UTC in July; the 15:55 bar closes 16:00 NY; the 09:10-09:15 bar exists on each sample day).
+7. Freeze the runner (deterministic script, fixed seed, spec v1.1 committed), then run ONCE and record per-spec verdicts against the frozen rule.
+
+Items 2-6 touch bar existence, spreads and second moments only — no strategy returns, no signs, no means of the traded rules. That is the line: nothing that reveals the sign of any spec's mean before the decision.
+
+## 5. Final
+
+**NOT SIGNED OFF, because** of blocking items 1-4 (A6a must use the paper's predictor; "previous close" must be pinned; early closes need the frozen calendar list; sample start and third boundaries need exact dates). All four are pre-run paperwork — apply them as v1.1, log the change reasons, and the run is GO without another round; I do not need to re-review v1.1. Next three actions, in order: (1) revise FAMILY_A_SPEC.md to v1.1 with the four blocking items, N unchanged at +3; (2) run checklist items 2-6 (coverage, early-close verification, spread sanity, timezone tests — zero outcome looks); (3) confirm the ledger (N = 941,545 pre-created), run Family A once, record per-spec verdicts against the frozen rule.
+
+---
+
 # Ideas round 1 (22 Nov 2026) — GLM proposals
 
 Repo a284c22. Read: the round-1 file, notes, spec v1.1, backlog. Other reviewers' proposals unopened until this was sent. No price data touched; N stays 941,542.
