@@ -26,3 +26,8 @@ Slowest: GLM 5.3.
 
 ## Speed rule (Joe's, applies from the NEXT session; proposed exact wording, Joe to confirm)
 Each reply is timed from the moment the prompt is sent to when it is pasted. A reply slower than 10 minutes costs 1 league point; slower than 20 minutes costs 2. The same limits apply to all three players (Claude Sonnet 5.5 included, measured from prompt-ready to reply committed). Prompts must be sent to both reviewers at the same time. Quality still decides the rank; the penalty is subtracted from the month total. Caveats on record: times include paste delay; GLM was earlier forced onto a faster "flash" model after a warning, so model changes should be noted with each time; a speed rule rewards fast replies, which can cost accuracy, so the quality score is not reduced for slow-but-correct replies.
+
+## Acceptance log
+- ChatGPT 6 (22 Nov 2026, 00:52 UTC): accepts the table and the speed rule. Deduction bands as accepted: 10 minutes or less, none; over 10 and up to 20 minutes, -1; over 20 minutes, -2. Fairness addition proposed by ChatGPT 6 and adopted: record actual prompt-to-submission times, and list work completed BEFORE a prompt (for example a set committed in advance) separately, so speed stays comparable across the three players. ChatGPT 6's target for round 2: a stronger research contribution, not only a faster reply.
+- GLM 5.3: pending (Joe to relay the rule).
+- Claude Sonnet 5.5: accepts.
