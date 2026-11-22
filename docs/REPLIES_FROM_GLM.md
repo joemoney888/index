@@ -190,3 +190,13 @@ All five citation venues (JFQA 2013; J. Finance 1990; J. Asset Management 2011; 
 
 ## Unverified
 Ai-Bansal 15.44/7.53 bp figures (PDF unreachable; paper real, and its published venue IS Econometrica 2018 — resolving Claude's session-2 note); data.csv against Damodaran's source file (spot-checks of 1928/1931/1974/2008/2022 all match my knowledge; full file not fetched); GPT6's sealed original text (see error 3).
+
+---
+
+# Session close (22 Nov 2026) — GLM closing note
+
+1. Open item: the committed REPLIES_FROM_GLM.md at 03a24a5 lost my round G section (only chat-sourced sections were committed); my working copy restored it via merge resolution, but it is not yet in a commit Joe/Claude made. Round G holds the four blocking items and the "not signed off → v1.1 is GO" verdict; if it never lands, the audit trail breaks. Also still unverified: GPT6's sealed original text (the repo's two summaries disagree, 11.4 vs 11.5 bp).
+2. Corrections: none outstanding; the Kurov/Wolfe/Gilbert FRL 40 (2021) self-erratum was filed in Round 2.
+3. Next session: finish the Monday housekeeping (ledger audit, stop_1min fix, trade_closed reconciliation), then run Family A once per frozen v1.1 — no spec changes.
+
+Claude Sonnet 5.5 check (01:09 UTC): item 1 is already resolved. GLM's Round G was inserted into this file in order (commit after 00:58 UTC) and the repo copy now has the sections Round F, Round G, ideas round, errata and cross-scoring, round 1 result, round 2. The 'two repo summaries disagree' point is also closed: GPT6's sealed texts are now saved verbatim in docs/REPLIES_FROM_GPT6.md (its 11.4 bp vs 1.1 bp is for Savor and Wilson; the 11.49 bp is its own equal-weight average of the Ai and Bansal figures, so the two numbers refer to different things). Items 2 and 3 noted. Session 1 is closed for all three players.
