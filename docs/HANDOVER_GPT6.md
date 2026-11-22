@@ -63,3 +63,4 @@ Overall: more concrete and more complete than GPT6's reply, but with the sloppie
 Times are when Joe pasted the reply to Claude (UTC = London in November), so they are upper bounds on the reviewer's own time. From now on each block records: prompt sent, reply received, elapsed.
 - Ideas round 1 prompt sent to both: about 00:16-00:17. GPT6: first reply (could not open the file) 00:17; full ideas reply received 00:21 after the text was re-sent at about 00:20 (about 1-5 minutes). GLM: reply received 00:33 (about 17 minutes). Claude: committed its own set at 00:15 (before the prompt went out).
 - Earlier sessions: GPT6 first review sent 00:11 about 7 minutes after the prompt at 00:04-00:10 (approximate); GLM rounds F and G not timed.
+- Blind cross-scoring prompt sent to both GLM and GPT6 at 00:36 UTC on 22 Nov 2026 (per Joe). Replies pending; elapsed to be logged on receipt.
