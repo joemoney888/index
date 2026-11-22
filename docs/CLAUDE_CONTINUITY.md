@@ -1,5 +1,5 @@
 # Claude continuity file (backup in case the chat is lost)
-Updated 22 Nov 2026 (UTC). To resume: start a new Claude session, attach/point it at this file and `docs/HANDOVER.md`, and say "continue from CLAUDE_CONTINUITY". No keys or tokens are stored here and none should ever be.
+Updated 22 Nov 2026 01:05 UTC (session closed). To resume: start a new Claude session, attach/point it at this file and `docs/HANDOVER.md`, and say "continue from CLAUDE_CONTINUITY". No keys or tokens are stored here and none should ever be.
 
 ## The project and the owner
 Joe (UK, Europe/London). Documented paper-trading/AI experiment. Two agents: **Blue Falcon** (old ORB agent, private repo `joemoney888/gbpusd-paper-agent`, first OANDA practice account, runs to about 24 Nov) and **Blue Falcon Green, BFG** (US-index mean reversion, public repo `joemoney888/index`, second OANDA practice account, cron-job.org -> workflow_dispatch every 5 min, `index.yml`). Reviewers: GLM 5.3 (active), ChatGPT 6 (invited, onboarding in `docs/HANDOVER_GPT6.md`), DeepSeek and K3.1 retired. Joe pastes reviewer replies; Claude commits them and grades them neutrally.
@@ -31,3 +31,12 @@ Public repo `joemoney888/index`: `agent/` engine, `search/` ledgers and calibrat
 
 ## Open decisions with Joe
 Test 5 (flip logging) skipped unless asked; optional idea 1 (N+1) and a Fed-announcement family (N+2) only after Family A; optional email/notification of the weekly report; whether to check XND spreads on an IBKR paper account (Joe would need to open it).
+
+
+## Session close, 22 Nov 2026 (01:05 UTC): what happened after the first version of this file
+- Reviewers: GLM 5.3 and ChatGPT 6 (onboarding `docs/HANDOVER_GPT6.md`; replies verbatim in `docs/REPLIES_FROM_GLM.md` and `docs/REPLIES_FROM_GPT6.md`). Monthly league table `docs/LEAGUE_TABLE.md`: 1st 5 points, 2nd 3, 3rd 1. After rounds 1 (ideas) and 2 (cross-audit): GLM 10, Claude Sonnet 5.5 4, ChatGPT 6 4. Speed rule from round 2: reply within 10 minutes none, over 10 up to 20 minutes -1, over 20 -2; Claude commits its own work only after the prompt is sent; errata within 30 minutes carry no penalty; blind packets carry wording unchanged. Next round: Joe decides (not started).
+- Ideas round 1 result: no idea is testable above about 35 bp per event; none justifies spending the remaining +3 N. Family A first; fold any announcement-day idea into the Fed family later. Files: `docs/IDEAS_ROUND_1.md`, `docs/IDEAS_ROUND_CLAUDE.md`, `docs/IDEAS_ROUND_1_BLIND.md`, `docs/ROUND2_CLAUDE_AUDIT.md`.
+- Built: optional compounding position size (OFF; repo variables INDEX_COMPOUND and INDEX_COMPOUND_START); R-only weekly report (private repo workflow `weekly_report.yml`, Fridays 21:30 UTC); chart labels in R; `list_instruments.py` (BFG account trades 123 instruments, 15 index CFDs, no stock CFDs).
+- Research done: XND options unsuitable at this account size (forecast annual R strongly negative for long, short and spread; contract granularity; CFD better for this agent); long-term yearly trend rule vs buy-and-hold FAIL (`longterm/`, labels fixed, results identical); legal and tax questions answered in general terms only (not legal or tax advice).
+- Record fixes: GLM Round G was missing from the repo copy and is now inserted; GPT6 replies saved verbatim; the pre-FOMC weakening paper is Kurov, Wolfe and Gilbert, Finance Research Letters 40 (2021) 101781 (not the JFQA 2019 paper).
+- Still open for Monday: the checklist above (OANDA runs resumed, reconcile `trade_closed`, clock-based time exit fix, ledger audit, Family A pre-run checks and the single run, switch-on of compounding after reconciliation).
