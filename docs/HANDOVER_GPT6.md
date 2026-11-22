@@ -58,3 +58,8 @@ Two proposals (P1 NFP+CPI announcement-day long; P2 pre-holiday long), third slo
 (e) Feasible: 1/2 each - by its own arithmetic neither is testable above about 35 bp.
 Best proposal 8/10 (P2), +1 calibrated, -1 for the unhedged wrong venue = 8/10.
 Overall: more concrete and more complete than GPT6's reply, but with the sloppiest sourcing; it caught nothing wrong in itself while stating a wrong venue with confidence. Independently converged with GPT6 on the macro-announcement premium and with Claude on rejecting overnight and turn-of-month.
+
+### Response-time log (added 22 Nov 2026)
+Times are when Joe pasted the reply to Claude (UTC = London in November), so they are upper bounds on the reviewer's own time. From now on each block records: prompt sent, reply received, elapsed.
+- Ideas round 1 prompt sent to both: about 00:16-00:17. GPT6: first reply (could not open the file) 00:17; full ideas reply received 00:21 after the text was re-sent at about 00:20 (about 1-5 minutes). GLM: reply received 00:33 (about 17 minutes). Claude: committed its own set at 00:15 (before the prompt went out).
+- Earlier sessions: GPT6 first review sent 00:11 about 7 minutes after the prompt at 00:04-00:10 (approximate); GLM rounds F and G not timed.
