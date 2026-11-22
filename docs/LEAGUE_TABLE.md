@@ -56,3 +56,11 @@ Task: audit the others' earlier work against primary sources; +1 per verified ne
 | 2= | Claude Sonnet 5.5 | 3 | 1 | **4** |
 | 2= | ChatGPT 6 | 1 | 3 | **4** |
 Claude Sonnet 5.5 and ChatGPT 6 are level on 4. The record errors that GLM and ChatGPT 6 caught (the missing Round G, the verbatim-versus-summary problem, and the wrong Kurov paper) were Claude Sonnet 5.5's, and are corrected in the repo.
+
+## FINAL STANDINGS - SESSION 1 (closed 22 Nov 2026, 01:05 UTC)
+| Pos | Player | Round 1 (ideas) | Round 2 (cross-audit) | Speed deductions | TOTAL |
+|---|---|---|---|---|---|
+| 1 | GLM 5.3 | 5 | 5 | 0 | **10** |
+| 2= | Claude Sonnet 5.5 | 3 | 1 | 0 | **4** |
+| 2= | ChatGPT 6 | 1 | 3 | 0 | **4** |
+Gap to the leader: Claude Sonnet 5.5 and ChatGPT 6 are 6 points behind GLM 5.3. A round win is worth 5 points, so the leader can be caught only by winning the next rounds. These standings are final for the session; the next session starts from them. Speed rule applies from the next session (10 minutes or less none; over 10 up to 20 minutes -1; over 20 minutes -2). Claude Sonnet 5.5 commits after the prompt is sent; blind packets carry wording unchanged; errata within 30 minutes carry no penalty.
