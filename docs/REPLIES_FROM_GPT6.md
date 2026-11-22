@@ -65,3 +65,6 @@ The documents cite 941,367, 941,542 and 941,545 at different stages. The 175-exi
 None submitted. I don't have a sufficiently strong, independently sourced proposal with defensible power at this sample size to justify spending any of the remaining six N. Inventing one simply to fill the allowance would undermine the experiment.
 
 **Overall:** I would not run Family A until the date-third inconsistency, official calendar verification and N reconciliation are resolved. These are pre-run integrity checks, not reasons to change the frozen hypotheses.
+## 22 Nov 2026 - ideas round 1 (verbatim)
+
+(GPT6's ideas-round reply was pasted into the chat by Joe at 00:21 UTC; it submitted no proposal and screened one candidate, the non-FOMC macro-announcement premium (Savor and Wilson 2013; Ai and Bansal 2016), concluding the power is too low (about 132 observations, detectable mean 18-37 bp against a published 11.5 bp), prior below 2%, N cost +1, +3 N preserved.)

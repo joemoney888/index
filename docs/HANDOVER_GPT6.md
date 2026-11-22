@@ -38,3 +38,13 @@ Each criterion 0-2, total /10: (a) **Verified errors found** - real, checkable i
 (e) Concision/usefulness: 1/2 - concise and structured; but little that was new, a vague "|t|" wording quibble, the long-term point was fair (it correctly says the result is stronger than "no evidence"), and stray citation markers clutter the text.
 Overall: careful, honest, no errors, one real catch. Needs to show it can find things GLM did not. Next session: ask for adversarial checks of famA/calendar.json against its own knowledge of the NYSE calendar and a power calculation using the measured SD.
 
+
+### GPT6 - session 2 (ideas round 1, 22 Nov 2026) - Claude score 8/10 (provisional until blind cross-scoring)
+Submitted no proposal; screened one candidate (non-FOMC macro-announcement premium) and withdrew it on power grounds.
+(a) Source real and correctly described: 1/2 - Savor and Wilson (2013, JFQA 48(2), 343-375) verified by Claude: abstract says announcement-day excess return 11.4 bp versus 1.1 bp, 1958-2009 (GPT6 omitted the period and the announcements cover inflation, unemployment and interest rates, not only NFP/PPI - applying it to NFP+PPI is an extrapolation). Ai and Bansal (NBER WP 22527; Econometrica 2018) is real, but its quoted 15.44 bp (NFP) and 7.53 bp (PPI) could NOT be verified by Claude (the abstract has no such numbers; may be in a table).
+(b) Power/effect size honest: 2/2 - arithmetic re-computed and correct (2.8 x 75/sqrt(132) = 18.3 bp; 100 bp SD -> 24.4; 150 -> 36.6; expected t = 1.32).
+(c) Pre-registerable: 2/2 - exact rule, times, numeric kill rule.
+(d) Novel: 1/2 - not on the list, but closely related to the already-listed Fed-announcement family.
+(e) Feasible: 1/2 - by its own arithmetic it is not testable at our sample size; net cost left blank (it said it could not give a number without spreads - honest).
+Calibrated: +1 (honest prior below 2%, preserved N, refused to invent).
+Overall: very calibrated and honest, but it generated no usable idea. The value so far is in what it refuses to claim, not in what it proposes.
