@@ -2,7 +2,7 @@ import csv,random,math,sys
 R=list(csv.DictReader(open('data.csv')))
 y=[int(r['year']) for r in R]; s=[float(r['spx'])/100 for r in R]; b=[float(r['bill'])/100 for r in R]; bo=[float(r['bond'])/100 for r in R]
 def tr(cost):
-    out=[];prev=1;
+    out=[];prev=(s[0]>b[0]);
     for i in range(len(y)):
         if i==0: out.append(None);continue
         inn=s[i-1]>b[i-1]

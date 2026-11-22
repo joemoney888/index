@@ -3,9 +3,11 @@ Strategies (decide at end of year t-1 using only year t-1 and earlier, earn year
  BH   : 100% stocks.  6040: 60% stocks/40% bonds rebalanced yearly.
  TR   : stocks if prior-year stock return > prior-year T-bill return, else T-bills (crude yearly trend rule, one parameter-free rule).
 Cost: 0.10% of portfolio per switch for TR (0.50% as sensitivity). BH/6040 free.
-Claim to test: TR beats BH on CAGR. Pass only if TR CAGR - BH CAGR > 0 AND stationary block-bootstrap (block 5, 10,000 draws, seed 1) 95% CI of mean annual difference excludes 0 AND same sign in both halves (1928-1976, 1977-2025).
+Claim to test: TR beats BH on CAGR. Pass only if TR CAGR - BH CAGR > 0 AND stationary block-bootstrap (block 5, 10,000 draws, seed 1) 95% CI of mean annual difference excludes 0 AND same sign in both halves (first half 1929-1976, 48 observations; second half 1977-2025, 49).
 Otherwise: no evidence TR beats BH. Report also drawdown/Sharpe (descriptive only). N +1 (counts against the +6 cap).
 
 ## RESULT (run once, 21 Nov 2026; run.py, data.csv)
 TR CAGR 6.8% vs buy-and-hold 9.7% (diff -3.0 pts; -3.1 at 0.5% cost); bootstrap 95% CI of the mean annual difference (-6.3, -1.4) pts, entirely below zero; worse in both halves (-2.8, -3.1). Verdict: FAIL, no evidence the yearly trend rule beats buy-and-hold; it was reliably worse on return. Descriptive: max drawdown TR -36% vs BH -65% vs 60/40 -40%; Sharpe TR 0.31, BH 0.42, 60/40 0.44. 60/40 CAGR 8.2%.
 Caveats: yearly data only (97 observations, one rule), one market (US, survivorship of the winning country), valuation tilt NOT tested (table has no valuation data), daily 200-day rule NOT tested.
+
+EDITORIAL (22 Nov, after GLM round-2 audit; results unchanged): half labels corrected to 1929-1976 and 1977-2025 (the first decision year is 1929, 1928 only seeds it); run.py now seeds the pre-sample state from 1928's own signal instead of assuming in-market (latent only: with 1928 stocks +43.81 > bills 3.08 no cost was ever charged). Re-run output identical.
