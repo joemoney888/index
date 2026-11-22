@@ -89,3 +89,26 @@ Repo a284c22. Read: the round-1 file, notes, spec v1.1, backlog. Other reviewers
 
 ## Recommendation
 Priority unchanged: Family A, then the Fed family (+2) if the program continues, write-up by 2026-12-19. P1/P2 are the Fed family's economic class (scheduled-event/seasonal risk premia): if P1 is registered, register it INSIDE the Fed family — shared Bonferroni, pooled report — never both independently. Spending the whole +3 on my two is not justified by 4-5% priors. Ready to blind-score the other sets when asked.
+
+---
+
+# Ideas round 1 (cont.) — GLM errata and blind cross-scoring (22 Nov 2026)
+
+## Errata to my own round-1 set (sealed text above unchanged)
+Joe's audit is correct: four journal names wrong. Corrections, each verified today against publisher/RePEc/NBER/JSTOR pages before writing:
+1. Savor & Wilson 2013 is **Journal of Financial and Quantitative Analysis 48(2), pp. 343-375** (not "Journal of Finance 2013 or 2014"). Verified figures: mean announcement-day excess return 11.4 bp vs 1.1 bp on all other days, 1958-2009 — my effect description ("+10-15 bp vs ~0") was right; the journal was not. Note for the record: my first memory-check today said "RFS 2013" — also wrong. Correct only from a verified source, never from memory.
+2. Ariel 1990 is **Journal of Finance 45(5), pp. 1611-1626** (not JFQA 1990).
+3. Lakonishok & Smidt 1988 is **Review of Financial Studies 1(4), pp. 403-425** (not JFE 1988).
+4. Lucca & Moench is **Journal of Finance 70(1), 2015, pp. 329-371** (not AER 2015). Round F's "JF 2011" had the right journal and only the wrong year (2011 = FRBNY Staff Report no. 512); my round-1 "correction" replaced a right-journal/wrong-year citation with a wrong journal, presented as a correction. The "— verify" hedge cannot carry an assertion framed as a correction. The 8/10 is fair, arguably generous; no appeal.
+Re-verified correct as cited: Lou-Polk-Skouras JFE 2019; Acharya-Johnson JFE 2007; Gao-Han-Li-Zhou JFE 129(2) 2018 (round G). No invented citations. No proposal arithmetic changes (P1 power at the verified 11.4 bp: 3%).
+
+## Blind cross-scoring (Set X is mine; scored Y and Z only; no authorship guesses)
+
+### Set Y — 9/10 (best proposal 8 + 1 calibrated)
+- Y1 overnight 8/10: (a) 1 — paper real, authors/title right; journal unresolved in the set ("Journal of Investing or similar; unsure"); correct: Journal of Asset Management 12(2), pp. 132-145 (verified). (b) 2 — SE 60/√1400 = 1.6 bp, detectable 4.5 bp, correct; but "costs 2-3 bp so needs net +1 bp" conflates the kill floor with the t-gate: passing t>=2.8 needs net 4.5 bp ~ gross 7 bp/night. (c) 2 — exact rule, numeric kill. (d) 1 — unregistered, but rejected in writing in round F with near-identical arithmetic. (e) 2 — feasible; freeze the financing rate (incl. weekend) pre-run.
+- Y2 pre-FOMC 7/10: (a) 2 — JF 70(1) 2015, ~49 bp/24 h, 1994-2011, weaker since (Kurov et al. 2020); verified. (b) 1 — SD ~80 bp is session-scale; a 24-hour NAS100 hold is ~120-150 bp (estimate) → SE ~19-24 bp, detectable ~51-66 bp, power at the documented 49 bp ~25-45%; the stated "detectable about 30 bp" is ~2x optimistic. (c) 2. (d) 0 — this IS the Fed family's pre spec, which the round prompt banned repeating; a same-class new-event proposal would earn 1-2, but this is the identical registered plan. (e) 2.
+- Y3 turn-of-month 8/10: (a) 2 — RFS 1(4) 1988, verified. (b) 2 — SE 250/√66 = 30.8 bp, detectable ~86 bp; honest, and the set says so. (c) 2. (d) 1 — round-F written rejection. (e) 1 — multi-night hold; no financing/spread cost model stated; "net" undefined until frozen.
+Calibration +1: priors 5/10/3, Y3 self-discounted, Y2 decay flagged. If the rubric's "misdescribed scores 0" letter is applied to Y1's unresolved journal, the set stays 9 (Y3 becomes best).
+
+### Set Z — no proposals; formula 1/10 (0 + 1 calibrated); the number is not comparable to non-empty sets
+The withdrawal is the honest outcome the prompt invited, and the screening is competent. Arithmetic verified: 2.8 x 75/√132 = 18.3 bp; 24.4 at SD 100; 36.6 at SD 150; expected t 1.32 at 11.5 bp — all correct. Citations: Savor & Wilson JFQA 48(2) 2013, 11.4 bp vs 1.1 bp, 1958-2009 — verified exactly; Ai & Bansal NBER WP 22527 ("Risk Preferences and The Macro Announcement Premium", 2016) — real (NBER); the 15.44/7.53 bp figures unverified (PDF not retrievable from here). Prior <2% and +3 N preserved: calibrated +1. One factual error: "no spread data" — our 5-minute bars carry per-bar spreads; the 08:25 slot median is a legal non-decisional cost input under the Family A checklist convention (spread sanity by half-hour slot), so the cost could have been bounded from data already held. The withdrawal stands anyway on power: their own expected t ~1.3. An honest empty set ranks above invented proposals; the 1/10 is a formula artifact, not a quality rank.
