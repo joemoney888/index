@@ -68,3 +68,8 @@ None submitted. I don't have a sufficiently strong, independently sourced propos
 ## 22 Nov 2026 - ideas round 1 (verbatim)
 
 (GPT6's ideas-round reply was pasted into the chat by Joe at 00:21 UTC; it submitted no proposal and screened one candidate, the non-FOMC macro-announcement premium (Savor and Wilson 2013; Ai and Bansal 2016), concluding the power is too low (about 132 observations, detectable mean 18-37 bp against a published 11.5 bp), prior below 2%, N cost +1, +3 N preserved.)
+
+## 22 Nov 2026 - blind cross-scoring of sets X, Y (verbatim summary; Z was its own and not scored)
+
+Set X: X1 9/10, X2 9/10 (set 10/11: best 9 + 1 calibrated); sources confirmed (Savor and Wilson, JFQA 2013; Ariel, Journal of Finance 1990); SE/MDE arithmetic right (140/sqrt(128)=12.37 bp, MDE 34.6; 85/sqrt(48)=12.27, MDE 34.4); weakness: a daily announcement premium does not establish an intraday NAS100 CFD edge; cost estimate unverified.
+Set Y: Y1 6/10 (Kelly and Clark is in the Journal of Asset Management 2011, not Journal of Investing; SE 1.60 bp, MDE 4.49 bp right; ETF overnight does not establish CFD returns after spreads and financing; overnight already rejected in this round), Y2 7/10 (Lucca and Moench JF 2015 correct; 80/sqrt(40)=12.65 so MDE 35.4 bp, not 30; repeats the excluded Fed family), Y3 7/10 (Lakonishok and Smidt RFS 1988 correct; 250/sqrt(66)=30.77, MDE 86.2 bp; repeats turn-of-month already rejected); set 7/10, no calibration bonus. Overall: X stronger; neither set gives a compelling reason to spend the remaining N.
