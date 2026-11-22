@@ -1,14 +1,14 @@
 # Family A - frozen specification v1.1 (21 Nov 2026) - NOT RUN YET
 Status: no prior evaluation of these rules exists; the same window has about 941k prior random-search looks (different rules, R-based, costed gates), a mild negative prior for LARGE effects only and no bearing on the 1-3 bp effects those gates could not detect. Runs only after (1) Monday housekeeping (ledger audit, stop_1min fix, first trade_closed reconciliation) and (2) GLM's sign-off or Joe's "run". Any change after this point is logged here with the reason and counts as a new spec.
-Family N cost: +3 (specs A5, A6a, A6b). Decision rule is shared and pooled (a deliberate, flagged deviation from the locked-exam discipline: these are fully frozen replications of claimed or published effects, nothing is estimated or tuned, and the window 2021-11 to 2026-11 post-dates the 2018 paper; the report must say so).
+Family N cost: +3 (specs A5, A6a, A6b). Decision rule is shared and pooled (a deliberate, flagged deviation from the locked-exam discipline: these are fully frozen replications of claimed or published effects, nothing is estimated or tuned, and the window 2021-05-20 to 2026-11-17 post-dates the 2018 paper; the report must say so).
 
 ## Common design
-- Instrument: NAS100 CFD, 5-minute bars (agent data, Nov 2021 to Nov 2026), about 1,300 days.
+- Instrument: NAS100 CFD, 5-minute bars (agent data, 2021-05-20 to 2026-11-17 after v1.1), about 1,400 days.
 - Clock: America/New_York via zoneinfo for every session time (daylight saving handled by the library, never by fixed UTC offsets). London times via Europe/London.
 - One position per day per spec. Entry = open of the named bar +/- half that bar's spread (adverse side). Exit = close of the named bar -/+ half that bar's spread (adverse side). No stop, no target, no financing (intraday).
 - A day is skipped if any bar needed by the spec is missing, or on US early-close days (any day with fewer than 78 five-minute bars between 09:30 and 16:00 New York). Report counts of days used and skipped per spec.
 - Metric: net return per trade in basis points (no R: there is no stop). Test: t-statistic with Newey-West standard error (5 lags) on the daily series.
-- Decision rule (all three must hold): (a) |t| >= 2.8 in the CLAIMED direction (positive net mean for the traded rule); (b) net mean >= +1.0 bp per trade; (c) positive net mean in at least 2 of 3 calendar thirds (2021-11 to 2023-06, 2023-06 to 2025-02, 2025-02 to 2026-11). Otherwise the spec is closed in writing.
+- Decision rule (all three must hold): (a) |t| >= 2.8 in the CLAIMED direction (positive net mean for the traded rule); (b) net mean >= +1.0 bp per trade; (c) positive net mean in at least 2 of 3 calendar thirds (T1 2021-05-20 to 2023-03-31, T2 2023-04-03 to 2025-01-31, T3 2025-02-03 to 2026-11-17; v1.1 dates). Otherwise the spec is closed in writing.
 - A significant effect in the OPPOSITE direction is recorded as a separate finding. It is never traded, tuned or re-tested in this family; any follow-up needs its own registration and N.
 
 ## Spec A5 - London-to-New-York session reversal (two-sided test, traded in the claimed direction)
@@ -41,3 +41,5 @@ Per spec: days used/skipped, mean net bp, t, per-third means, gross mean (before
 
 ## Pre-run checklist (none looks at outcomes; items 2-6 touch bar existence, spreads and second moments only)
 1. Ledger audit reconciled and N pre-created (941,542 -> 941,545) before the run. 2. Coverage report of 09:30-16:00 bars per day and the skip list (counts and dates only). 3. Early-close verification: on 3-4 calendar dates count the 13:00-16:00 bars (coverage only). 4. Spread sanity by half-hour slot including the 15:55 and 16:00 bars. 5. Optional, non-decisional: the SD of gross 15:30-16:00 daily returns, for the power statement only. 6. Timezone unit tests (09:30 NY = 14:30 UTC in January, 13:30 UTC in July; the bar closing at 16:00 NY exists on each sample day). 7. Freeze the runner (deterministic, committed), run ONCE, record per-spec verdicts against the frozen rule. Also check famA/calendar.json against the official NYSE page.
+
+8. Editorial (22 Nov, after GPT6 review): main-text dates on the first lines and the decision rule brought into line with item 4 above. No hypothesis, rule or threshold changed.

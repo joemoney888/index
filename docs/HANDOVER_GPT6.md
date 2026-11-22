@@ -30,4 +30,11 @@ Each criterion 0-2, total /10: (a) **Verified errors found** - real, checkable i
 - GLM round G: self-corrected the predictor; added power arithmetic; four blocking items on the spec that were all valid (predictor, previous-close definition, holiday list, exact dates).
 - DeepSeek (no longer used): found useful points but made errors Claude caught (favourable-fill tie-break advice, trades vs variants 941k, wrong N counting for control tests).
 
-(Next block: GPT6 first review, once received.)
+### GPT6 - session 1 (first review, 22 Nov 2026) - Claude score 8/10
+(a) Verified errors found: 1/2 - one genuine new defect (the main text of FAMILY_A_SPEC still carried the old 2021-11 dates and thirds, contradicting the v1.1 changelog; Claude confirmed and fixed it, editorial only). The calendar-verification and N-audit points were already on Claude's own pre-run checklist, so not new.
+(b) No false claims: 2/2 - nothing wrong found on checking; Test 4's exact bound 1-0.05^(1/20)=13.9% re-computed and correct; N arithmetic (941,367 + 175 = 941,542) correct. Minor: cited lines 9 and 28 (actually 11 and 34).
+(c) Arithmetic/power: 2/2 - correct, and it was right that the spec itself carries no full power calculation (that sits in the backlog/GLM round G).
+(d) Calibration: 2/2 - said it cannot certify the holiday list, labelled "no gross miscalibration" correctly, and declined to invent proposals to use up the N allowance (a good sign).
+(e) Concision/usefulness: 1/2 - concise and structured; but little that was new, a vague "|t|" wording quibble, the long-term point was fair (it correctly says the result is stronger than "no evidence"), and stray citation markers clutter the text.
+Overall: careful, honest, no errors, one real catch. Needs to show it can find things GLM did not. Next session: ask for adversarial checks of famA/calendar.json against its own knowledge of the NYSE calendar and a power calculation using the measured SD.
+

@@ -1,0 +1,67 @@
+# Replies from ChatGPT 6 (verbatim, pasted by Joe)
+
+## 22 Nov 2026 - first review
+
+I've opened `docs/HANDOVER_GPT6.md`. The central constraint is important: **BFG currently has no demonstrated trading edge**, and Family A is frozen but has not been run. The stated cumulative trial count is 941,542, with a maximum of six further trials and a 19 December 2026 write-up deadline.
+
+I'll now check the actual specifications and results against the five review questions. I will distinguish what the documents establish from what requires independent statistical judgement.&#x20;
+
+## **GPT-6 — first independent review**
+
+### **1. Verifiable errors and issues in Family A v1.1**
+
+**One definite specification inconsistency:** `FAMILY_A_SPEC.md` line 9 still defines the three calendar thirds using the old November 2021–November 2026 dates. The v1.1 changelog at line 28 replaces these with:
+
+- T1: 20 May 2021–31 March 2023
+- T2: 3 April 2023–31 January 2025
+- T3: 3 February 2025–17 November 2026
+
+The operative decision rule should explicitly use the revised dates, not leave the old dates in its main text. This is a documentation defect that could cause inconsistent reporting. 【turn368627view1】【turn665058view1】
+
+**Holiday calendar:** the list needs official verification before execution, as its own source note acknowledges. The 2021–23 NYSE announcement and 2024–26 announcement should be the authoritative comparison. The 2021–26 early-close list includes Thanksgiving dates, July dates and Christmas Eve dates; omissions would affect the 78-bar test and session returns. I cannot certify the JSON complete from its present contents alone. 【turn571022view2】【turn571022view0】【turn571022view1】
+
+**Timezone:** using `America/New_York` and `Europe/London` with `zoneinfo` is the correct approach. The specified unit tests are useful. I found no demonstrated DST calculation error in the written specification. 【turn571022view1】【turn665058view1】
+
+**Decision rule:** `|t| >= 2.8` plus positive mean is effectively a positive-direction test; the absolute-value notation is unnecessary and potentially confusing. More importantly, the main text's outdated thirds must be corrected. A6a's final definition correctly supersedes its earlier wording, but the old wording remains visible and could confuse an implementer.
+
+**Power:** the specification does not give a complete power calculation. With roughly 1,300 daily observations, the approximate detectable mean at a t threshold of 2.8 is:
+
+\\[ \text{MDE}\approx\frac{2.8\sigma}{\sqrt{n\_{\rm eff}}} \\]
+
+The effective sample size depends on serial dependence and Newey–West variance. Without the daily-return standard deviation and resulting effective precision, the claim that the design can detect the published effect is not established. The optional SD measurement in the checklist is therefore important, but it must not become a reason to change the decision rule after seeing results.
+
+### **2. Test 4: 0/20 false finalists**
+
+The conclusion **“no gross miscalibration detected” is justified**, not “the pipeline is calibrated”.
+
+Exact one-sided 95% upper bound:
+
+\\[ 1-0.05^{1/20}=13.9\\% \\]
+
+This does not prove a zero false-finalist rate, establish calibration across every strategy family, or establish that real data contains a tradable edge. The shuffle null also destroys within-day serial dependence and volatility-by-time-of-day structure. GLM's caveats are valid. 【turn571922view3】【turn368627view2】
+
+### **3. Long-term test**
+
+The design is reasonable for the narrow question: does this frozen annual trend rule beat buy-and-hold on the specified US annual-return dataset?
+
+The result is stronger than simply inconclusive:
+
+- TR CAGR: 6.8%
+- Buy-and-hold CAGR: 9.7%
+- Difference: approximately −3.0 percentage points
+- Bootstrap 95% CI: −6.3 to −1.4 percentage points
+- Both halves negative.
+
+Therefore, **“no evidence the yearly trend rule beats buy-and-hold” is correct but understates the result**. This particular rule performed worse in this sample. It does not prove all trend-following rules fail. The 97 annual observations, single market and one rule limit generalisation. 【turn571922view5】
+
+### **4. Biggest weakness in N**
+
+**N is not yet a fully auditable, consistently defined count of research opportunities.**
+
+The documents cite 941,367, 941,542 and 941,545 at different stages. The 175-exit search explains the 175 increase, but the ledger audit is still outstanding. There is also a distinction between counting individual variants, whole-family tests and analytical follow-ups. A conservative count is sensible, but it must be reproducible from an inventory, including the private-repository contribution and any overlaps. 【turn368627view3】【turn665058view1】【turn665058view0】
+
+### **5. New rule proposals**
+
+None submitted. I don't have a sufficiently strong, independently sourced proposal with defensible power at this sample size to justify spending any of the remaining six N. Inventing one simply to fill the allowance would undermine the experiment.
+
+**Overall:** I would not run Family A until the date-third inconsistency, official calendar verification and N reconciliation are resolved. These are pre-run integrity checks, not reasons to change the frozen hypotheses.
