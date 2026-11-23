@@ -73,3 +73,17 @@ Rule: nothing here is run until (a) the exact rule is frozen in writing, (b) the
 - Prior: about 10-15% that a positive net effect survives costs in this window.
 - Kill rule: net mean per trade <= 0 bp on validation, or day-clustered t < 2.0, or the sign differs between the validation year and the exam year, closes it. No re-tuning of the window boundaries, the horizon or the sign convention afterwards. A significant NEGATIVE effect (reversal) is recorded as a separate hypothesis (N +1), not traded in place.
 - Questions for the reviewer: (1) is the first-period definition (previous close to 10:00) the right replication, given that NAS100 CFD trades almost 24 hours and the "previous close" is the 16:00 New York cash close? (2) is it a problem that the cash-index close is not tradable on the CFD at exactly 16:00? (3) should the exam be the last 365 days, as in the rest of the project? (4) should the second predictor be registered now?
+
+## Idea 7 - Confidence-scored position sizing with fractional Kelly (Joe's idea, 23 Nov 2026)  [QUEUE ONLY: not registered, not tested, not scored, N +0]
+Origin: Joe's own idea, not from a video or paper. Recorded as written, unscored. Needs Joe's sign-off and a reviewer pass before anything is built or run.
+
+The idea: make the agent's risk per trade dynamic. A pre-declared confidence score sets the risk fraction (low confidence about 1% of account, high confidence higher), trades follow predictive statistical signals, and sizing follows fractional Kelly.
+
+Claude Sonnet 5.5 notes (first look, nothing run):
+1. Sizing multiplies an edge, it does not create one. With no demonstrated edge today (BFG about -0.01R/trade after realistic fills) larger size on "high confidence" trades only loses faster. Order of work: Family A first, then this only if a signal survives.
+2. Fractional Kelly: full Kelly for a bet with win probability p and payoff b (in R) is f = p - (1-p)/b, or mean R / variance of R for a general payoff. Practical use is a fraction (a quarter to a half of full Kelly) because the inputs are estimated with error, and a hard cap. Proposal for the cap: never above 2% of account per trade until there is at least a year of live results. The 10% figure in the original wording is far too large: a 7-loss streak at 10% risk costs about half the account.
+3. The testable part, which is cheap: the confidence score must be calibrated, meaning high-score trades really return more R than low-score trades. Design if ever registered: score built only from features fixed in writing beforehand (for example signal strength percentile, volatility regime), logged on paper at flat 1% sizing, then compared across thirds (top versus bottom) after the sample exists.
+4. Power (estimate): SD of R about 1.3. With 300 trades, 100 per third, detecting a top-versus-bottom difference at t of 2.8 needs about 2.8 x 1.3 x sqrt(2/100) = 0.51R. That is large, so a 300-trade sample would only confirm a very strong score. More trades or a bigger effect are needed.
+5. Related option with published support: volatility-targeted sizing (risk steady when the market gets wild). Verify the paper before relying on it.
+6. Cost to register: the score is a new feature set, so it counts as at least +1 N and must be frozen with its kill rule before any look. Not registered.
+Status: queued. Next step only if Joe asks.
