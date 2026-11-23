@@ -11,14 +11,11 @@ Demo/paper only; no manual trades on practice accounts; keep the Blue Falcon rep
 ## State of the science
 BFG has no demonstrated edge: backtest edge was an artefact of idealised trailing-stop fills; realistic about -0.01R/trade over 2 years (+0.013R last year). Entry line closed (B.1/C.2). Test 4 shuffle calibration: 0/20 false finalists. Long-term yearly trend rule vs buy-and-hold: FAIL (`longterm/`). XND options and longer-dated option structures: unsuitable at this size (costs and contract granularity). Family A (A5, A6a, A6b) spec v1.1 is frozen, NOT RUN: `docs/FAMILY_A_SPEC.md`, calendar `famA/calendar.json` (written from memory of the public NYSE calendar - must be checked against the official page before the run). N is 941,542 now, pre-create 941,545 before the Family A run. Cap: at most +6 further N, write-up by 2026-12-19. New rule ideas: reviewers may propose; run only after a second reviewer and Joe sign off.
 
-## Monday (23 Nov) checklist
-1. Confirm OANDA runs resumed (the account page had an outage 21 Nov).
-2. Reconcile the first `trade_closed` events against OANDA fills (assumption: realized_pl is in GBP).
-3. Fix the clock-based time exit in `ftmo/stop_1min.py` and re-run its three rows.
-4. 941,367 ledger audit.
-5. Family A pre-run checklist (no outcome looks): ledger/N pre-create, bar coverage, early-close verification, spread sanity, timezone unit tests, check calendar against the NYSE page, freeze the runner, run ONCE, record verdicts.
-6. When ready, switch on optional compounding sizing: repo variables `INDEX_COMPOUND=true` and `INDEX_COMPOUND_START=<ISO timestamp>` (default off; code in `index_run.py` and `agent/index_live.py`; log it in `docs/NOTES_FOR_GLM.md`).
-7. Grade GPT6's first review in `docs/HANDOVER_GPT6.md` (scoreboard).
+## Monday (23 Nov) checklist - DONE items 1-4 (details in docs/HOUSEKEEPING_2026-11-23.md)
+1. DONE: OANDA runs green. 2. DONE: found and fixed the trade_closed logging bug (CSV quoting); first 8 closed trades reconciled; realized_pl is GBP. 3. DONE: stop_1min.py bar-count time exit, results unchanged. 4. DONE: ledger recount 943,542 vs 941,542 (TREND run 2,000), bar unchanged; data-gap scan found 3 unusual days (2022-05-04, 2022-05-12, 2026-02-04).
+5. OPEN: Family A pre-run checklist (no outcome looks): decide the amendment proposal first (docs/FAMILY_A_AMENDMENT_PROPOSAL.md, option A or B; external NAS100 data held in the PRIVATE repo, sealed 2016-11-15 to 2021-05-18), ledger/N pre-create, bar coverage, early-close verification (calendar from the NYSE page), spread sanity, timezone unit tests, freeze the runner, run ONCE, record verdicts.
+6. OPEN, needs Joe: switch on optional compounding sizing: repo variables `INDEX_COMPOUND=true` and `INDEX_COMPOUND_START=<ISO timestamp>` (default off; log it in `docs/NOTES_FOR_GLM.md`).
+7. DONE earlier: GPT6's first review graded. Session 2 league: data round done (ChatGPT 6 5, GLM 3, Claude Sonnet 5.5 1).
 
 ## Things built recently (22 Nov)
 Weekly R-only report: workflow `weekly_report.yml` in the private repo (Fridays 21:30 UTC), script `report/eod_report.py`, output `reports/weekly/<date>/` (weekly and daily total R for both agents; no pound figures). Chart labels in R (`index_chart.py`, `agent/review.py` in the private repo). `list_instruments.py` read-only lister (the BFG account trades 123 instruments: 34 CFDs, 21 metals, 68 currencies; 15 index CFDs).
