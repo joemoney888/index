@@ -297,3 +297,49 @@ Scored on content only; I make no attribution for Sets P and Q.
 2. **Kibot "45 days download access (then back up your files)" — wrong.** Download access lasts one year from the last purchase and downloaded files are kept permanently; 45 days is the free API window for new customers and the daily-update period (then quarterly through the first year).
 3. **FirstRate "bundle updates approx $60-$100 per month" — imprecise.** Verified today: complete bundle $79.95/month; single tickers (SPY, SPX) $99.95 per YEAR. The top of my range folded an annual figure into a monthly range.
 4. Minor: my "FirstRate licence unverified (404)" — the working URL is /about/license (the link Set Q gave); correctly tagged unverified at the time, but the terms were findable and I missed them.
+
+
+---
+
+## GLM idea-round reply (received ~20:28 UTC 23 Nov; prompt sent ~20:22 UTC; about 6 minutes, inside the 10-minute rule). Unscored side round. Verbatim.
+
+(est.) = estimate; verified = checked earlier in this project; memory = confident, not re-verified.
+
+## A. Open ideas
+
+1. **Idea 1 variants (ORB fade / pullback)** — **No.** Mirror of a rule closed at t 2.45 on the same ~1,370 days; power fine (≈3 bp/trade, est.), but a re-look at seen data with a failed prior.
+2. **Ideas 2-4 (FVG entry, cross-index divergence, liquidity sweep)** — **No.** Clean free 1-minute data only 2013-2020 (≈2,000 days); power fine (≈2 bp/trade, est.); nil published prior.
+3. **Idea 7 (fractional Kelly)** — **No as a test**: sizing multiplies an edge, ours is −0.01R/trade, nothing falsifiable to register.
+4. **Idea 8 (options vs CFDs)** — **No as a registered test.** Documented premium, but a small CFD account has no options infrastructure; CBOE's free BXM/PUT/CLL indexes allow a zero-N descriptive check.
+5. **Idea 9 (constituent pre-market → index open)** — **No.** Futures/CFDs already embed constituent moves ~24 h; AAPL adds nothing NQ does not show; no data anyway.
+6. **Idea 10 (200-day trend)** — **No for alpha.** ~40-60 independent regime switches in 76 years → detectable ≈ 4-6 pp/regime (est.) — underpowered; post-1990 decay (unverified).
+7. **Idea 11 (valuation tilt)** — **No.** Published predictor works at 10-year horizons (Campbell & Shiller 1998, memory); ≈15-20 independent episodes since 1928 — hopeless power.
+8. **Idea 12 (vol-targeted sizing)** — **No, underpowered.** Published support (Moreira & Muir 2017, memory), but market effect ≈ 4 bp/day (est.) vs ≈9 bp/day detectable.
+9. **Idea 14 (reopen 2-4, longer history)** — **No.** Gappy pre-2013 data, same nil priors.
+10. **Idea 16 (cTrader bot)** — **No**: infrastructure goal, not a hypothesis.
+
+## B. Three new proposals (each +1 N; all three use the whole remaining +3)
+
+**B1. Turn-of-month daily long** (revived from my Round-1 rejects — free daily data fixes that power problem). Long from the close of the second-to-last trading day through the close of the third trading day of the next month. Source: Lakonishok & Smidt, RFS 1(4) 1988 (verified): TOM days carry an outsized share of monthly returns. Free Stooq daily SPX (verified reachable; start year unverified). n ≈ 4 × 912 ≈ 3,650 TOM days; SD ≈ 120 bp/day (Damodaran 19-20% ÷ √252, est.) → detectable ≈ **5.6 bp/day gross, ≈7.6 bp net** of ~2 bp/day costs. Powered; recent-decade effect unverified, likely near the floor — coin flip.
+
+**B2. Announcement-day premium, daily** (my Round-1 P1, now powered). Hold SPX500 long prior-close-to-close on CPI, NFP, retail-sales and FOMC days. Source: Savor & Wilson, JFQA 48(2) 2013 (verified): ≈11.4 bp/day more on announcement days (1958-2009). Free Stooq daily; release dates from ALFRED vintage dates and federalreserve.gov (buildable, to validate before freeze). n ≈ 3,460 since 1990 → detectable ≈ **5.7 bp gross; net of ~3 bp costs, power ≈ 0.9** vs the published 11.4 bp. The only proposal whose published effect clears the net floor. Related to the closed post-announcement and parked pre-FOMC families; will be declared and family-corrected.
+
+**B3. Daily two-sigma reversal.** If the index closes ≤ −2% (≈2 SD), long at next open, exit next close; one-sided, opposite sign recorded, never traded. Source: Jegadeesh, J. Finance 45(1) 1990 (memory) — stock-level; index magnitude unverified. Free Stooq daily. n ≈ 900 two-sigma days since 1950, crisis-clustered → effective ≈550 → detectable ≈ **14 bp gross, ≈17 bp net**. Powered, weakest prior; distinct from BFG (daily horizon, frozen threshold), relation declared.
+
+## C.
+
+Test B2 first — the only idea whose verified published effect (11.4 bp/day) beats its net detectable floor, with a release calendar buildable before 19 Dec; a clean not-there is a documented result.
+
+### Claude's checks (23 Nov)
+- Stale statement: "all three use the whole remaining +3". Joe lifted the +6 cap at 09:51 UTC 23 Nov; each new test needs its own registration but there is no cap. N is 941,550.
+- Citations: Lakonishok & Smidt (RFS 1(4) 1988) and Savor & Wilson (JFQA 48(2) 2013, 11.4 bp vs 1.1 bp, 1958-2009) were verified earlier by GLM. Jegadeesh 1990, Campbell & Shiller 1998 and Moreira & Muir 2017 are from memory and not re-verified.
+- Arithmetic is estimate only: ~120 bp daily SD, ~3,650 TOM days, ~3,460 announcement days since 1990 are GLM's figures, not recomputed. Release dates (CPI/NFP/retail sales) would need building from ALFRED and checking before any freeze.
+- Overlap: B2 is related to the closed post-announcement family and the parked pre-FOMC F1; any registration must declare that.
+- Nothing registered; no test run.
+
+### Where the three reviewers stand (first test they would pick)
+| Reviewer | First pick |
+|---|---|
+| GLM | B2 daily announcement-day premium |
+| GPT6 | European-open window (23:30-03:30 NY) |
+| Claude | Idea 10/12 (200-day trend / vol-targeted sizing) |
