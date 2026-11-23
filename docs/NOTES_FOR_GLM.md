@@ -43,3 +43,8 @@ Plan: verify trade_closed against OANDA fills Monday, then set the two variables
 
 ## 2026-11-21 (night) - end-of-day report changed to R only
 `report/eod_report.py` (read-only) builds the EOD report from both event logs: no pound figures; weekly total R for Blue Falcon and BFG side by side in one chart, plus daily R for the last 10 days. R = realized P&L / risk at entry for the old agent (its logged risk_gbp); for BFG = (close - fill) x side / |fill - initial stop| from `trade_closed` + `order_placed`. BFG's R rows appear only once `trade_closed` events exist (first live run after 21 Nov); until the Monday reconciliation they are 0, not zero-result. Please check the R definition for BFG (trailing exits can end beyond +/-1R, which is correct).
+
+## 23 Nov 2026 - external NAS100 history found (Joe) and a stale-bar finding
+- A free Kaggle NAS100 5-minute history (2016-11-15 to 2025-10-01, broker CFD data) matches our OANDA bars on the overlap (return correlation 0.997 median month). Stored in the PRIVATE repo only, sealed as a holdout; see docs/FAMILY_A_AMENDMENT_PROPOSAL.md for options. Server time is Europe/Athens, not US daylight saving.
+- Our own OANDA NAS100 series holds a flat price (12,950.0) for about an hour on 2022-05-04 around 19:10 to 20:00 UTC while the external file moves about 3%. Needs a coverage-only scan for flat/stale stretches before Family A runs (counts and dates only).
+- Spec v1.1 is unchanged; nothing has been run on the older window.
