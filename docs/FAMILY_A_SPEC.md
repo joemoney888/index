@@ -43,3 +43,11 @@ Per spec: days used/skipped, mean net bp, t, per-third means, gross mean (before
 1. Ledger audit reconciled and N pre-created (941,542 -> 941,545) before the run. 2. Coverage report of 09:30-16:00 bars per day and the skip list (counts and dates only). 3. Early-close verification: on 3-4 calendar dates count the 13:00-16:00 bars (coverage only). 4. Spread sanity by half-hour slot including the 15:55 and 16:00 bars. 5. Optional, non-decisional: the SD of gross 15:30-16:00 daily returns, for the power statement only. 6. Timezone unit tests (09:30 NY = 14:30 UTC in January, 13:30 UTC in July; the bar closing at 16:00 NY exists on each sample day). 7. Freeze the runner (deterministic, committed), run ONCE, record per-spec verdicts against the frozen rule. Also check famA/calendar.json against the official NYSE page.
 
 8. Editorial (22 Nov, after GPT6 review): main-text dates on the first lines and the decision rule brought into line with item 4 above. No hypothesis, rule or threshold changed.
+
+## RESULT (23 Nov 2026, run once with the frozen runner, commit 3305a14; full table in famA/RESULT.md and RESULT.json)
+| Spec | n | net mean bp | t (NW5) | thirds T1/T2/T3 | Verdict |
+|---|---|---|---|---|---|
+| A5 London-to-NY reversal | 1,366 | -3.34 | -1.07 | -5.50 / -1.90 / -2.55 | CLOSED: fails all three rules |
+| A6a prev close to 10:00 predicts last half-hour | 1,368 | -1.70 | -2.09 | -3.19 / -1.22 / -0.63 | CLOSED: fails all three rules |
+| A6b 15:00-15:30 predicts last half-hour | 1,363 | +0.22 | +0.27 | +2.91 / -1.61 / -0.74 | CLOSED: fails all three rules |
+No opposite-direction effect reached |t| 2.8 (A6a is the nearest at t -2.09, which is NOT significant under the rule and is not to be pursued). Correlation of A6a and A6b daily series -0.03. Gross means (-2.93, -1.31, +0.60 bp) are also not positive enough to matter, so costs are not what killed them. Under Option A the sealed 2016-11-15 to 2021-05-18 window is NOT opened, because no spec passed. N is now 941,545 (943,545 if conservative). Honest reading: no detectable intraday session-timing effect of 1 bp or more in this CFD data over 2021-2026; the published 2018 momentum effect did not replicate here on this instrument and window.

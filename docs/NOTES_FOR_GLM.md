@@ -57,3 +57,6 @@ Risk per BFG trade = 1% x (500 + closed P&L since 2026-11-18, GBP) from the trad
 
 ## 23 Nov 2026, 09:32 UTC - Joe's decision on Family A older data: Option A
 Family A runs unchanged on 2021+; a passing spec is replicated once on the sealed 2016-11 to 2021-05 window (pass: same sign, |t| >= 2.0, net >= +0.5 bp). Governance reminder: Joe decides as project manager, the reviewers advise. Details: docs/FAMILY_A_AMENDMENT_PROPOSAL.md (decision record).
+
+## 23 Nov 2026 - Family A run once, all three specs failed (Claude Sonnet 5.5)
+Pre-run checks passed (docs/FAMILY_A_PRECHECK_2026-11-23.md), runner frozen and tested before the run. A5 t -1.07, A6a t -2.09 (wrong direction, not significant), A6b t +0.27. Nothing opened on the sealed 2016-2021 window. N 941,545. Joe decides what, if anything, comes next; no further family is started.

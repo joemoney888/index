@@ -27,7 +27,7 @@ Daily error review (08:41 Europe/London, read-only report); reminder 1 Dec 2026 
 Public repo `joemoney888/index`: `agent/` engine, `search/` ledgers and calibration, `ftmo/`, `forward/`, `famA/`, `longterm/`, `report/`, `docs/` (HANDOVER, NOTES_FOR_GLM, REPLIES_FROM_GLM, FAMILY_A_SPEC, IDEA_BACKLOG, HANDOVER_GPT6). Private repo: old agent, 5-minute data for 11 markets (NAS100 etc., 2021-05-19 to 2026-11-18), macro data (VIX, yields), weekly reports. Tests: `python -m pytest -q tests` (13 pass). Use the GitHub REST API (`gh api`), not GraphQL, from Claude sessions.
 
 ## Open decisions with Joe
-Test 5 (flip logging) skipped unless asked; optional idea 1 (N+1) and a Fed-announcement family (N+2) only after Family A; optional email/notification of the weekly report; whether to check XND spreads on an IBKR paper account (Joe would need to open it).
+Test 5 (flip logging) skipped unless asked; optional idea 1 (N+1) and a Fed-announcement family (N+2) only after Family A; optional email/notification of the weekly report; whether to check XND spreads on an IBKR paper account (Joe would need to open it). [UPDATE 23 Nov: Family A RUN and CLOSED, all three failed; see docs/FAMILY_A_SPEC.md RESULT]
 
 
 ## Session close, 22 Nov 2026 (01:05 UTC): what happened after the first version of this file
