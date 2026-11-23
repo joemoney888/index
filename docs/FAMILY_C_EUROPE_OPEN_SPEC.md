@@ -22,3 +22,6 @@ Sealed window 2016-11-15..2021-05-18 on the Kaggle 5-minute file (no spread colu
 Mean gross for the 23:30-03:30 window against the rest of the 24 hours, by third.
 
 Frozen. No parameter is tuned after seeing results. Runs once.
+
+## RESULT (run once, 23 Nov 2026)
+n 1,419 windows (14 skipped, missing bars). Gross +0.94 bp, net -0.25 bp, NW t -0.31; thirds net -0.80 / -1.24 / +1.29 bp. Rules A, B, C all fail. **CLOSED: no edge in the 2021-26 CFD data.** Replication not run (discovery failed). The published ~3 bp gross did not show up (0.94 bp gross, SE about 0.8 bp). Not a refutation of the paper's 2004-18 result, only of a tradable edge here and now.
