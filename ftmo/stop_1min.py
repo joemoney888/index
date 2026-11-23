@@ -11,7 +11,7 @@ mask = F.block_mask(d5["t"], ["nfp", "fomc"], 120, False, True)
 lo = int(np.searchsorted(d5["t"], t1[0] + 86400 * 2)); D = C.detail(P, d5, f, mask, lo, len(d5["t"]))
 def sim(row, U, trail=True):
     i = int(row[1]); side, e, risk = row[2], row[3], row[4]; a = risk / P["ks"]; tstart = d5["t"][i + 1]
-    j0 = int(np.searchsorted(t1, tstart)); jn = int(np.searchsorted(t1, tstart + P["H"] * 300))
+    j0 = int(np.searchsorted(t1, tstart)); jn = int(np.searchsorted(t1, d5["t"][i + P["H"]] + 300))      # time exit = end of the H-th 5-minute bar after entry, exactly like the engine (bar count), not tstart + H*300 seconds
     if j0 >= len(t1) or jn - j0 < 5: return np.nan
     hi, lw, op, cl, sp = d1["h"][j0:jn], d1["l"][j0:jn], d1["o"][j0:jn], d1["c"][j0:jn], d1["s"][j0:jn] / 2
     stop0 = e - side * risk; tgt = e + side * P["kt"] * a; best = e; level = stop0
