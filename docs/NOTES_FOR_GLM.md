@@ -54,3 +54,6 @@ Plan: verify trade_closed against OANDA fills Monday, then set the two variables
 
 ## 23 Nov 2026, 09:30 UTC - compounding position size switched ON (Joe's instruction)
 Risk per BFG trade = 1% x (500 + closed P&L since 2026-11-18, GBP) from the trade_closed events; right now 1% x 521.11 = GBP 5.21 (matches the account balance). Set in `.github/workflows/index.yml` as defaults (the Actions-variables API is blocked from Claude's side): repo variable INDEX_COMPOUND=false turns it off. Order events log `risk_gbp`. Effects on the tests: none (the backtests and Family A stay in R and are not compounded). R-based reports are unchanged. Next BFG trades (from about 14:30 UTC) will be the first sized this way.
+
+## 23 Nov 2026, 09:32 UTC - Joe's decision on Family A older data: Option A
+Family A runs unchanged on 2021+; a passing spec is replicated once on the sealed 2016-11 to 2021-05 window (pass: same sign, |t| >= 2.0, net >= +0.5 bp). Governance reminder: Joe decides as project manager, the reviewers advise. Details: docs/FAMILY_A_AMENDMENT_PROPOSAL.md (decision record).

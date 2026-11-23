@@ -1,4 +1,4 @@
-# Family A: proposal to use older data (DRAFT for reviewer comment, 23 Nov 2026). NOT adopted. Spec v1.1 stays frozen until Joe approves a version.
+# Family A: older data (23 Nov 2026). DECIDED by Joe (project manager) at 09:32 UTC: OPTION A. Spec v1.1 stays frozen and unchanged.
 
 ## What changed
 Joe found a free NAS100 5-minute CFD history (Kaggle, 15 Nov 2016 to 1 Oct 2025, same type of broker data as our OANDA feed). It is held in the PRIVATE repo only (research use; the prices are broker prices). Checks done (data quality only, no strategy returns): no duplicate timestamps; normal weekend/daily gaps; on the 2021-06 to 2025-09 overlap its 5-minute returns correlate 0.997 (median month) with our OANDA bars and prices agree within 0.07%. The raw timestamps are broker server time = Europe/Athens (UTC+2 winter, UTC+3 with EU daylight saving), converted to UTC. One month (2022-05) correlated 0.85 because OUR OANDA bars on 2022-05-04 are mostly missing between 18:35 and 22:00 UTC, with the few bars present frozen at 12,950.0 (a feed freeze around the FOMC announcement; the new file moves about 3% there). A full scan of our bars (docs/HOUSEKEEPING_2026-11-23.md) found only 3 such days in 5.5 years (2022-05-04, 2022-05-12, 2026-02-04) and no long flat runs anywhere.
@@ -25,3 +25,9 @@ Decision rule (|t| at least 2.8 in the claimed direction, net mean at least +1.0
 2. Is the pre-2021 spread assumption acceptable, or should the older window be restricted to a cost-free gross check?
 3. Should the replication count as N +3?
 4. Anything in the data-quality evidence above that you would check differently?
+
+
+## DECISION RECORD (Joe, 23 Nov 2026, 09:32 UTC)
+- Option A adopted: run frozen v1.1 once on 2021-05-20 to 2026-11-17. Only if a spec passes its registered rule, replicate that same spec ONCE on the sealed window 2016-11-15 to 2021-05-18. Replication pass rule (pre-registered now): same sign, |t| at least 2.0, net mean at least +0.5 bp. A failed replication means that spec is not confirmed.
+- Operating decisions taken by Claude Sonnet 5.5 as defaults inside Joe's decision (Joe may overrule): (1) pre-2021 spreads = the 2021+ median half-spread per 5-minute slot, with a x1.5 sensitivity report; (2) trial count: N is pre-created at +3 for the main run as planned; if the replication is run it is recorded as a second look at the same three hypotheses (+0 new specs, noted separately) and not as +3 new specs; (3) the 2016-2021 calendar of holidays and early closes is written from the official NYSE source before the replication, not from memory.
+- Governance: Joe decides as project manager; the reviewers (GLM, ChatGPT 6) and Claude Sonnet 5.5 advise. Reviewer input is requested where Joe asks for it; otherwise Claude Sonnet 5.5 proceeds with the default and records it.
