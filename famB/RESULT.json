@@ -1,0 +1,58 @@
+{
+ "spec": "docs/FAMILY_B_SPEC.md v1",
+ "data_sha256": "1ff22b6fa4c2d9f34d65b6b3cbe4a805a118ba7f631c1da777cf8607306eaa32",
+ "skips": {
+  "F1": 1,
+  "F2": 1,
+  "ORB_nosignal": 28,
+  "ORB_skipped_day": 13,
+  "ORB_bad_R": 0
+ },
+ "results": {
+  "F1": {
+   "n": 43,
+   "net_mean": 45.04446109551293,
+   "t": 2.951298500724552,
+   "thirds_net_mean": [
+    93.60141984796111,
+    30.16508798261961,
+    7.89852125935464
+   ],
+   "rule_a": true,
+   "rule_b": true,
+   "rule_c": true,
+   "PASS": true,
+   "opposite_t_le_-2.8": false
+  },
+  "F2": {
+   "n": 43,
+   "net_mean": -11.973444394582609,
+   "t": -0.5797157181253371,
+   "thirds_net_mean": [
+    -50.908461247529424,
+    22.372827304258276,
+    -4.603626608123331
+   ],
+   "rule_a": false,
+   "rule_b": false,
+   "rule_c": false,
+   "PASS": false,
+   "opposite_t_le_-2.8": false
+  },
+  "ORB": {
+   "n": 1340,
+   "net_mean": 0.07652764740628269,
+   "t": 2.447768761943225,
+   "thirds_net_mean": [
+    0.13610338209870598,
+    0.08419784564048251,
+    0.009130938845294916
+   ],
+   "rule_a": false,
+   "rule_b": true,
+   "rule_c": true,
+   "PASS": false,
+   "opposite_t_le_-2.8": false
+  }
+ }
+}

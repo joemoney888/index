@@ -1,6 +1,6 @@
 import sys, os, json
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "famA"))
-import numpy as np, pandas as pd, run
+import numpy as np, pandas as pd, importlib.util
+_sp = importlib.util.spec_from_file_location("runA", os.path.join(os.path.dirname(__file__), "..", "famA", "run.py")); run = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(run)
 
 def synth(effect, days=400, seed=1):
     rng = np.random.default_rng(seed); T=[];O=[];C=[];S=[]; px=10000.0

@@ -1,6 +1,6 @@
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "famB"))
-import numpy as np, pandas as pd, run
+import numpy as np, pandas as pd, importlib.util
+_sp = importlib.util.spec_from_file_location("runB", os.path.join(os.path.dirname(__file__), "..", "famB", "run.py")); run = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(run)
 
 def bars(days, drift_after_break=0.0, seed=0):
     rng = np.random.default_rng(seed); T=[];O=[];H=[];L=[];C=[];S=[]; px=10000.0
