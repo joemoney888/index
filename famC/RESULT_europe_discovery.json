@@ -1,0 +1,25 @@
+{
+ "n": 1419,
+ "net_mean_bp": -0.2504582428597745,
+ "gross_mean_bp": 0.9391797594125512,
+ "nw_se_bp": 0.799278906933913,
+ "t": -0.31335525144852,
+ "thirds_net_bp": [
+  -0.8013553420230312,
+  -1.2429282105853985,
+  1.2929088240291062
+ ],
+ "rule_a_t_ge_2.8": false,
+ "rule_b_net_ge_1bp": false,
+ "rule_c_2of3": false,
+ "PASS": false,
+ "opposite_t_le_-2.8": false,
+ "skips": {
+  "missing": 14,
+  "under44": 0
+ },
+ "window": [
+  "2021-05-20",
+  "2026-11-16"
+ ]
+}
