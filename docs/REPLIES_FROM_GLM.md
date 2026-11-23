@@ -222,3 +222,36 @@ Two candidates survived the source filter and died on arithmetic:
 Bottom line: an honest nothing. Priority unchanged: Family A first (after the Monday housekeeping); nothing sourced in Chinese, Japanese or Korean changes the +3 N allocation.
 
 Claude Sonnet 5.5 check (23 Nov 2026, 00:25 UTC): GLM's side round is recorded verbatim above, unscored (Joe's prompt called it a side round). Checked: Yuan, Zheng and Zhu, Journal of Empirical Finance 13(1), pp. 1-23, 2006 is real (RePEc, LSE and ANU records). The paper's abstract says full-moon returns are lower than new-moon returns by 3% to 5% per annum across 48 countries; GLM's 2-2.5 bp/day is the same order, slightly high, and does not change the conclusion (power far below the t>=2.8 bar). Two small notes: the authors are at the University of Michigan and the study is global, so it is not really an Asian or non-English source; and the gotobi item has no checkable source, which GLM stated plainly instead of inventing one. Result: honest nothing, N +0, no change to the Family A plan. GLM's answer to Step 1 (live search yes, CNKI full texts paywalled, will not use unverifiable sources) is accepted as stated; not independently tested.
+
+
+---
+
+# Data sourcing round 1 (23 Nov 2026) - GLM reply, verbatim (second session after Joe's restart; prompt resent 00:46 UTC, reply received about 00:49 UTC, roughly 3 minutes, no speed penalty)
+
+**Step 1 — what I can check (honest inventory)**
+
+Live search works; direct page fetch works partially. Verified NOW (this session): kibot.com (free-samples, buy and FAQ pages, incl. licence text), firstratedata.com catalog pages, databento.com GLBX.MDP3 dataset page, alpaca.markets data page, stooq.com download pages — via search snippets plus two full-page fetches. Failed NOW: Databento /licensing (404), FirstRate /license (404); in earlier rounds NBER/ScienceDirect PDFs failed. From MEMORY (marked "unverified" below): SPY start dates, Stooq intraday depth, Alpaca cutoffs, Yahoo limits, non-Kibot licences.
+
+**Step 2 — five sources, best first**
+
+1. **Kibot** — kibot.com/buy.html. 1-min bars; stocks back to Jan 1998 (verified for IBM; SPY start unverified), ES continuous futures full history; prices SEEN TODAY (22 Nov 2026): **ES 1-min full history $110; SPY+QQQ 1-min full history $125; custom orders from $19, one payment**. 45 days download access (then back up your files). LICENCE VERIFIED from FAQ: personal research and AI-assisted analysis fine, aggregate results shareable, but "**the data itself may not be shared, published or given to anyone else**" → we CANNOT commit it to the public repo. CSV, US Eastern timestamps; futures unadjusted with published roll dates. Distrust trigger: samples are regular-session only and index symbols are index prints, not tradable CFD prices — validate on the 2021+ overlap with our OANDA bars first.
+
+2. **Databento GLBX.MDP3** — databento.com/datasets/GLBX.MDP3. ES/NQ/YM futures, "since March 2017" (verified), MBP-1 schema gives best bid/ask — the only pre-2021 route to spread data (target 2). Pay-as-you-go historical rates; batch API; repo already has databento_pull.py, so plumbing exists. Cost per GB unverified; licence unverified (page 404; assume no redistribution). Distrust: usage-based bill can spike — price a query via their cost endpoint before buying; futures need roll handling.
+
+3. **FirstRate Data** — firstratedata.com. 1-min ETF/index/futures bundles, "25 years data" (their tagline); stock set back to Jan 2000 incl. SPY (verified page text); bundle updates "approx $60-$100 per month" (seen today); single-purchase price unverified; free sample files. US Eastern time. Licence unverified (404). Distrust: small vendor, no independent audit — overlap-check against OANDA 2021+ before use.
+
+4. **Alpaca free tier** — alpaca.markets/data. Free IEX-only 1-min bars for SPY/QQQ/DIA, "7+ years of historical data" (verified), ~200 requests/min, API key required (never commit keys). Reaches only ~2018-19; IEX-only bars have documented gaps (community reports verified). No spreads. Licence unverified; assume no redistribution.
+
+5. **Stooq** — stooq.com/db/h. Free bulk daily/hourly/5-min CSVs, no registration. Best as the daily 20+ year fallback (target 3); daily depth believed decades (exact starts unverified); 5-min history believed short/recent (unverified). Licence unverified — do not commit bulk data to the repo. Distrust: own adjustment conventions; very long index back-series partly reconstructed.
+
+Rejected: massive.com (serves Polygon.io's indices product; minute history only 1-2 years on $79/$199 tiers, seen today — too short); Yahoo (1-min 7 days, 5-min 60 days — memory, unverified); CBOE DataShop and CME DataMine (paid, prices unverified).
+
+**Honest bottom line:** nothing good and free exists for pre-2021 intraday index history. The practical move is ~$110-125 one-time at Kibot (deepest, clean licence terms verified) or Databento usage fees (2017+, futures, with bid/ask). Whatever we buy: cross-validate on the 2021+ overlap with our OANDA bars before trusting it — free, costs no N.
+
+Claude Sonnet 5.5 check (23 Nov 2026, 01:05 UTC), provisional, before blind cross-scoring:
+- Error found: Databento. GLM says GLBX.MDP3 history starts "March 2017 (verified)". Databento's own pages say the original MDP 3.0 history starts 21 May 2017 and that in December 2024 coverage was extended back to 6 June 2010 (blog "CME history extended to 2010"; the dataset catalogue shows "Since 2010", "Historical from $0.50/GB"). Pre-May-2017 data is based on the older FIX/FAST feed, which Databento flags as a caveat. So the claim was wrong, labelled "verified", and it understated the source: Databento reaches back to 2010, which is exactly the pre-2021 window we want. (Claude's sealed entry said "back to about 2010" and was right on this point.)
+- Corroborated: Kibot prices. GLM's $125 for SPY+QQQ 1-minute matches GPT6's independent reading ($125 example); GLM adds ES at $110 and custom orders from $19 with 45 days of download access. I could not open the Kibot page myself, so all Kibot prices and the licence quote remain unverified by me; the two replies agreeing is evidence, not proof. A secondary listing (NexusFi) shows Kibot minute history of 28 years, consistent with 1998.
+- Correct: databento_pull.py and a databento.yml workflow already exist in the public repo (so plumbing exists; nothing has been run for this).
+- Stated honestly: failed pages (Databento licensing 404, FirstRate licence 404), "unverified" tags on memory items, cost-check advice (price a query before buying) and the overlap check against the 2021+ OANDA bars before trusting any purchase.
+- Response time: about 3 minutes from the 00:46 resend, no penalty.
+Provisional score (rubric docs/DATA_ROUND_1.md): a 2, b 1 (Databento start date wrong), c 2, d 1 (a wrong claim labelled "verified"), e 2 = 8/10. No invented sources or prices found. Final scores come after blind cross-scoring.

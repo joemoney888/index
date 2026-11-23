@@ -28,3 +28,4 @@ Honest summary: I can name where to look; I cannot verify any of it. Whoever ver
 ## Response-time log (23 Nov 2026, UTC)
 - ChatGPT 6: prompt sent about 00:40, reply about 00:45 (about 5-6 minutes, no penalty; send time not logged exactly).
 - GLM 5.3: first session restarted by Joe; clock counted from the resend to the fresh session, sent 00:46 UTC (Joe's word "now" at 00:46). Reply time to be logged on arrival.
+- GLM reply received about 00:49 UTC (about 3 minutes from the 00:46 resend). Both replies are recorded verbatim with Claude checks in docs/REPLIES_FROM_GLM.md and docs/REPLIES_FROM_GPT6.md. Provisional: GPT6 9/10, GLM 8/10, Claude sealed entry not self-scored (to be scored blind). Final scoring pending.
