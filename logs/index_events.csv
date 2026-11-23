@@ -109,3 +109,4 @@ timestamp_utc,market,event,details
 2026-11-23T18:11:32Z,NAS100,move_stop,"{""trade"": ""288"", ""from"": 26982.2, ""to"": 26981.7}"
 2026-11-23T18:11:36Z,SPX500,move_stop,"{""trade"": ""292"", ""from"": 7282.2, ""to"": 7282.1}"
 2026-11-23T18:11:40Z,US30,move_stop,"{""trade"": ""296"", ""from"": 49841.2, ""to"": 49840.4}"
+2026-11-23T18:41:33Z,NAS100,move_stop,"{""trade"": ""288"", ""from"": 26981.7, ""to"": 26791.2}"
