@@ -12,7 +12,7 @@ def main():
     out = os.path.join(HERE, f"RESULT_{label}.json")
     if os.path.exists(out): sys.exit("already run once")
     ev = json.load(open(ev_path))["decision_days"]; years = sorted({int(e[:4]) for e in ev} | {int(e[:4]) - 1 for e in ev if e[5:7] == "01"})
-    d = load(dd, years); t = d["time"].astype("int64").to_numpy() // 10**9; o, c = d["open"].to_numpy(), d["close"].to_numpy()
+    d = load(dd, years); t = ((d["time"] - pd.Timestamp("1970-01-01", tz="UTC")).dt.total_seconds()).round().astype("int64").to_numpy(); o, c = d["open"].to_numpy(), d["close"].to_numpy()
     def first_open(ts0):                       # first bar in [ts0, ts0+300)
         i = np.searchsorted(t, ts0); return o[i] if i < len(t) and t[i] < ts0 + 300 else None
     def last_close(ts1):                       # last bar in [ts1-300, ts1)
