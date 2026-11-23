@@ -36,10 +36,20 @@ def log_closed_trades(client, count=50):
     """Record the REAL exit of every trade this agent opened (fill price, reason, bid/ask at the fill, P&L, financing) once, as a 'trade_closed' event, so live exits can be compared with the backtest.
     Read only; it never raises (a failure here must not stop trading)."""
     try:
-        text = open(LOG).read() if os.path.exists(LOG) else ""
+        ours, done = set(), set()      # parse the CSV properly: the details column stores JSON with doubled quotes, so a plain substring test never matches
+        if os.path.exists(LOG):
+            for r in csv.DictReader(open(LOG)):
+                try:
+                    d = json.loads(r["details"])
+                except Exception:
+                    continue
+                if r["event"] == "order_placed" and d.get("trade_id") is not None:
+                    ours.add(str(d["trade_id"]))
+                elif r["event"] == "trade_closed":
+                    done.add(str(d.get("trade")))
         for t in client.closed_trades_raw(count):
             tid = str(t.get("id"))
-            if f'"trade_id": "{tid}"' not in text or f"closed|{tid}" in text:
+            if tid not in ours or tid in done:
                 continue
             reason = fill = None
             ids = t.get("closingTransactionIDs") or []

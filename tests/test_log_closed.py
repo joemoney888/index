@@ -15,8 +15,8 @@ class Fake:
 
 def test_logs_only_our_closed_trades_once(tmp_path, monkeypatch):
     log = tmp_path / "events.csv"
-    log.write_text('t,m,order_placed,"{""trade_id"": ""6""}"\n'.replace('""', '"').replace('"{"trade_id": "6"}"', '{"trade_id": "6"}'))
     monkeypatch.setattr(index_run, "LOG", str(log))
+    index_run.log("NAS100", "order_placed", {"key": "k", "trade_id": "6"})      # written by the real logger, so the CSV quoting is the real one
     index_run.log_closed_trades(Fake()); index_run.log_closed_trades(Fake())
     rows = [l for l in log.read_text().splitlines() if "trade_closed" in l]
     assert len(rows) == 1 and "STOP_LOSS_ORDER" in rows[0] and "27618.6" in rows[0] and '"77"' not in rows[0]
