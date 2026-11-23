@@ -51,3 +51,6 @@ Plan: verify trade_closed against OANDA fills Monday, then set the two variables
 
 ## 23 Nov 2026 - Monday housekeeping done (see docs/HOUSEKEEPING_2026-11-23.md)
 1. Both agents ran green. 2. Bug found and fixed: trade_closed was never logged (CSV quoting); first 8 closed trades now logged, realized_pl is in GBP, gains and losses convert at different USD/GBP rates (about 1% markup, unconfirmed). 3. stop_1min.py time exit fixed to bar count; results unchanged. 4. Ledger recount 943,542 vs documented 941,542 (difference 2,000 = TREND run); bar unchanged to 3 decimals. 5. Data-gap scan: 3 unusual days. Compounding sizing remains OFF pending Joe.
+
+## 23 Nov 2026, 09:30 UTC - compounding position size switched ON (Joe's instruction)
+Risk per BFG trade = 1% x (500 + closed P&L since 2026-11-18, GBP) from the trade_closed events; right now 1% x 521.11 = GBP 5.21 (matches the account balance). Set in `.github/workflows/index.yml` as defaults (the Actions-variables API is blocked from Claude's side): repo variable INDEX_COMPOUND=false turns it off. Order events log `risk_gbp`. Effects on the tests: none (the backtests and Family A stay in R and are not compounded). R-based reports are unchanged. Next BFG trades (from about 14:30 UTC) will be the first sized this way.
