@@ -41,3 +41,5 @@ Test 5 (flip logging) skipped unless asked; optional idea 1 (N+1) and a Fed-anno
 [UPDATE 23 Nov: Family B/ORB run; F1 promising but unconfirmed, F2 and ORB closed; N 941,548; +6 cap used. See docs/FAMILY_B_SPEC.md]
 
 [UPDATE 23 Nov: F1b A and B both failed; F1 not established; N 941,550]
+
+[UPDATE 23 Nov: F1 forward log added (forward_fomc.py, docs/FORWARD_F1.md); no orders; first event 9 Dec 2026]
