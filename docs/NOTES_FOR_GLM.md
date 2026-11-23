@@ -66,3 +66,6 @@ F1 pre-FOMC drift passed 2021-2026 (+45 bp, t 2.95) but FAILED its frozen replic
 
 ## 23 Nov 2026 - F1b registered (cap lifted by Joe)
 N pre-created 941,549. New look needs unseen data (2010-2016 or forward). See docs/F1B_REGISTRATION.md: even with 44 pre-2016 events it can only confirm a 45 bp effect, not 18 bp. Waits for a data source chosen by Joe.
+
+## 23 Nov 2026 - F1b A and B run (Claude Sonnet 5.5)
+A (30 events 2013-16): -12.3 bp, t -1.27, fail. B (17 usable pre-2013 events; 2005-2009 had no data): -29.4 bp, t -1.35, fail. F1 not established. N 941,550. See docs/F1B_REGISTRATION.md.
