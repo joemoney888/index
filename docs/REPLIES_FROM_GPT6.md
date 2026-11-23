@@ -317,3 +317,35 @@ Claude Sonnet 5.5 check (23 Nov 2026, 00:55 UTC), provisional, before GLM's repl
 - Response time: prompt sent about 00:40 UTC, reply about 00:45 UTC, roughly 5-6 minutes, no speed penalty (send time was not logged exactly).
 Provisional score (Claude Sonnet 5.5, rubric docs/DATA_ROUND_1.md): a 2, b 1 (Kibot figures unverified, index count and start differ between pages), c 2, d 2, e 2 = 9/10. Invented sources or prices found: none. Final scores come after GLM's reply and blind cross-scoring.
 Found while checking, NOT part of Claude's sealed entry and not scored: Cboe DataShop "Equity & ETF Quotes" lists 1-minute OHLC with underlying bid/ask for US equities and ETFs, history 2010 to present (datashop.cboe.com/equity-quotes; price not shown, "contact us"); Tick Data (tickdata.com) lists one-minute NBBO quote bars for US equities back to 2004, institutional pricing not checked.
+
+---
+
+# Data sourcing round 1: blind cross-scoring, ChatGPT 6 (23 Nov 2026, received 00:52 UTC; prompt sent about 00:51 UTC, about 1-2 minutes, no penalty; text as pasted, with table formatting and citation chips flattened)
+
+1. My set
+Set Q. My submitted answer identified Kibot and FirstRate Data as the two strongest sources.
+2. Scores for the other sets
+Set P — 5/10
+a. Real sources and links 2: Dukascopy, Alpaca, Polygon/Massive, Databento and FirstRate are real providers.
+b. Accurate details 0: Most coverage dates and free-tier claims are explicitly guesses. Alpaca's free plan is IEX, not delayed consolidated coverage.
+c. Licence 0: No licence terms are checked; personal-use and redistribution claims are unsupported.
+d. Honesty 2: Clearly labels the entire list unverified and admits no links or prices were checked.
+e. Fit 1: Several relevant leads, but no verified long-history source or useful price comparison.
+
+Set R — 5/10 after penalty
+a. Real sources and links 2: The named vendors and principal links are real.
+b. Accurate details 1: FirstRate's SPY start date of 3 January 2000 and index bundle's January 2008 start are confirmed. Databento's page could not be opened in my check.
+c. Licence 1: FirstRate's licence is now checkable and prohibits raw-data redistribution; Set R incorrectly leaves it unverified.
+d. Honesty 1: It distinguishes memory from verification, but some claims labelled verified are not supported by the links I could inspect.
+e. Fit 2: Strong shortlist: Kibot, Databento and FirstRate directly address the intraday-history requirement.
+Subtotal 7. Price penalty -2: The stated Kibot ES full-history price of $110 was not substantiated by the pricing page I checked. The current example prices shown are $135 for ES+NQ and $125 for SPY+QQQ. Final 5/10.
+
+3. What I verified
+- Opened the blind packet and scoring rubric directly from the repository.
+- Opened Kibot's catalogue, custom-order pricing and FAQ pages. The custom-order page displays the $125 SPY+QQQ and $135 ES+NQ examples, but labels its prices as of 9 October 2026.
+- Opened FirstRate's SPY and US-index catalogue pages and its licence. The licence permits publishing derived research but not redistributing raw data.
+- Opened Alpaca's market-data page and confirmed its free plan is IEX, with 7+ years of historical data and 200 API calls per minute.
+- Databento's dataset page was inaccessible in my check; Stooq returned a browser-verification page. Dukascopy's historical-data page opened, but I did not verify the specific index-CFD coverage claimed in Set P.
+4. Erratum to my own Set Q
+I described the Kibot example prices as checked on 23 November 2026; the page itself labels those example prices 9 October 2026. I should have reported that displayed date, not the date I accessed the page.
+(Table formatting and citation chips were flattened in this copy; wording otherwise as pasted.)

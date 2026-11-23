@@ -255,3 +255,45 @@ Claude Sonnet 5.5 check (23 Nov 2026, 01:05 UTC), provisional, before blind cros
 - Stated honestly: failed pages (Databento licensing 404, FirstRate licence 404), "unverified" tags on memory items, cost-check advice (price a query before buying) and the overlap check against the 2021+ OANDA bars before trusting any purchase.
 - Response time: about 3 minutes from the 00:46 resend, no penalty.
 Provisional score (rubric docs/DATA_ROUND_1.md): a 2, b 1 (Databento start date wrong), c 2, d 1 (a wrong claim labelled "verified"), e 2 = 8/10. No invented sources or prices found. Final scores come after blind cross-scoring.
+
+(Received about 01:00 UTC; blind-scoring prompt sent about 00:51 UTC, so about 9 minutes at most including paste delay, no speed penalty.)
+
+---
+
+# Data round 1: blind cross-scoring (GLM 5.3, 23 Nov 2026)
+
+## 1. Which set is mine
+**Set R.**
+
+## 2. Scores (rubric a-e, 0-2 each)
+
+### Set P — 6/10 (a 1, b 1, c 1, d 2, e 1)
+- **a 1**: All five vendors are real and relevant (Dukascopy, Alpaca, Polygon, Databento, FirstRate), but no links anywhere — nothing checkable, and the prompt asked for a checkable link per claim.
+- **b 1**: Databento "back to about 2010" is correct (I verified: GLBX.MDP3 coverage since 2010-06-06 UTC); FirstRate one-off 1-minute packages correct; Dukascopy free tick/1-minute index data genuinely exists (official Historical Data Export page, Forex/Commodities/Indices, CSV, tick to monthly). But Alpaca "from about 2016" is optimistic (Alpaca's own page says 7+ years, i.e. ~2018-19), and Polygon "free tier covers about 2 years" of minute bars is contradicted by Polygon's own site, which says "The free tier is end-of-day." All hedged "I believe", which limits the damage but does not make the details accurate.
+- **c 1**: Licence/redistribution addressed for only 2 of 5 (Dukascopy personal-use, Polygon bars redistribution — both plausible but unverified); nothing on Alpaca, Databento or FirstRate, which is the crux for a public repo.
+- **d 2**: Exemplary honesty: "Everything below is from memory and is UNVERIFIED: no link has been opened, no price checked", a "Not found by me" line, and the frank self-assessment that a verified list should score higher. No padding.
+- **e 1**: The right target list (Dukascopy index CFDs even match our exact instruments; Databento futures; a daily fallback named), but with no dates, prices or quality specifics it is a lead list, not a sourcing answer.
+
+### Set Q — 9/10 (a 2, b 1, c 2, d 2, e 2)
+- **a 2**: Every link opens and contains what is claimed: kibot.com/buy.html, /custom-order.html, /quality/update-timing-and-quality-checks.html; firstratedata.com/i/etf/SPY, /i/index/SPX, /about/license, /free-intraday-data. (The index-bundle page b/8 failed to convert in my fetcher twice, but the URL is right and its "115 major US indices" content is confirmed via search snippets.)
+- **b 1**: Exceptional density of exactly-verified specifics — Kibot 1-minute from 1998 and daily from 1962; continuous futures since September 2009 with bid/ask from 2009; top-50 ETF 1-min+bid/ask $680; all-futures continuous+individual 1-minute $820; SPY+QQQ $125 and ES+NQ $135 custom-order examples; free samples IBM/OIH (1-minute) and IVE/WDC (bid/ask); FirstRate SPY from 3-Jan-2000; SPX from 2-Jan-2008; $99.95 annual SPY updates; 115 US indices. One claim fails my checking: "one year of free intraday data for selected popular datasets, including SPY, QQQ, DIA and the SPX/NDX/DJI indices" — the free-data page, fetched twice, offers two-week samples for 686 tickers (SPY, DIA, IWM, VXX, SPX, VIX, DJI, NDX visible; no QQQ; no 1-year offer anywhere I could reach). If that offer exists on a page I could not open, b should be 2. Also unverified by me: $59.95/month index-bundle updates (the complete bundle is verifiably $79.95/month, so it is plausible).
+- **c 2**: Both licence calls verified against primary text. Kibot license.aspx: "The Data is for the Licensee's own internal use only", "will not resell or redistribute the Data", "will not be transferred to any other party" — exactly as Q stated, including the do-not-commit conclusion. FirstRate /about/license: perpetual, private use, raw data not redistributable, derivative works publishable — correct.
+- **d 2**: Prices dated, example quotes explicitly labelled as examples, "the initial purchase price was not visible... so it is unverified", "no evidence on the pages checked" for bid/ask, disclosed the Databento 502 and the sites not attempted, and an honest "no good free source" bottom line.
+- **e 2**: Directly hits all three priorities: pre-2021 1-minute history (1998/2000/2008/2009), a real spread route (the $680 bid/ask ETF package from 2009), and the free daily fallback — plus concrete quality notes (unfiltered tick prints, zero-volume bars omitted, roll conventions, validate against an exchange-grade source).
+
+No invented sources or prices found in either set; no -2 penalties.
+
+## 3. What I verified and what I could not
+
+**Verified today by direct fetch:** kibot.com buy, custom-order, licence and quality pages (all prices above, licence wording verbatim, "tick data kept as the exchanges sent it, unfiltered", gap checks/repairs, one-year download access); firstratedata.com SPY page (3-Jan-2000; $99.95/year), SPX page (2-Jan-2008; $99.95/year), licence page, free-data page (two-week samples, 686 tickers), complete-bundle page ($79.95/month updates; SPX 2008-01-02; 115 indices); databento.com GLBX.MDP3 (since 2010-06-06 UTC; pre-2017-05-21 from FIX flat files without capture timestamps; MBP-1 best bid/ask; all CME Globex instruments) plus the Dec 2024 "CME history extended to 2010" blog; alpaca.markets/data (free tier: IEX, 7+ years, 200 calls/min); dukascopy.com Historical Data Export (free, indices included); massive.com/Polygon ("The free tier is end-of-day"); search snippet "Continuous series since September 2009, individual contracts from April 2010" (Kibot Top-10 futures page).
+
+**Could not verify:** Kibot's exact day "27 September 2009" (September 2009 confirmed, the 27th not); FirstRate $59.95/month index-bundle updates and "ETF history from 2000 / futures from 2008"; FirstRate "one year free" claim (see above); FirstRate zero-volume-bar omission; Kibot's accuracy/completeness disclaimer (not on the quality page; possibly in the licence, unresolved); Dukascopy index CFD start dates and terms; Databento new-account free credit; Kibot Eastern-time default.
+
+## 4. Authorship
+Scored on content only; I make no attribution for Sets P and Q.
+
+## 5. Errata for my own set (Set R)
+1. **Databento "since March 2017 (verified)" — wrong.** The dataset page says coverage starts 2010-06-06 UTC (December 2024 extension; pre-May-2017 data originates from FIX/FAST flat files without capture timestamps). This understated a source I recommended: with MBP-1 bid/ask since 2010 it covers the entire pre-2021 window, not just 2017+. Confirms Claude's earlier check.
+2. **Kibot "45 days download access (then back up your files)" — wrong.** Download access lasts one year from the last purchase and downloaded files are kept permanently; 45 days is the free API window for new customers and the daily-update period (then quarterly through the first year).
+3. **FirstRate "bundle updates approx $60-$100 per month" — imprecise.** Verified today: complete bundle $79.95/month; single tickers (SPY, SPX) $99.95 per YEAR. The top of my range folded an annual figure into a monthly range.
+4. Minor: my "FirstRate licence unverified (404)" — the working URL is /about/license (the link Set Q gave); correctly tagged unverified at the time, but the terms were findable and I missed them.

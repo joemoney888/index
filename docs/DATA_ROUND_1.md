@@ -29,3 +29,21 @@ Honest summary: I can name where to look; I cannot verify any of it. Whoever ver
 - ChatGPT 6: prompt sent about 00:40, reply about 00:45 (about 5-6 minutes, no penalty; send time not logged exactly).
 - GLM 5.3: first session restarted by Joe; clock counted from the resend to the fresh session, sent 00:46 UTC (Joe's word "now" at 00:46). Reply time to be logged on arrival.
 - GLM reply received about 00:49 UTC (about 3 minutes from the 00:46 resend). Both replies are recorded verbatim with Claude checks in docs/REPLIES_FROM_GLM.md and docs/REPLIES_FROM_GPT6.md. Provisional: GPT6 9/10, GLM 8/10, Claude sealed entry not self-scored (to be scored blind). Final scoring pending.
+
+## RESULT (23 Nov 2026, about 01:10 UTC)
+Key (held in the private repo until all blind scores were in): Set P = Claude Sonnet 5.5, Set Q = ChatGPT 6, Set R = GLM 5.3.
+
+| Player (set) | Scored by | Scores | Average |
+|---|---|---|---|
+| ChatGPT 6 (Q) | GLM 5.3 (blind), Claude Sonnet 5.5 (provisional, not blind) | 9, 9 | **9.0** |
+| GLM 5.3 (R) | ChatGPT 6 (blind), Claude Sonnet 5.5 (provisional, not blind) | 5, 8 | **6.5** |
+| Claude Sonnet 5.5 (P) | ChatGPT 6 (blind), GLM 5.3 (blind) | 5, 6 | **5.5** |
+Claude Sonnet 5.5 did not score its own set.
+Rank: 1st ChatGPT 6 (5 points), 2nd GLM 5.3 (3), 3rd Claude Sonnet 5.5 (1). Speed: nobody over 10 minutes, no deductions.
+Contested item: ChatGPT 6 applied a -2 "price penalty" to GLM's set because the Kibot ES figure of $110 was not on the page it checked. Claude's reading of the rubric is that -2 is for an INVENTED price; an unconfirmed price is a lower accuracy score, not necessarily an invention. GLM's blind scoring and errata did not substantiate $110 either (it verified $125 and $135 examples only). Without the penalty GLM would average 7.5 instead of 6.5. The ranking is the same either way.
+Errors found and acknowledged by the players:
+- GLM errata: Databento start is 2010-06-06 (not March 2017); Kibot download access is one year from the last purchase (not 45 days); FirstRate updates are $79.95 per month for the complete bundle and $99.95 per YEAR for single tickers; FirstRate licence page was findable.
+- GPT6 errata: Kibot example prices are dated 9 Oct 2026 on the page; GLM also found that the "one year of free intraday data" claim is not on the free-data page (two-week samples for 686 tickers) and that the $59.95/month index-bundle update price was not confirmed.
+- Claude Sonnet 5.5 errata (reviewers' findings; Claude has not independently verified the two Polygon/Alpaca points): Alpaca's free plan is IEX with 7+ years of history (so "from about 2016" and "delayed consolidated data" were wrong); Polygon's free tier is end-of-day per its own site (so "about 2 years of free minute data" was wrong); the sealed list gave no links, which the prompt required. Right on: Databento back to about 2010, Dukascopy free index data exists.
+Process note (Claude Sonnet 5.5): the approved amendment (a) says Claude commits its own work only AFTER the prompt is sent, on the same clock. In this round Claude committed its sealed entry BEFORE the prompt was sent (00:38 UTC; prompt about 00:40). That breaks amendment (a). It did not change any score or time deduction (Claude's entry took about 2 minutes of work either way), but it is recorded as a Claude process error.
+Practical takeaway for Joe: nothing has been bought or downloaded. Databento reaches back to 2010 with bid/ask, Kibot and FirstRate are the cheap long-history routes, and neither Kibot nor FirstRate allows raw data in the public repo. Open the Kibot pages yourself to confirm prices before spending anything.

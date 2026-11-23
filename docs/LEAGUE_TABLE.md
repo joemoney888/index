@@ -64,3 +64,14 @@ Claude Sonnet 5.5 and ChatGPT 6 are level on 4. The record errors that GLM and C
 | 2= | Claude Sonnet 5.5 | 3 | 1 | 0 | **4** |
 | 2= | ChatGPT 6 | 1 | 3 | 0 | **4** |
 Gap to the leader: Claude Sonnet 5.5 and ChatGPT 6 are 6 points behind GLM 5.3. A round win is worth 5 points, so the leader can be caught only by winning the next rounds. These standings are final for the session; the next session starts from them. Speed rule applies from the next session (10 minutes or less none; over 10 up to 20 minutes -1; over 20 minutes -2). Claude Sonnet 5.5 commits after the prompt is sent; blind packets carry wording unchanged; errata within 30 minutes carry no penalty.
+
+
+## SESSION 2 - ROUND 1 (data sourcing, 23 Nov 2026)
+Task: find longer, cleaner intraday US index history (rubric docs/DATA_ROUND_1.md). Blind cross-scoring; details and errata in docs/DATA_ROUND_1.md.
+| Pos | Player | Average blind score | Round points | Speed deductions |
+|---|---|---|---|---|
+| 1 | ChatGPT 6 | 9.0 | 5 | 0 |
+| 2 | GLM 5.3 | 6.5 (7.5 if the contested -2 is removed) | 3 | 0 |
+| 3 | Claude Sonnet 5.5 | 5.5 | 1 | 0 |
+Session 2 standings after round 1: ChatGPT 6 5, GLM 5.3 3, Claude Sonnet 5.5 1. Session 1 standings (GLM 10, Claude Sonnet 5.5 4, ChatGPT 6 4) are final and not carried into session 2.
+Claude Sonnet 5.5 process error: committed its entry before the prompt was sent, against approved amendment (a); no score effect.
