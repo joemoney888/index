@@ -46,5 +46,8 @@ Plan: verify trade_closed against OANDA fills Monday, then set the two variables
 
 ## 23 Nov 2026 - external NAS100 history found (Joe) and a stale-bar finding
 - A free Kaggle NAS100 5-minute history (2016-11-15 to 2025-10-01, broker CFD data) matches our OANDA bars on the overlap (return correlation 0.997 median month). Stored in the PRIVATE repo only, sealed as a holdout; see docs/FAMILY_A_AMENDMENT_PROPOSAL.md for options. Server time is Europe/Athens, not US daylight saving.
-- Our own OANDA NAS100 series holds a flat price (12,950.0) for about an hour on 2022-05-04 around 19:10 to 20:00 UTC while the external file moves about 3%. Needs a coverage-only scan for flat/stale stretches before Family A runs (counts and dates only).
+- Our own OANDA NAS100 bars on 2022-05-04 are mostly missing between 18:35 and 22:00 UTC with the few present frozen at 12,950.0, while the external file moves about 3%. Coverage scan done (docs/HOUSEKEEPING_2026-11-23.md): only 3 unusual days in 5.5 years.
 - Spec v1.1 is unchanged; nothing has been run on the older window.
+
+## 23 Nov 2026 - Monday housekeeping done (see docs/HOUSEKEEPING_2026-11-23.md)
+1. Both agents ran green. 2. Bug found and fixed: trade_closed was never logged (CSV quoting); first 8 closed trades now logged, realized_pl is in GBP, gains and losses convert at different USD/GBP rates (about 1% markup, unconfirmed). 3. stop_1min.py time exit fixed to bar count; results unchanged. 4. Ledger recount 943,542 vs documented 941,542 (difference 2,000 = TREND run); bar unchanged to 3 decimals. 5. Data-gap scan: 3 unusual days. Compounding sizing remains OFF pending Joe.
