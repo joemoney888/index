@@ -349,3 +349,108 @@ Subtotal 7. Price penalty -2: The stated Kibot ES full-history price of $110 was
 4. Erratum to my own Set Q
 I described the Kibot example prices as checked on 23 November 2026; the page itself labels those example prices 9 October 2026. I should have reported that displayed date, not the date I accessed the page.
 (Table formatting and citation chips were flattened in this copy; wording otherwise as pasted.)
+
+
+---
+
+# Idea round, reply pasted 23 Nov 2026 20:11 UTC (unlabelled in the paste; presumed ChatGPT 6, Joe to confirm; prompt sent about 20:10 UTC, so about 1 minute, no speed penalty; text as pasted with table formatting and citation chips as received)
+
+## **A. Review of the open ideas**
+
+The key distinction is between **testing whether a signal predicts returns** and **changing how an existing position is sized**. A sizing method cannot create an underlying trading edge.
+
+| Idea                                       | Verdict                   | Main reason and realistic power                                                                                                                                                                                                                                                                                                   |
+| ------------------------------------------ | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Opening-range fade / pullback entry** | **Maybe**                 | The breakout failed at \\(t=2.45\\); that does not prove the mirror-image fade fails. But the variants are correlated, and with roughly 1,340 available sessions and fewer actual signals, expect only a fairly large effect to be detectable: approximately 0.10–0.15R per trade if there are 350–700 trades and SD is about 1R. |
+| **2. Opening range + fair-value gap**      | **No, for now**           | The 2010–20 one-minute data is gappy and has no spreads. Rebuilding bars does not restore missing trades or realistic execution costs. The backlog's original 300–450-event estimate implied an MDE around 0.14R.                                                                                                                 |
+| **3. NAS100–SPX500 divergence**            | **No**                    | The existing five-minute series could test a coarse version, but not the proposed one-minute signal reliably. Two highly correlated indices also give limited independent information.                                                                                                                                            |
+| **4. Liquidity sweep + structure shift**   | **No**                    | The data lacks reliable quote/depth information; a bar-based proxy would not establish that liquidity was swept. The original 50–75-event estimate implied an MDE around 0.30–0.37R.                                                                                                                                              |
+| **7. Confidence-scored fractional Kelly**  | **No**                    | Kelly sizing requires a reliable estimate of win probability and payoff. The agent has no demonstrated edge; confidence scores do not solve that. This is a risk-sizing study, not an alpha test.                                                                                                                                 |
+| **8. Options versus CFDs**                 | **No, with current data** | No historical option chains, implied volatility, bid/ask, assignment or exercise data are listed. Comparing theoretical option payoffs with CFD results would be misleading.                                                                                                                                                      |
+| **9. Constituents' pre-market moves**      | **Maybe**                 | A genuine lead–lag question, but you need point-in-time constituent membership, weights and pre-market prices. The current index CFD history alone cannot test it.                                                                                                                                                                |
+| **10. Daily 200-day trend**                | **Maybe**                 | A distinct, testable daily rule, but the stated Damodaran file is annual, not daily. Cboe histories are not a substitute for a long daily SPX total-return series.                                                                                                                                                                |
+| **11. Valuation tilt**                     | **Maybe**                 | Requires point-in-time valuation data and a defined valuation measure. Annual data means few independent observations; it is a long-horizon allocation test, not an intraday strategy test.                                                                                                                                       |
+| **12. Volatility-targeted sizing**         | **Maybe**                 | Can test risk reduction, not return prediction. Five-minute history gives many observations, but overlapping volatility estimates and clustered returns reduce effective sample size.                                                                                                                                             |
+| **14. Reopen Ideas 2–4**                   | **No**                    | The older one-minute files are not clean enough to repair the missing spread and liquidity evidence. More bars do not automatically mean more valid independent events.                                                                                                                                                           |
+| **16. cTrader copy-trading bot**           | **No**                    | A distant implementation goal, not a testable market hypothesis. Provider selection and survivorship would dominate the evidence.                                                                                                                                                                                                 |
+
+The backlog's own power estimates support rejecting Ideas 2–4 rather than reopening them simply because older files have appeared.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://raw.githubusercontent.com\&sz=32)
+
+GitHub+1
+
+
+
+## **B. Three new ideas**
+
+These are research hypotheses, not recommendations to trade. The power figures are planning estimates, not results calculated from the raw files. Use one registered specification per idea, **N +1 each**.
+
+**1. European-open return**
+
+- **Rule:** Go long NAS100 at 23:30 New York time and close at 03:30 New York time, every trading day. Use each bar's actual half-spread, skip incomplete windows and test the mean net return against zero.
+
+- **Why it might be real:** Bondarenko and Muravyev (2023), *Journal of Financial and Quantitative Analysis*, report that this four-hour period accounts for the average market return in E-mini S&P futures; their appendix specifies the exact window and reports a 2004–2018 annualised standard deviation of 3.96%.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.cambridge.org\&sz=32)
+
+  cambridge.org+1
+
+- **Free data:** Existing OANDA five-minute NAS100 bars and spreads.
+
+- **Events:** Approximately 1,370 daily windows.
+
+- **Detectable effect:** Approximately **2 bp per window** at \\(t=2.8\\), using the paper's annualised volatility converted to a daily standard deviation as a rough proxy. The CFD's actual volatility may differ.
+
+- **N:** +1.
+
+**2. Overnight-gap reversal in the first half-hour**
+
+- **Rule:** Measure the return from the previous 16:00 New York close to the current 09:30 open, then take the opposite direction at 09:30. Exit at 10:00, charging the entry and exit bar's actual half-spreads.
+
+- **Why it might be real:** Iwanaga and Sakemoto (2026), *North American Journal of Economics and Finance*, report that overnight returns negatively predict the first half-hour return, but also say the effect weakened after the 2010s.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.sciencedirect.com\&sz=32)
+
+  ScienceDirect+1
+
+- **Free data:** OANDA five-minute NAS100 bars and spreads; no need for one-minute data.
+
+- **Events:** Approximately 1,370 sessions.
+
+- **Detectable effect:** Roughly **3–4 bp**, assuming a 35–50 bp standard deviation for the strategy's half-hour returns. That volatility assumption must be checked before registration.
+
+- **N:** +1.
+
+**3. Overnight versus cash-session return decomposition**
+
+- **Rule:** For each day, separately record the return from the previous 16:00 close to 09:30 and from 09:30 to 16:00 New York time. Test whether the mean overnight return exceeds the mean cash-session return, using paired daily observations and realistic costs.
+
+- **Why it might be real:** Liu and Tse (2017), *International Review of Economics & Finance*, report positive overnight and negative trading-hour returns for US index ETFs over 1999–2014.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.sciencedirect.com\&sz=32)
+
+  ScienceDirect+1
+
+- **Free data:** OANDA five-minute NAS100 bars and spreads.
+
+- **Events:** Approximately 1,370 paired days.
+
+- **Detectable effect:** About **6–9 bp** for the difference, assuming an 80–120 bp standard deviation of the paired difference. This is a sensitivity estimate, not a measured value.
+
+- **N:** +1. This is a diagnostic test, not an independent trading strategy.
+
+These three ideas are related: they all examine the distribution of returns across the trading day. Their results should not be presented as three independent confirmations. The first two are the more directly actionable research questions; the third helps interpret them.
+
+## **C. First test**
+
+**I would test Idea 1, the European-open window, first:** it has a clearly published, precisely defined interval, approximately 1,370 observations and existing spread-aware data, making it the cleanest opportunity to test a substantial documented effect without needing another data purchase.
+
+Nothing in this assessment justifies real-money trading; the appropriate outcome remains a documented paper result, including a clean failure if the evidence does not survive.
+Claude Sonnet 5.5 check (23 Nov 2026, 20:15 UTC), unscored side round:
+- Citations. Bondarenko and Muravyev, "Market Return Around the Clock: A Puzzle", Journal of Financial and Quantitative Analysis 58(3), pp. 939-967, 2023 is real (RePEc/Cambridge). Abstract: 4 hours around the European open account for the entire average market return; window 11:30 pm to 3:30 am ET; tick data 2004-2018; secondary sources give about 7.6 percent annualised return in the window (about 3 bp per day) and say the authors report the strategy profitable net of conservative trading costs. NOT verified by me: the quoted 3.96 percent annualised SD (it implies about 25 bp per day; used for the 2 bp detectable figure) and an "appendix" containing the exact window. Iwanaga and Sakemoto, "Intraday time series reversal" exists as a working paper dated 26 Nov 2025 (overnight return predicts the first half-hour return); the reply's "2026, North American Journal of Economics and Finance" venue and its "weakened after the 2010s" claim are NOT verified (the abstract snippet says reversal strengthens in some periods). Liu and Tse, International Review of Economics and Finance 48 (2017) 440-451 is real; 1999-2014; overnight returns of US index ETFs and futures significantly positive, trading-hours returns negative; also overnight returns negatively forecast the first half-hour and positively the last half-hour. Related published support not mentioned in the reply: Boyarchenko, Larsen and Whelan, "The Overnight Drift" (NY Fed staff report 917; about 3.7 percent annualised, 1.48 bp per day).
+- Reply's arithmetic: SD 3.96 percent annualised = 25 bp per day; 25 / sqrt(1370) = 0.68 bp; times 2.8 = 1.9 bp, so the "about 2 bp" is right IF the SD is right. Gross effect in the paper about 3 bp per day, so the expected t is about 4 if the effect persisted at full size (it may have decayed since publication).
+- Coverage and cost check on our own data (bar existence and spreads only, no returns; legal under the pre-run convention): 1,420 overnight windows 2021-05-20 to 2026-11-16, 1,407 with all 48 five-minute bars from 23:30 to 03:30 New York and 1,419 with at least 44; one window under 40 bars. Median half-spread in the window is about 0.56 bp per leg (RTH is 0.19 bp), p95 about 0.8 bp, so a round trip costs about 1.1 bp. The window starts after 17:00 New York, so no daily financing rollover should be charged (verify against OANDA terms before registering). Net of costs the expected effect is about 2 bp per window, close to the detectable 1.9 bp: roughly a coin-flip to pass at t 2.8 if the published effect still holds in full, less if it has decayed.
+- Idea 2 (overnight gap reversal in the first half-hour) rests on a working paper whose venue is unverified; Idea 3 is a diagnostic, not a strategy. Part A verdicts: reasonable; "No" for Idea 8 on lack of option data agrees with my view; "No" on Idea 3 (cross-index divergence) and "Maybe" on Idea 10 for the annual data point is fair (we would need a daily series).
+- The second attachment (REPLIES_FROM_GLM, 297 lines) is the existing repo file minus two lines of my own recording note; it contains no reply to this round, so GLM's reply to the idea round and the options question has NOT arrived yet.
+- No registration made. N unchanged at 941,550. Candidate if Joe wants to register: European-open window (N +1), frozen rule: long NAS100 at the open of the 23:30 New York bar, exit at the close of the 03:25 bar, every session, own half-spreads, same decision rule as Family A (t >= 2.8, net >= +1 bp, 2 of 3 thirds).
