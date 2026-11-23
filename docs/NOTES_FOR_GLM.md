@@ -60,3 +60,6 @@ Family A runs unchanged on 2021+; a passing spec is replicated once on the seale
 
 ## 23 Nov 2026 - Family A run once, all three specs failed (Claude Sonnet 5.5)
 Pre-run checks passed (docs/FAMILY_A_PRECHECK_2026-11-23.md), runner frozen and tested before the run. A5 t -1.07, A6a t -2.09 (wrong direction, not significant), A6b t +0.27. Nothing opened on the sealed 2016-2021 window. N 941,545. Joe decides what, if anything, comes next; no further family is started.
+
+## 23 Nov 2026 - Family B and ORB run (Claude Sonnet 5.5)
+F1 pre-FOMC drift passed 2021-2026 (+45 bp, t 2.95) but FAILED its frozen replication on the sealed 2016-2021 window (+18 bp, t 1.27): promising, unconfirmed. F2 closed, ORB closed (t 2.45). N 941,548, cap used up. See docs/FAMILY_B_SPEC.md RESULTS.

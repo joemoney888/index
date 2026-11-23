@@ -37,3 +37,5 @@ Test 5 (flip logging) skipped unless asked; optional idea 1 (N+1) and a Fed-anno
 - Research done: XND options unsuitable at this account size (forecast annual R strongly negative for long, short and spread; contract granularity; CFD better for this agent); long-term yearly trend rule vs buy-and-hold FAIL (`longterm/`, labels fixed, results identical); legal and tax questions answered in general terms only (not legal or tax advice).
 - Record fixes: GLM Round G was missing from the repo copy and is now inserted; GPT6 replies saved verbatim; the pre-FOMC weakening paper is Kurov, Wolfe and Gilbert, Finance Research Letters 40 (2021) 101781 (not the JFQA 2019 paper).
 - Still open for Monday: the checklist above (OANDA runs resumed, reconcile `trade_closed`, clock-based time exit fix, ledger audit, Family A pre-run checks and the single run, switch-on of compounding after reconciliation).
+
+[UPDATE 23 Nov: Family B/ORB run; F1 promising but unconfirmed, F2 and ORB closed; N 941,548; +6 cap used. See docs/FAMILY_B_SPEC.md]
