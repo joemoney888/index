@@ -118,3 +118,5 @@ timestamp_utc,market,event,details
 2026-11-23T19:06:41Z,SPX500,order_placed,"{""key"": ""SPX500|2026-11-23T19:00"", ""side"": -1, ""entry"": 7262.7, ""stop"": 7301.0, ""target"": 7213.9, ""units"": -0.17, ""risk_gbp"": 5.0974, ""atr"": 12.863194444444666, ""filled"": true, ""trade_id"": ""318"", ""price"": 7262.7}"
 2026-11-23T19:21:29Z,SPX500,move_stop,"{""trade"": ""318"", ""from"": 7301.0, ""to"": 7267.1}"
 2026-11-23T19:41:30Z,SPX500,move_stop,"{""trade"": ""318"", ""from"": 7265.1, ""to"": 7251.8}"
+2026-11-23T19:46:52Z,SPX500,move_stop,"{""trade"": ""318"", ""from"": 7251.8, ""to"": 7243.3}"
+2026-11-23T19:46:52Z,US30,move_stop,"{""trade"": ""296"", ""from"": 49840.4, ""to"": 49663.2}"
