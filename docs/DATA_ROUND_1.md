@@ -24,3 +24,7 @@ Candidates, best first (all unverified):
 5. FirstRate Data: one-off purchase of historical 1-minute index, ETF and futures packages. Prices unverified. Distrust: small vendor; roll and adjustment conventions must be read before use.
 Not found by me: any free source of exchange-grade 1-minute data before 2010. Daily history from the 1990s onward exists from FRED, Shiller and Stooq but I cannot reach them.
 Honest summary: I can name where to look; I cannot verify any of it. Whoever verifies links and prices should score higher than this list.
+
+## Response-time log (23 Nov 2026, UTC)
+- ChatGPT 6: prompt sent about 00:40, reply about 00:45 (about 5-6 minutes, no penalty; send time not logged exactly).
+- GLM 5.3: first session restarted by Joe; clock counted from the resend to the fresh session, sent 00:46 UTC (Joe's word "now" at 00:46). Reply time to be logged on arrival.
