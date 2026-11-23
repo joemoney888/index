@@ -1,6 +1,6 @@
 # Review of BFG's trading on Mon 23 Nov 2026 (Claude Sonnet 5.5, written 20:30 UTC at Joe's request). From logs/index_events.csv; nothing re-run.
 
-Joe's observation: the agent was poor today; NAS100 and SPX500 had big up days (Nvidia rebound and CEO news), the agent was slow to see the direction and was caught short in both markets when it should have been long.
+Joe's observation: the agent was poor today; NAS100 and SPX500 had big up days (Nvidia rebound and the CEO being reinstated, confirmed below), the agent was slow to see the direction and was caught short in both markets when it should have been long.
 
 ## What the log shows
 - Orders placed today: 33 (11 each in NAS100, SPX500, US30). ALL 33 were short (side -1). No long was taken in any market all day.
@@ -17,5 +17,6 @@ BFG is a mean-reversion (fade) agent. It sells after an up-extension and buys af
 3. A news feed cannot be tested on our history (we have no timestamped news data), so a news-driven switch cannot be honestly back-tested. That is a real limit, not a to-do.
 4. Cheap, honest next step if Joe wants one: log, but do not trade, a "trend-day flag" (for example the morning move beyond a set number of ATRs) alongside each day's R, and look at it after 60 or more days; any rule built from it would still need a registration.
 
-## Cause of the move: not confirmed
-Joe's explanation (Nvidia stock rebounding and its CEO being reinstated) is not something I could confirm for today. The latest reporting I found: Nvidia's board said on the 17th-18th of November that it does not intend to reinstate Jensen Huang, and Nvidia shares rose in after-hours trading after that earnings call. I found no report of a reinstatement. The cause of today's rally is therefore unverified in this note.
+## Cause of the move: CONFIRMED (correction at 20:25 UTC; my first two searches returned stale 9-18 Nov pages and I wrongly treated their silence as "no reinstatement")
+Nvidia's 8-K of 23 Nov 2026 and same-day coverage (Reuters, CNN, Yahoo Finance) confirm: the board voted unanimously to reinstate Jensen Huang as President, CEO and director effective immediately, 11 days after his resignation. Nvidia shares rose about 30 percent (premarket about 28 percent); Reuters at 12:31 ET had the Nasdaq up nearly 7 percent and CNN said all three indexes were on track for their best day since April 2025. So Joe was right: this was a huge, news-driven trend day. The agent's own shorts (33 of 33) were against it; the small loss (-1.5R) came from stops, not from the agent being right.
+How the news reached the agent: it did not. BFG reads 5-minute prices only. My own news access is web search of public pages (no Bloomberg, no terminal), which lags and can miss today's articles unless the query is aimed at the event.
