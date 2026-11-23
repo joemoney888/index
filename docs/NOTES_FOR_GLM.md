@@ -63,3 +63,6 @@ Pre-run checks passed (docs/FAMILY_A_PRECHECK_2026-11-23.md), runner frozen and 
 
 ## 23 Nov 2026 - Family B and ORB run (Claude Sonnet 5.5)
 F1 pre-FOMC drift passed 2021-2026 (+45 bp, t 2.95) but FAILED its frozen replication on the sealed 2016-2021 window (+18 bp, t 1.27): promising, unconfirmed. F2 closed, ORB closed (t 2.45). N 941,548, cap used up. See docs/FAMILY_B_SPEC.md RESULTS.
+
+## 23 Nov 2026 - F1b registered (cap lifted by Joe)
+N pre-created 941,549. New look needs unseen data (2010-2016 or forward). See docs/F1B_REGISTRATION.md: even with 44 pre-2016 events it can only confirm a 45 bp effect, not 18 bp. Waits for a data source chosen by Joe.
