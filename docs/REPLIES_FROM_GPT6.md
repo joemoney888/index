@@ -179,3 +179,141 @@ Source-version note: The public GitHub copy of REPLIES_FROM_GLM.md I retrieved d
 3. Next session priority: Independent, evidence-led auditing of the frozen Family A implementation and results, without introducing new hypotheses or unnecessary trial-count expenditure.
 
 Claude Sonnet 5.5 check (01:07 UTC): item 1 is already resolved. Since commit 909e503 (00:12 UTC) line 11 of docs/FAMILY_A_SPEC.md (the decision rule) and changelog item 4 (line 34) give the same exact thirds: T1 2021-05-20 to 2023-03-31, T2 2023-04-03 to 2025-01-31, T3 2025-02-03 to 2026-11-17. This is the third time the stale-copy version of this point has been raised; GPT6 may be reading a cached copy of the repo. Item 2 is accepted as a fair clarification (3.67% is the unconditional failure rate of the 2-of-3 condition, not the loss conditional on passing the pooled test). Both reviewers' closing notes are recorded; session 1 is closed.
+
+---
+
+# Data sourcing round 1 (23 Nov 2026) - ChatGPT 6 reply, verbatim (received about 00:45 UTC; prompt sent about 00:40 UTC, so roughly 5-6 minutes, no speed penalty; exact send time not logged)
+
+## **Step 1 — What I can check**
+
+I can access public websites and documentation live, including vendor product pages, pricing pages and published licence terms. I cannot inspect private account dashboards, test authenticated downloads, verify the contents of a paid data file, or confirm that a vendor will grant a particular licence without contacting them.
+
+I’ll distinguish information visible on public pages now from anything I cannot verify. I will not sign up, accept terms or purchase data.
+
+## **Step 2 — Best sources found**
+
+I found **two credible, relevant vendors**. Neither offers a licence that permits putting the raw purchased data in BFG’s public GitHub repository. I did not find a convincing free source of multi-year, pre-2021, exchange-quality one-minute data.
+
+### **1. Kibot — strongest match for long ETF and futures history**
+
+**Links:** [Kibot data catalogue](https://www.kibot.com/buy.html?utm_source=chatgpt.com) · [custom order and live quote](https://www.kibot.com/custom-order.html?utm_source=chatgpt.com) · [quality and coverage](https://www.kibot.com/quality/update-timing-and-quality-checks.html?utm_source=chatgpt.com)
+
+- **Instruments and dates:** US stocks, ETFs and indices have one-minute history from 1998 in the vendor's archive; individual instruments begin at their first available record or listing date. Continuous ES and NQ futures start **27 September 2009**; YM is also in the futures catalogue. The futures catalogue lists individual contracts as well as continuous series.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.kibot.com\&sz=32)
+
+  Kibot Documentation+1
+
+- **Bid/ask:** One-minute bid/ask is available for a top-50 ETF package from 2009, including SPY, QQQ and DIA. The listed price is **$680 one-time**. Continuous futures also have bid/ask coverage from September 2009.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.kibot.com\&sz=32)
+
+  Kibot+1
+
+- **Price:** The custom-order page displayed an example of **SPY + QQQ, full-history, one-minute bars for $125**, and ES + NQ one-minute bars since 2009 for $135. These are example quotes, not a guaranteed quote for a different combination or date range. The prices page also lists the broad continuous-and-individual-futures one-minute package at **$820 one-time**. Prices checked **23 November 2026**.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.kibot.com\&sz=32)
+
+  Kibot+1
+
+- **Free access:** Free daily US-stock/ETF data and small intraday samples are available. The one-minute samples are IBM and OIH, not SPY/QQQ; bid/ask samples are IVE and WDC. So the free files do not let you validate the target instruments' full history.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.kibot.com\&sz=32)
+
+  Kibot+1
+
+- **Licence:** Personal/internal use only; the licence explicitly prohibits resale, redistribution and transfer. **Do not commit raw files to the public repo.** Derived aggregate statistics and backtest summaries may be shared.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.kibot.com\&sz=32)
+
+  Kibot
+
+- **Download:** CSV files through the vendor's download service, FTP, desktop agent or API. Timestamps default to US Eastern Time; sessions can include pre-market and after-hours unless filtered.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.kibot.com\&sz=32)
+
+  Kibot Documentation+1
+
+- **Quality caveat:** Kibot documents gap checks and repairs, but says tick prints are not automatically filtered; real, uncancelled extreme prints remain. Its own documentation disclaims guarantees of accuracy and completeness.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.kibot.com\&sz=32)
+
+  Kibot Documentation+1
+
+- **Reason to distrust:** It is vendor-aggregated historical data, not a substitute for checking sample bars against an independent exchange-grade source. Continuous futures also require careful inspection of the roll construction and adjustment convention.
+
+**Assessment:** Best apparent value for a longer ETF/futures test, especially if the $125 SPY+QQQ example is representative. The 2009 futures history is useful, but it is not a 20-year futures dataset.
+
+### **2. FirstRate Data — strongest direct-index and ETF coverage**
+
+**Links:** [SPY data page](https://firstratedata.com/i/etf/SPY?utm_source=chatgpt.com) · [US index bundle](https://firstratedata.com/b/8/us-index-historic-intraday?utm_source=chatgpt.com) · [licence](https://firstratedata.com/about/license?utm_source=chatgpt.com) · [free intraday data](https://firstratedata.com/free-intraday-data?utm_source=chatgpt.com)
+
+- **Instruments and dates:** SPY one-minute, five-minute and daily bars are listed from **3 January 2000**. The US index bundle lists one-minute and five-minute data from **January 2008**, with 115 major US indices, including DJI; the individual SPX page lists data from **2 January 2008**. The vendor also lists ETF history from 2000 and individual futures history from 2008.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://firstratedata.com\&sz=32)
+
+  firstratedata.com+3
+
+- **Bid/ask:** I found no evidence on the pages checked that the SPY or index minute-bar products include historical bid/ask spreads. Treat these as OHLC bars, not quote data.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://firstratedata.com\&sz=32)
+
+  firstratedata.com+1
+
+- **Price:** Paid product; **the initial purchase price was not visible in the pages I could inspect**, so it is unverified. The index bundle page lists $59.95/month for updates after its included first month; the SPY page lists an annual $99.95 update subscription after its included first month. Those are update charges, not the initial data price.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://firstratedata.com\&sz=32)
+
+  Historical Intraday Price Data+1
+
+- **Free access:** The vendor advertises one year of free intraday data for selected popular datasets, including SPY, QQQ, DIA and the SPX/NDX/DJI indices. Individual ticker samples are two weeks.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://firstratedata.com\&sz=32)
+
+  firstratedata.com
+
+- **Licence:** Perpetual private-use licence. Research, models, charts and derived results can be published, but raw data cannot be redistributed. **Do not commit raw files to the public repo.**&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://firstratedata.com\&sz=32)
+
+  FirstRate Data+1
+
+- **Download:** Zipped CSV files via a customer download page; API access is offered with bundles. Data is timestamped in US Eastern Time. Zero-volume bars are omitted, so gaps can mean no trades rather than missing data.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://firstratedata.com\&sz=32)
+
+  firstratedata.com+2
+
+- **Quality caveat:** The vendor describes exchange sourcing and completeness checks, but its licence disclaims warranties of accuracy and completeness. Its own dataset documentation also identifies omitted zero-volume bars and corporate-action adjustment issues.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://firstratedata.com\&sz=32)
+
+  FirstRate Data+1
+
+- **Reason to distrust:** Its minute bars are trade-aggregated OHLC, not bid/ask quotes. It would extend the history materially, but would not by itself solve spread-aware execution modelling.
+
+**Assessment:** Best alternative if the priority is direct index history plus long ETF history. The SPY page gives an exact 2000 start date; the direct SPX page gives a 2008 start date.
+
+### **Bottom line**
+
+- **Best first sample to inspect:** Kibot SPY/QQQ one-minute files, because the displayed combined full-history example is $125 and the archive reaches back before 2021.
+- **Best second source for comparison:** FirstRate SPY and SPX. It offers direct index bars and a free one-year sample route.
+- **For spread information:** Kibot's ETF bid/ask package is the clearest match I found, but it starts in 2009 and costs $680.
+- **For the public repo:** Neither vendor permits raw data redistribution. Keep any purchased files private; publish only permitted derived results.
+- **Free data:** There are useful samples and limited free windows, but I found no good free source for a long, clean, pre-2021 intraday history of these instruments.
+
+I also opened the repository's [DATA_ROUND_1.md rubric](https://raw.githubusercontent.com/joemoney888/index/main/docs/DATA_ROUND_1.md?utm_source=chatgpt.com). It confirms the five scoring categories and the prohibition on invented prices or sources. I did not attempt Yahoo, FRED or Stooq in this round; I therefore cannot say that those sites failed. Databento's catalogue appeared in search, but its direct page returned a 502 error when I tried to open it, so I have not included it as a verified recommendation.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://raw.githubusercontent.com\&sz=32)
+
+GitHub+2
+
+
+Claude Sonnet 5.5 check (23 Nov 2026, 00:55 UTC), provisional, before GLM's reply and blind cross-scoring:
+- Verified by me through search results: FirstRate SPY page lists 1-, 5-, 30-minute, 1-hour and daily bars from 3 Jan 2000 (firstratedata.com/i/etf/SPY); free samples exist (firstratedata.com/free-intraday-data); FirstRate's own FAQ says the licence does not allow sharing between unconnected parties, which supports "do not commit raw files to the public repo". FirstRate index start is shown as Jan 2008 on one page and "back to 2005" on the home page, and the index count as 115 on one page and 125 on another; GPT6's 115 and 2008 match one of each. Its note that the initial price was not visible is honest; I could not see it either.
+- NOT verified by me (Kibot pages not reachable in my search): $680 (top-50 ETF bid/ask), $125 (SPY+QQQ example), $135 (ES+NQ), $820 (futures package), 1998 start, 2009 bid/ask start, personal-use licence. A secondary listing (NexusFi) shows Kibot with 28 years of minute data, which is consistent with 1998, but I did not find the prices. Treat them as GPT6's claims until Joe opens the page.
+- Honest limits stated by GPT6: Databento page returned 502 so it was left out; Yahoo/FRED/Stooq not attempted; no free long source found.
+- Cosmetic: links carry a utm_source=chatgpt.com tag.
+- Response time: prompt sent about 00:40 UTC, reply about 00:45 UTC, roughly 5-6 minutes, no speed penalty (send time was not logged exactly).
+Provisional score (Claude Sonnet 5.5, rubric docs/DATA_ROUND_1.md): a 2, b 1 (Kibot figures unverified, index count and start differ between pages), c 2, d 2, e 2 = 9/10. Invented sources or prices found: none. Final scores come after GLM's reply and blind cross-scoring.
+Found while checking, NOT part of Claude's sealed entry and not scored: Cboe DataShop "Equity & ETF Quotes" lists 1-minute OHLC with underlying bid/ask for US equities and ETFs, history 2010 to present (datashop.cboe.com/equity-quotes; price not shown, "contact us"); Tick Data (tickdata.com) lists one-minute NBBO quote bars for US equities back to 2004, institutional pricing not checked.
