@@ -8,7 +8,7 @@ Both repos' workflows ran every 5 minutes through the weekend and this morning, 
 
 ## 3. Reconciliation of the first 8 closed trades (all shorts, 19-20 Nov)
 - Result: 5 take-profits (+1.26R to +1.33R), 2 stops (-0.99R, -1.01R), 1 trailed stop (+0.23R). Total about +4.6R, +GBP 21.11 (financing 0 for all). That was the day the index fell 5.6%, so this is not evidence of an edge.
-- Entries and exits are consistent with the plan: take-profit fills sit at or inside the target, stop fills 0.4 to 1.9 points beyond the stop.
+- Entries and exits are consistent with the plan: take-profit fills sit at or inside the target; the two plain stops filled 0.4 and 1.9 points beyond the stop. Trade 6 (NAS100, the trailed stop) was moved to 27618.6 at 15:01:33 when price was already above that level, so it exited at market at 27660.7, 42 points beyond the new level (about 0.23R instead of the higher level the 5-minute backtest would have assumed). That is exactly the idealised-trailing-stop effect the realistic-fill test found; one live example, not a measurement.
 - `realized_pl` is in GBP: for example trade 42 earned USD 7.99 on its price move and OANDA reports GBP 6.04.
 - Found: the USD-to-GBP conversion differs for gains and losses (implied rates about 1.324 for gains and 1.298 for losses). If that is a conversion markup it costs roughly 1% of each P&L move, about 0.01R per trade. Small, systematic, and consistent with the realistic-fill drag already measured. Not independently confirmed with OANDA's own statement (I have no account access).
 - Compounding sizing (INDEX_COMPOUND) is now safe to switch on from a data standpoint; it is OFF until Joe says so.

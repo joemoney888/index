@@ -32,7 +32,7 @@ def bfg(path):
             d = json.loads(r["details"]); p = plan.get(str(d.get("trade")))
             if p and d.get("close_price") and d.get("units"):
                 side = 1 if float(d["units"]) > 0 else -1
-                out.append((r["timestamp_utc"][:10], side * (float(d["close_price"]) - p[0]) / abs(p[0] - p[1])))
+                out.append(((d.get("close_time") or r["timestamp_utc"])[:10], side * (float(d["close_price"]) - p[0]) / abs(p[0] - p[1])))      # dated by the REAL close time, not by when the event was logged
     return out
 
 def week(d):
