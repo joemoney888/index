@@ -15,3 +15,8 @@ N: 941,551 -> 941,553 (+2: D1 and D2). Whole sample, one run each, no sealed spl
 - Descriptive only, no N: CAGR, max drawdown and Sharpe of trend-filtered vs buy-and-hold; the same with 10% volatility-targeted sizing (Idea 12, 20-day realised vol).
 
 Frozen. Nothing tuned after results. Each runs once.
+
+## RESULT (run once, 23 Nov 2026; SPY 1993-01-29 to 2024-04-15)
+**D1 turn-of-month: FAIL (near miss, closed).** 374 monthly blocks, net +29.2 bp per block, NW t 2.70 (needs 2.8). Floor (+4 bp) passed; thirds +42.6 / +27.6 / +17.3 bp all positive but shrinking each period. Fails rule A by 0.10 in t. The frozen rule is not relaxed after the result. Opposite direction: no.
+**D2 200-day trend: FAIL, no edge in returns (closed).** In-minus-out +0.09 bp/day, t 0.02; thirds +4.6 / -2.4 / -3.5 bp. Descriptive only (not tested): trend filter CAGR 8.4% vs buy-and-hold 10.2%, max drawdown -24% vs -55%, Sharpe 0.72 vs 0.61. 10% vol-target (always in, capped at 1x): CAGR 7.2%, max drawdown -34%, Sharpe 0.73. A drawdown/risk control, not a return edge.
+Caveats: SPY ETF with assumed flat 1 bp per leg, no CFD financing; data ends Apr 2024.
