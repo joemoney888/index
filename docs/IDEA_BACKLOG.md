@@ -136,6 +136,10 @@ Status: queued for phase 2. To be reviewed together with Ideas 17, 19 and 20.
 ## Phase plan (Joe, 24 Nov 2026 21:18 UTC)
 Finish phase 1 first (registration cut-off 30 Nov to 5 Dec, write-up due 19 Dec). Then review all new and queued ideas together and decide what phase 2 looks like. Nothing from Ideas 17 to 21 is registered or tested until then unless Joe says otherwise.
 
-## Dream - Phase 9 or 10 (Joe, 24 Nov 2026 21:20 UTC)  [DREAM ONLY: not a test, no N, no money]
-Joe's long-range goal: passive income of net 65,000 a year with all taxes paid and accounted for.
-Claude Sonnet 5.5 first look: needs a verified edge first (none exists yet; phase 1 is how we find out). Rough scale, not tax advice: about 65,000 net may need roughly 80,000 to 90,000 gross depending on how profits are taxed, which at a steady 10 percent a year means about 800,000 to 900,000 of capital and at 20 percent about 400,000 to 450,000, with drawdowns along the way. Paper only; nothing near real money without a verified edge and LIMITS=on.
+## Long-range goal - Earned income of 65,000 net a year (Joe, 24 Nov 2026 21:20 to 21:32 UTC)  [GOAL ONLY: not a test, no N, no money]
+Goal: earned income of about 65,000 net a year, all taxes paid and accounted for, earned honestly (no cheating or manipulating anything). Joe's view: comfy, not rich; "work it and earn it", not beat the market.
+Team: Joe decides; GLM, GPT6 and Claude advise and plan; Claude is also player and referee. None of us can promise to find it; a clean "not there" is a valid result.
+Two tracks: (1) The market: (a) the edge hunt (phase 1 and after, small verified edge, small size, costs counted); (b) the slow route of owning assets and earning the market's own return (rough scale, not tax advice: 65,000 a year at a 4 percent withdrawal rate needs about 1.6 million, less in tax-free wrappers). (2) Outside the market: income from skills Joe already has, planned by the three models; left open because the market may not be the best road.
+Rough scale for track 1(a), not tax advice: about 80,000 to 90,000 gross; at a steady 10 percent a year that is roughly 800,000 to 900,000 of capital, at 20 percent roughly 400,000 to 450,000, with drawdowns. A 5 percent a week growth rate is not a plan (about 1,100 percent a year; nobody sustains it).
+Rules unchanged: paper only; nothing real without a verified edge and LIMITS=on; do not suggest or encourage betting, even on paper.
+Timing: starts after phase 1 and the write-up (19 Dec); goes to GLM and GPT6 as a scored round like Round 4.
