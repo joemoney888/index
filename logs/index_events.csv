@@ -199,3 +199,4 @@ timestamp_utc,market,event,details
 2026-11-24T18:26:40Z,US30,move_stop,"{""trade"": ""500"", ""from"": 50040.1, ""to"": 50025.1}"
 2026-11-24T18:32:10Z,US30_USD,trade_closed,"{""key"": ""closed|500"", ""trade"": ""500"", ""open_price"": ""50023.2"", ""close_price"": ""50035.2"", ""units"": ""-0.03"", ""open_time"": ""2026-11-24T17:56:34.010711623Z"", ""close_time"": ""2026-11-24T18:26:40.376288214Z"", ""realized_pl"": ""-0.2772"", ""financing"": ""0.0000"", ""reason"": ""STOP_LOSS_ORDER"", ""fill_price"": ""50035.2"", ""bid"": ""50032.2"", ""ask"": ""50035.2""}"
 2026-11-24T18:32:16Z,US30,order_placed,"{""key"": ""US30|2026-11-24T18:25"", ""side"": -1, ""entry"": 50030.2, ""stop"": 50206.3, ""target"": 49806.3, ""units"": -0.03, ""risk_gbp"": 5.2122, ""atr"": 59.078125000000306, ""filled"": true, ""trade_id"": ""532"", ""price"": 50030.2}"
+2026-11-24T18:46:36Z,US30,move_stop,"{""trade"": ""532"", ""from"": 50206.3, ""to"": 50040.6}"
