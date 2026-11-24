@@ -201,3 +201,4 @@ timestamp_utc,market,event,details
 2026-11-24T18:32:16Z,US30,order_placed,"{""key"": ""US30|2026-11-24T18:25"", ""side"": -1, ""entry"": 50030.2, ""stop"": 50206.3, ""target"": 49806.3, ""units"": -0.03, ""risk_gbp"": 5.2122, ""atr"": 59.078125000000306, ""filled"": true, ""trade_id"": ""532"", ""price"": 50030.2}"
 2026-11-24T18:46:36Z,US30,move_stop,"{""trade"": ""532"", ""from"": 50206.3, ""to"": 50040.6}"
 2026-11-24T18:56:41Z,US30,move_stop,"{""trade"": ""532"", ""from"": 50040.6, ""to"": 50018.2}"
+2026-11-24T19:01:31Z,US30,move_stop,"{""trade"": ""532"", ""from"": 50018.2, ""to"": 49986.6}"
