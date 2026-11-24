@@ -343,3 +343,61 @@ Test B2 first — the only idea whose verified published effect (11.4 bp/day) be
 | GLM | B2 daily announcement-day premium |
 | GPT6 | European-open window (23:30-03:30 NY) |
 | Claude | Idea 10/12 (200-day trend / vol-targeted sizing) |
+
+
+---
+
+## GLM round 3 reply (prompt docs/ROUND3_PROMPT.md given 01:22 UTC 24 Nov; attached 01:45; about 23 minutes: over the 10-minute speed rule; unscored side round unless Joe says otherwise). Verbatim.
+
+# Round 3 (24 Nov 2026) — GLM reply
+
+Accounting first: **N +0 this round.** I computed sample sizes only (event counts, unconditional standard deviations); no conditional returns, no strategy variants were evaluated. Files delivered: this section, plus `docs/us_macro_release_days_1993_2026.csv` (same copy in `download/`). Demo accounts only; nothing below suggests real money.
+
+## 1. Missing items — verified vs not (all checks from my sandbox today)
+
+**1a. US release days since 1993 — CSV delivered.** 1,224 rows (408 each: Employment Situation, CPI, Advance Retail Sales); columns `date, release, confidence, source_url`.
+- **Verified (4 rows):** the BLS 2026 schedule pages state ES 2026-11-06 and 2026-12-04, CPI 2026-11-10 and 2026-12-10, all 08:30 ET. bls.gov blocks scripted requests (403 to curl) but loads in a normal browser. The same pages give Jan-8-2027 (ES) and Jan-13-2027 (CPI).
+- **ES rows:** rule "first Friday; +7 days when the first Friday is the 1st" — validated against both verified anchors and Jan-8-2027 (first Friday Jan 1 → Jan 8). January releases (December reports) are flagged `verify`: the December report occasionally slips to the second Friday (est.).
+- **CPI rows:** rule "10th → next weekday", every row flagged ±5 days (est.). Note the one verified future anchor disagrees: rule says 2027-01-11, schedule says 2027-01-13 — so January CPI rows need checking most. Exact historical dates 2003+ are extractable from the archive listings https://www.bls.gov/bls/news-release/empsit.htm (May 2002+) and https://www.bls.gov/bls/news-release/cpi.htm (Jan 2003+) — both verified reachable; the schedule pages have a prior-years dropdown.
+- **ARS rows: ALL estimated** (~15th nearest weekday). Census's schedule page (census.gov/retail/schedules.html) returns 404 — moved or gone; I could not verify a single date. Treat this series as a starting point only.
+- One documented anomaly included: Sep-2013 ES released 2013-10-22 (shutdown; from memory, marked).
+- Release time is 08:30 ET for all three on the verified pages (ARS 08:30 from memory). Before freezing any event study, spot-check the est rows in a browser against the BLS archive pages.
+
+**1b. Cboe — verified by downloading (free, no key, no login).** Pattern: `https://cdn-api.cboe.com/api/global/us_indices/daily_prices/<X>_History.csv`
+- `BXM_History.csv`: daily 2002-03-22 → 2026-11-23 (6,206 rows). The 1986-2002 BXM backfill lives in Cboe's white paper, not this file.
+- `PUT_History.csv`: daily from 2007; before that only scattered anchor values (1991, 1994, 1997, 2001, 2004).
+- `CLL_History.csv`: daily from 2008-08-26.
+- `PPUT_History.csv`: **daily from 1986-06-30, 10,174 rows** — this is the "since 1990 or earlier" series you asked for.
+
+**1c. Other free sources.**
+- **SPX daily:** `.../SPX_History.csv` — verified, 1975-01-02 → 2026-11-23. Closes the SPX gap to present.
+- **Nasdaq-100 since 1990: NOT verified.** Cboe's NDX file names return 403; stooq.com is JavaScript-gated from my sandbox; Yahoo's chart API returned 406 without cookie/crumb. Candidates to test from your machine (unverified, from memory): stooq.com CSV endpoint (^ndx), Yahoo Finance ^NDX, Nasdaq Data Link free tables.
+- **Timestamped news/filings:** SEC EDGAR submissions API `https://data.sec.gov/submissions/CIK##########.json` — verified 200 from my sandbox; gives `acceptanceDateTime` for every filing (8-K timestamps), free, no key; SEC asks for a plain User-Agent header. EDGAR full-text search covers 2001+ (memory). FOMC statement dates: federalreserve.gov calendars (dates reliable; per-era release times — 14:00 ET now, 12:30 in 2011-12, 14:15 before — from memory, unverified). GDELT's 15-minute news-event database, free from 1979 (memory, unverified), is the heavier option for a log-only news flag.
+
+## 2. Ideas 17 and 18
+
+**Idea 17 (scored news feed → fade agent).** Forward and log-only is the right design — we have no timestamped news history, and a "scored feed" built from memory is untestable and a hidden search space. Three changes: (i) do not score news text; pre-register an objective price flag instead (gap or first-hour range > k×ATR20), frozen in writing before logging starts; (ii) log flag, the agent's would-be action, spread at signal time, and outcome each day — these are observations, not tests; charge N only when first analyzed (est. 4-8 variants); (iii) run a historical companion study on EDGAR 8-K acceptance timestamps (1c: free, timestamped, backfilled to 2001) instead of waiting years for a text feed. Honest power check (sizing only): SPX |daily move| ≥ 2.5% days number 135 since 2010 (detectable ≈ 26 bp/day at t 2.8) and only 42 since 2021 — too few to answer the fade question on data we hold. Expect the forward log to stay marginal for roughly a year (est. 60-80 flagged days); a clean "not there" is a likely first result either way.
+
+**Idea 18 (harmonics + indicator).** I found no peer-reviewed evidence that harmonic patterns profit, alone or in combination — the reachable sources are practitioner pages (search-verified: StoneX, StockCharts, Investopedia; a "2022 study of 10,000 patterns" claim I could not trace to any journal). The combination-beats-parts literature is in-sample and data-snooped. After 112,307 variants (best t 3.64 vs bar 5.32-5.75), every added indicator multiplies the variant space and the luck bar with it. **I would register no combination.** The only candidate filter with a written prior — the 200-day trend — just failed at t 0.02, so gating has no support. Keep the Cypher K=6 forward watch item already noted; close the family.
+
+## 3. Three new ideas (demo-only; MDE = 2.8 × sd / sqrt(n))
+
+**N1. VIX panic-spike long ("buy panic").** Rule: when VIX closes ≥ 1.4× its trailing 10-day median and ≥ 20, long SPX at next open, exit at close of the 5th session; signals at least 10 sessions apart; one-sided, opposite sign recorded only. Source: Kudryavtsev (2017) on VIX and post-large-move returns (search-verified existence); the "spikes precede strong returns" result is practitioner literature (memory). Data: Cboe VIX daily from 1990 + SPX daily from 1975 — both verified free downloads. n: 45 episodes at this threshold since 1990 (66 at 1.35×/18; 23 at 1.5×/25); 5-day sd 2.31%, ×1.3 regime multiplier (est.) → detectable ≈ 1.0-1.7% per episode ≈ 20-35 bp/day. N cost ≈ 6-10. Prior of passing: 25-35%.
+
+**N2. PUT/BXM spread regime filter.** Rule: long SPX on days when PUT's trailing-12-month return ≥ BXM's, flat otherwise. Source: Kaplan's Cboe buy-write paper (memory); Cboe pages verified. Data: verified free CSVs (1b). n = 5,002 days 2007+ → detectable ≈ 4.9 bp/day gross — barely above a ~3 bp/day CFD round trip, so the real net floor is ≈ 8 bp/day. N cost ≈ 12. Prior: 10-15%. Weakest of the three.
+
+**N3. Option-expiration-week long.** Rule: long SPX at the close of the Friday before expiration week, exit at the close of the third-Friday expiration (5 sessions), every month. Source: Quantpedia "Option-Expiration Week Effect" (search-verified) and Stivers' expiration-week study (~2013, existence search-verified; exact journal unconfirmed). Data: verified free SPX CSV. n = 407 weeks / 2,035 sessions since 1993 → detectable ≈ 7.2 bp/day (≈ 32 bp/week); costs on 5-day holds ≈ 1-2 bp, net floor ≈ 5-6 bp/day. N cost ≈ 6. Prior: 10-15%.
+
+**Test N1 first.** It has the largest prior of the three, the data is verified and already in hand, the N cost is smallest, and the bar is only ~1.2% per episode — post-panic windows are the rare regime where effects that big are documented (est.). N3 is the cheap, well-powered backup; N2 I would skip unless the cost floor drops.
+
+Uncertainties are marked (est.)/(memory) above; nothing here is investment advice or an encouragement to speculate.
+
+### Claude's checks (24 Nov)
+- Verified by me on files in hand: "S&P 500 days with |move| >= 2.5%: 135 since 2010, 42 since 2021" (exact match on the official SPX file).
+- The delivered CSV `us_macro_release_days_1993_2026.csv` is NOT usable: 1,220 of 1,224 rows are rule-based estimates (first Friday, 10th, 15th), only 4 are verified. Superseded by the real ALFRED release-date files Joe got (426 CPI, 414 jobs, 435 retail days since 1993), already used in D3.
+- Cboe download pattern (cdn-api.cboe.com/.../<X>_History.csv, PPUT from 1986, BXM from 2002, PUT from 2007, CLL from 2008): GLM says verified by download; this workspace cannot reach that host (refused), so I cannot confirm. Joe can test it in a browser. If it works, PPUT (1986) and BXM (2002) would unblock a longer options-index look (#6).
+- N1 arithmetic: 5-day SD 2.31% x 1.3 = 3.0%; /sqrt(45) x 2.8 = 1.26% (GLM 1.0-1.7%). Fine. Stated "N cost 6-10" is GLM's count of threshold variants; a single frozen spec is N +1. Prior 25-35% looks high to me for a 45-episode sample (I would say 10-15%).
+- N2 and N3 arithmetic plausible (not recomputed). Kudryavtsev 2017, Stivers and Kaplan are from memory or existence-only; not verified.
+- Timing: VIX closed at 35.89 on 20 Nov 2026 (+46% day, from 24.56 on 18 Nov to 28.44, 35.89), so an N1-style signal fired on the last data day. Its outcome is not yet known (5-day exit would be 27 Nov). Any N1 registration must freeze the window ending before 2026-11-20 and treat the 20 Nov signal as forward.
+- GLM agrees: Idea 17 log-only; Idea 18 no combination (family closed, Cypher watch item stays). GLM's "200-day trend failed t 0.02" refers to my D2 run on the flawed SPY file.
+- Nothing registered; N 941,555.
