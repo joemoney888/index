@@ -4,11 +4,11 @@ Forward period starts 2026-11-19. Paper replay of the exact tested rule; no orde
 
 | Market | Trades | Avg R | Cumulative R | Win rate | t-stat |
 |---|---|---|---|---|---|
-| NAS100 | 3 | +0.913 | +2.7 | 100% | 3.11 |
-| SPX500 | 3 | +0.714 | +2.1 | 100% | 2.33 |
-| US30 | 3 | +0.086 | +0.3 | 33% | 0.00 |
+| NAS100 | 14 | +0.086 | +1.2 | 64% | 0.39 |
+| SPX500 | 19 | +0.187 | +3.5 | 58% | 1.30 |
+| US30 | 18 | -0.062 | -1.1 | 50% | -0.38 |
 
-Pooled: 9 trades, +0.571R average, t 2.23. Data to 2026-11-24 01:00 UTC.
+Pooled: 51 trades, +0.071R average, t 0.66. Data to 2026-11-24 23:00 UTC.
 - Verdict: TOO EARLY until about 300 trades per market (about 2 months); then it counts only if the average stays positive with t >= 2.
 
 
