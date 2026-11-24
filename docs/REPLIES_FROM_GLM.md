@@ -401,3 +401,51 @@ Uncertainties are marked (est.)/(memory) above; nothing here is investment advic
 - Timing: VIX closed at 35.89 on 20 Nov 2026 (+46% day, from 24.56 on 18 Nov to 28.44, 35.89), so an N1-style signal fired on the last data day. Its outcome is not yet known (5-day exit would be 27 Nov). Any N1 registration must freeze the window ending before 2026-11-20 and treat the 20 Nov signal as forward.
 - GLM agrees: Idea 17 log-only; Idea 18 no combination (family closed, Cypher watch item stays). GLM's "200-day trend failed t 0.02" refers to my D2 run on the flawed SPY file.
 - Nothing registered; N 941,555.
+
+
+---
+
+## GLM round 4 reply (SCORED round; prompt docs/ROUND4_PROMPT.md sent 01:53 UTC; first attempt timed out; resent 01:57; attached 02:13 = about 16 minutes after the resend, over the 10-minute rule; Joe decides any speed deduction). Verbatim.
+
+# Round 4, scored (24 Nov 2026) — GLM reply (for blind labelling)
+
+Accounting: **N +0 today** — no tests run; all numbers below are event counts, unconditional sds or MDE arithmetic for power only (Cboe SPX/VIX files, the project's official series). Planned registrations if approved: +6 here, +1 in Part B → N ≈ 941,562.
+
+## PART A
+
+**A1. Schedule (five tests, all done before 12 Dec).**
+
+**T1 — N1 VIX panic-spike long; by Fri 28 Nov; N+1.** VIX close ≥ 1.4× its trailing 10-day median and ≥ 20 → long SPX next open, exit 5th-session close; signals ≥ 10 sessions apart; one-sided (data held; n = 45 episodes, recounted). MDE = 2.8 × 3.0% / √45 = 1.25% per episode (≈ 25 bp/day; 5-day sd 2.31% × 1.3 regime, est.). Kill: net t < 2.8 closes the family; sensitivities 1.35/18, 1.5/25 declared now, not decisive. Prior 25-35%.
+
+**T2 — turn-of-month independent check: NDX 1986-2026; by 5 Dec; N+1.** The exact frozen D1 rule (source: Lakonishok & Smidt 1988) on FRED NDX daily (held, untouched). Statistic declared now: TOM-day minus other-day mean (Welch + NW 5). n = 491 blocks / 1,964 block-days; σ ≈ 1.25% (est.) → MDE ≈ 32 bp/block, ≈ 8.7 bp/day excess. Kill: excess t < 2.8 → closed forever. Prior 15%.
+
+**T3 — post-shock next-day drift (BFG's evidence base); by 5 Dec; N+2.** After any SPX close-to-close move ≥ ±2.5%, record next-day open-to-close return (two cells); NDX same threshold, declared; same family as T1 (Jegadeesh 1990, memory — sign unknown). n = 396 SPX events 1975-2026 (187 up / 209 down). MDE = 2.8 × 1.09% / √396 = 15 bp/day. Kill: |t| < 2.8 in all four cells → closed. Prior 20%.
+
+**T4 — N3 expiration-week long; by 8 Dec; N+1.** Long SPX at the close before expiration week, exit at the 3rd-Friday session close (5 sessions; holidays roll back one), monthly, one-sided. Source: Quantpedia (search-verified); Stivers ~2013 (existence verified). n = 407 weeks / 2,035 sessions. MDE = 2.8 × 1.15% / √2035 = 7 bp/day (≈ 36 bp/week); costs 1-2 bp. Kill: net t < 2.8 → closed. Prior 10-15%.
+
+**T5 — HAR-RV skill test (GPT6's); by 10 Dec; N+1.** Not a return edge. HAR-RV (Corsi 2009, JFEC 7(2) 174-196, search-verified today) vs naive prior-day RV, OOS NAS100 5-min 2016-26, rolling 60/40, Diebold-Mariano. n ≈ 2,700 OOS days (est.); detectable ≈ 3-5% relative RMSE (est.). Kill: DM t < 2.8 → keep naive. Prior 60-70%. Use: sizing input only (Idea 12).
+
+**A2. Deliberately NOT run:** Idea 18 combination (prior 2-3%; 112,307 variants burned; its only filter candidate, 200-day trend, failed at t 0.02). Round-3 N2 PUT/BXM filter (MDE 4.9 bp/day < ~8 bp/day net floor). Options-index history: write-up tables only. News scores (no timestamped history). Gap-follow registration (≈ 100 flag days, MDE ≈ 0.2-0.3R; Family A version failed) — log only. Anything fitted to 23 Nov. Reopening closed families.
+
+**A3. Stop date: yes.** Freeze registrations 5 Dec; runs end 10-12 Dec; write-up 19 Dec. The ≈ 5.75 bar prices 941k looks; remaining priors × power don't beat the compute penalty. If T1-T3 all miss by 5 Dec, stop then — honest nulls plus one unestablished pass is a complete result. Post-write-up: forward logs only until a fresh review (est. Jan 2027).
+
+## PART B
+
+**B1. True vs hindsight.** True: +6.9/+4.8/+2.7% overnight gaps (daily_context.csv), 33/33 shorts, ≈ −1.5R, BFG blind to news by design; stops hit 1-3 min after entry, so speed wasn't the issue. Hindsight: "long all day" — open-to-close was −0.23/−0.20/+0.32%, the move sat in the overnight gap an intraday agent never holds; a long from the open earned ≈ 0. "Late" is backwards: first short 26,558 vs the 26,831 open, high 26,984 by 15:21 — early short on each extension, stopped out; it loses by fading a one-direction tape, not latency. One day: −0.045R/trade vs −0.01R backtest mean; sd ≈ 0.7R (est.) with same-day clustering → one clustered observation of one day-type; the same agent made +4.6R on the −5.6% crash day.
+
+**B2. Three changes, none fitted to 23 Nov alone.**
+- **B1 — flag-day conditional mode (register now, run by 10 Dec, N+1).** Flag = |gap| from prior 15:55 close to 09:30 open ≥ 2.0% (frozen; proxy: 83 SPX |move| ≥ 2% days 2021-26, est. similar on NAS100; ≈ 580 trades). One realistic backtest run, split by flag, day-clustered: flagged mean ≤ −0.1R/trade with t ≤ −2.8 → stand aside on flags; ≥ +0.1R with t ≥ +2.8 → follow on flags; else unchanged. MDE ≈ 0.08R/trade (≈ 0.6R/day). Kill: both branches miss → unchanged, flag log-only. Prior 20%.
+- **B2 — post-shock overlay; decision frozen now, evidence from T3.** If T3 shows next-day drift with net |t| ≥ 2.8, BFG takes that side only on the day after a ±2.5% close move (continuation → long-only after up-shocks; reversal → the fade already aligns, no change); else no change. Source: Jegadeesh 1990 (memory). Power/kill = T3's (15 bp/day). Prior 20%.
+- **B3 — shadow variants, log-only (N+0 until registered).** Extend daily_context.csv: prior-day VIX, daily ATR20, BFG day-R, spread at first order, counterfactual R of stand-aside and follow modes; analysis registered after ≥ 60 logged days (then N+1). Rejected: news score (no timestamped history); gap-follow registration (underpowered); long-only after gap-ups (one-day fitting).
+
+**B3. Log going forward.** The daily_context.csv extension above, definitions frozen before the next row; flag fixed at 2.0%; shadow P&L daily at 1R scale; nothing tuned after looking.
+
+**B4. If the honest answer is "no change", I would say exactly that:** one clustered bad day is not evidence; BFG's expectation stays ≈ −0.01R/trade. The flag that would have spared 23 Nov would also have skipped the +4.6R crash day — regime flags are not free money. A loser patched after one bad day becomes an overfitted loser; a change must win on history (B1) or T3 (B2), and "no change" is a publishable outcome.
+
+Demo accounts only; nothing here endorses real-money trading. Estimates marked (est.), unverified items (memory).
+
+### Claude's checks (24 Nov)
+- Counts verified exactly on the official SPX file: 396 days with |move| >= 2.5% since 1975 (187 up, 209 down); 83 days since 2021 with |move| >= 2%.
+- Arithmetic fine: T1 2.8 x 3.0% / sqrt(45) = 1.25%; T2 491 blocks = 40.9 years x 12, MDE about 32 bp; T3 2.8 x 1.09% / sqrt(396) = 15 bp; N: +1+1+2+1+1 = +6, +1 in Part B = 941,562. Corsi 2009 J. Financial Econometrics 7(2) 174-196 matches my memory (GLM says search-verified).
+- Problems: (1) T1 "long SPX next open" and T3 "next-day open-to-close" cannot be run on the data we hold (the official S&P file has closes only); T1 would have to be close-to-close. (2) T2 is not independent: Nasdaq-100 and the S&P 500 move together and overlap D1b's 1986-2026 sample. (3) Jegadeesh 1990 is a stock-level monthly-reversal paper (memory, as GLM says); it is a weak source for next-day index drift after 2.5% moves. (4) T1 prior 25-35% looks high for 45 episodes. (5) B1's "MDE 0.08R per trade" assumes a per-trade SD of about 0.7R; with 1R stops and 2R targets I would expect about 1R or more, i.e. about 0.11-0.15R, unless trades are clustered by day (GLM's 0.6R/day figure is the consistent one).
+- Part B facts match our log (first NAS100 short 26,558 vs 09:30 open 26,831; high 26,984 by 15:21; -1.5R/33 = -0.045R). "Late is backwards" is fair; I would add that the rally was already priced at 04:21 New York (see GPT6 checks).
