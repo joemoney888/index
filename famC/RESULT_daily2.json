@@ -1,0 +1,51 @@
+{
+ "D1b_turn_of_month_official": {
+  "n": 622,
+  "net_mean_bp": 35.617347299841875,
+  "t": 4.350548681277969,
+  "se_bp": 8.186863292236353,
+  "thirds_net_bp": [
+   57.6396296783753,
+   26.72089856453772,
+   22.38512581903513
+  ],
+  "PASS": true,
+  "opposite_t_le_-2.8": false
+ },
+ "D1b_descriptive": {
+  "1975_92": {
+   "n": 215,
+   "net_mean_bp": 54.70709152326541,
+   "t": 4.046828640361025
+  },
+  "1993_2026": {
+   "n": 407,
+   "net_mean_bp": 25.533084380834353,
+   "t": 2.5024742299156313
+  }
+ },
+ "D3_announcement_day": {
+  "n": 1841,
+  "net_mean_bp": 2.2618282835563304,
+  "t": 0.8930457074290581,
+  "se_bp": 2.5327127880920988,
+  "thirds_net_bp": [
+   1.4549781685677472,
+   3.781394767375799,
+   1.5479492452820036
+  ],
+  "PASS": false,
+  "opposite_t_le_-2.8": false,
+  "raw_dates": 2577,
+  "weekend_dropped": 13,
+  "not_trading_day_dropped": 18,
+  "event_days_used": 1841,
+  "gross_event_mean_bp": 5.261828283556331,
+  "gross_nonevent_mean_bp": 3.918607207669573,
+  "event_minus_nonevent_bp": 1.343221075886758
+ },
+ "window": [
+  "1975-01-02",
+  "2026-11-20"
+ ]
+}
