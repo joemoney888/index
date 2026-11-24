@@ -454,3 +454,122 @@ Claude Sonnet 5.5 check (23 Nov 2026, 20:15 UTC), unscored side round:
 - Idea 2 (overnight gap reversal in the first half-hour) rests on a working paper whose venue is unverified; Idea 3 is a diagnostic, not a strategy. Part A verdicts: reasonable; "No" for Idea 8 on lack of option data agrees with my view; "No" on Idea 3 (cross-index divergence) and "Maybe" on Idea 10 for the annual data point is fair (we would need a daily series).
 - The second attachment (REPLIES_FROM_GLM, 297 lines) is the existing repo file minus two lines of my own recording note; it contains no reply to this round, so GLM's reply to the idea round and the options question has NOT arrived yet.
 - No registration made. N unchanged at 941,550. Candidate if Joe wants to register: European-open window (N +1), frozen rule: long NAS100 at the open of the 23:30 New York bar, exit at the close of the 03:25 bar, every session, own half-spreads, same decision rule as Family A (t >= 2.8, net >= +1 bp, 2 of 3 thirds).
+
+
+---
+
+## GPT6 round 3 reply (prompt docs/ROUND3_PROMPT.md given 01:22 UTC 24 Nov; attached 01:25; about 3 minutes, inside the 10-minute rule). Unscored side round. Verbatim.
+
+Round 3 — evidence review
+Starting point: N = 941,553. I have checked the public source pages and documents linked below live; I have not downloaded and independently audited every historical file or rerun any project tests. All new power figures below are estimates, not measurements from your repository.
+1. Historical US economic-release dates
+There is a practical free route, but one important qualification: ALFRED's downloadable “release dates” files are not guaranteed to be a perfect list of every original announcement date. ALFRED says its dates can include revisions to series and may use provider or first-availability dates when source dates are unavailable. Use them as a cross-check, not as unquestioned ground truth. 
+
+St. Louis Fed+2
+
+Release	Best historical source	What I verified
+CPI	BLS archived CPI releases · ALFRED dates TXT	BLS archive reaches 1994; ALFRED release-date file covers 1949–2026.  Bureau of Labor Statistics+1
+Employment Situation	BLS historical release-date PDF · ALFRED dates TXT	BLS PDF covers 1957–2000; ALFRED covers 1955–2026.  Bureau of Labor Statistics+1
+Advance Retail Sales	Census historical releases · ALFRED dates TXT	Census archive visibly includes 1993 onward; ALFRED covers 1966–2026.  Census.gov+1
+
+CSV recommendation: combine the three ALFRED text files into date,release,source_url, retain the BLS/Census archive URL in each row, and add a separate internal date_confidence field during validation. Compare dates against the actual archived releases before treating the file as a frozen event calendar. The files are downloadable text, not already-formatted CSV.
+
+I have not supplied a fabricated 1,000-row CSV: the dates need to be extracted and reconciled from the source files first. In particular, I would mark ALFRED-only dates as unconfirmed until checked against the original release.
+2. Cboe strategy-index history
+The official Cboe factsheets confirm these historical starts:
+Index	Coverage confirmed	Official source
+BXM BuyWrite	Daily closes from June 1986	BXM dashboard · BXM factsheet  Cboe+1
+PUT PutWrite	Daily closes from 3 January 2007	PUT factsheet  cdn.cboe.com
+CLL 95–110 Collar	Methodology base date June 1986; launch date September 2008	CLL methodology  cdn.cboe.com
+PPUT 5% Put Protection	Index exists; exact free daily download and start date not confirmed in this check	PPUT methodology  cdn.cboe.com+1
+
+Important distinction: a chart's historical start or methodology base date is not proof that a downloadable CSV is available for every day from that date. BXM's dashboard explicitly offers a “Historical Data” resource, but I could not verify a stable public CSV download URL for BXM, CLL or PPUT. I tested the likely Cboe CSV naming pattern; some URLs redirected or were not readable by the browser, so I will not present guessed paths as verified downloads.
+
+For a free fallback, the official Cboe SPX daily close CSV is documented from 2 January 1975. Cboe's VIX daily history begins in 1990. Both are useful controls, but neither supplies option-strategy returns. 
+
+Quadesto+1
+
+3. Longer daily data and timestamped news
+Daily index data
+- S&P 500: Cboe SPX history CSV. Free daily closes from 2 January 1975; no OHLC. 
+  
+  Quadesto
+- Nasdaq-100: FRED NASDAQ100 data. Free daily closes from 2 January 1986 to the latest displayed date, 19 November 2026. Nasdaq is the original data source. It is close-only and carries Nasdaq copyright; check FRED/Nasdaq terms before redistributing. 
+  
+  St. Louis Fed+1
+- Dow: FRED's DJIA history is a possible source, but I have not verified a 1990-present free series in this check. I would not assume it has that coverage.
+These two confirmed sources materially extend your daily sample, but they are price indices, not total-return series. Cboe's SPX file also needs correct US date parsing. 
+
+Quadesto
+
+News and event timestamps
+Source	What it gives you	Limitation
+SEC EDGAR developer resources	Public filing archives, daily indexes and RSS; filing headers include acceptance date/time. EDGAR begins in 1994/95.  Developer Resources+2	Acceptance time is not necessarily the time the public could first read the filing. SEC says publication often follows within 1–3 minutes, but is not guaranteed.
+Federal Reserve FOMC archive	Policy statements and historical material.  Transcripts and other historical materials	Exact historic statement times require care. From 1994–March 2011, 2:15 p.m. was usual, not universal; from 2011 timing changed.  Federal Reserve Bank of New York+1
+BLS archived releases	CPI and employment release documents, with archives reaching the 1990s.  Bureau of Labor Statistics+1	Archive availability does not itself prove the exact time a story first reached a newswire.
+Census retail release archive	Advance Retail Sales documents back to 1993.  Census.gov	Release dates can be reconstructed; this is not a comprehensive intraday news feed.
+
+My conclusion: free timestamped official-event data is available. A comprehensive, reliable, free historical newswire feed with first-publication timestamps is not something I verified. Don't substitute article dates for publication times.
+4. Idea 17 — scored news feed for the fade agent
+Verdict: yes to log-only; no to allowing it to steer the agent yet.
+- Prior: plausible that major information shocks explain some extreme moves; not evidence that a news score can identify them in advance or improve net results.
+- Data needed: OANDA bars and spreads; event timestamps; source URL; affected company/index; publication time and time zone; whether the information was scheduled or unexpected.
+- Design: log every session, not just dramatic days. Freeze gap and first-hour thresholds before collecting data, and distinguish price-triggered flags from independently timestamped news events.
+- Record both the first timestamp you can verify and the timestamp displayed by the source. Keep human sentiment labels separate from objective event categories.
+- Do not retrospectively label 23 November as an Nvidia-news event without checking the exact publication time and the index's constituent contribution. A large move and a contemporaneous headline do not establish causation.
+- N cost: +0 for passive logging. Count N only if you register and evaluate a predictive rule. Do not let the flag alter position selection or sizing during this log.
+This design tests whether the proposed information is available before the price move, rather than merely explaining the move afterwards.
+5. Idea 18 — harmonic patterns plus another indicator
+Verdict: no new registration.
+- Prior: very low. Your standalone search already examined 112,307 variants without a pass. Adding another indicator increases degrees of freedom and the chance of selecting a lucky combination.
+- Published evidence: I found a 2023 HKUST research project testing Gartley, Butterfly, Bat and Crab patterns. It reports low occurrence and low overall profitability, with some better reversal accuracy for bullish Bat and Crab patterns in upward trends. This is not strong peer-reviewed evidence that combining a harmonic pattern with an indicator adds incremental value. 
+  
+  cse.hkust.edu.hk
+- Data needed: point-in-time pattern recognition from price bars, spreads, and a frozen indicator definition. Your current five-minute history is enough to test a coarse version, but not to establish the value of precise intrabar turning points.
+- Honest test if ever reopened: compare the pattern alone, indicator alone and their pre-specified combination on identical dates, with the same costs and out-of-sample periods. The combination must beat both components, not merely produce a positive t-statistic.
+- N cost: +0 if left closed; +1 for a new registered combination test.
+Cypher K=6 should remain a watch item, not a reason to reopen the family.
+6. Three new ideas
+The following are distinct research tests, not recommendations to trade. Power figures are rough estimates using the stated sample sizes and assumed return variability.
+
+1. Variance risk premium and quarterly index returns
+- Rule: At each quarter-end, calculate VIX-implied variance minus trailing realised SPX variance, then test whether it predicts the next quarter's SPX excess return.
+- Source: Bollerslev, Tauchen and Zhou (2009), Review of Financial Studies — verified; they report that the variance risk premium predicts aggregate stock returns, particularly at quarterly horizons. 
+  
+  OUP Academic+1
+- Data: Free Cboe VIX daily CSV, Cboe SPX daily closes, and FRED Treasury-bill data. This is a proxy, not the paper's exact model-free variance measure.
+- Sample: About 147 quarterly observations from 1990–2026 (est.).
+- Detectable effect: About 1.9% per quarter (est.), assuming 8% quarterly return standard deviation and independent quarters.
+- N: +1. Prior: 5–10%. The sample is small and the effect may not survive a simple proxy or out-of-sample test.
+2. Market breadth and next-month index return
+- Rule: Use the monthly average NYSE advance-minus-decline ratio to predict the following month's SPX return, with one frozen linear regression and no threshold search.
+- Source: Herding for Profits: Market Breadth and the Cross-Section of Global Equity Returns (2021), verified; it reports breadth predictability across 64 countries, but that is not direct proof of US index timing. 
+  
+  ScienceDirect
+- Data: Free NYSE advance/decline CSV history from 1965 and Cboe SPX closes from 1975. The breadth source is a third-party archive, so cross-check it before use. 
+  
+  unicorn.us.com+1
+- Sample: About 430 non-overlapping monthly observations (est.).
+- Detectable effect: About 0.55% per month (est.), assuming 4% monthly return standard deviation.
+- N: +1. Prior: 3–5%. Cross-sectional evidence may not transfer to a single index.
+3. HAR realised-volatility forecast
+- Rule: Forecast next-session NAS100 realised volatility using the previous day's, week's and month's realised volatility, and compare out-of-sample forecast loss against a frozen 20-day historical-volatility baseline.
+- Source: Corsi (2009), Journal of Financial Econometrics — verified; the HAR-RV model is a published realised-volatility forecasting benchmark. 
+  
+  DOI+1
+- Data: Existing OANDA five-minute NAS100 history, free to the project; no new feed needed.
+- Sample: Around 1,370 sessions, with perhaps 800–900 out-of-sample sessions after an initial training period (est.).
+- Detectable effect: Approximately 0.10 standard deviations of paired forecast-loss differences (est.); serial dependence may make the true threshold larger.
+- N: +1. Prior: 20–30% of improving forecast accuracy meaningfully; lower for demonstrating a net trading benefit. This is risk forecasting, not an alpha signal.
+7. Which to test first?
+Idea 3, HAR-RV, first: it uses existing data, has a well-established published benchmark, and tests whether the agent can estimate risk more accurately without inventing a new directional edge.
+
+Overall: the best immediate progress is improving the event log and data coverage, not adding another trading signal. A successful volatility forecast or a well-documented null would both be useful research outcomes.
+### Claude's checks (24 Nov)
+- Verified by me (web search): Bollerslev, Tauchen, Zhou, "Expected Stock Returns and Variance Risk Premia", RFS 22(11) 2009, pp. 4463-4492: predictability strongest at the quarterly horizon, post-1990 sample; the paper also says results depend crucially on a model-free implied-variance measure and that predictability has diminished somewhat in recent decades. GPT6's VIX-minus-trailing-realised proxy is not that measure (GPT6 says so itself). Zaremba, Szyszka, Karathanasopoulos, Mikutowski, "Herding for profits", Economic Modelling 97 (2021) 348-364: breadth predicts returns in 64 countries, 1973-2018 (GPT6's "ScienceDirect" link is fine; the journal is Economic Modelling).
+- NOT verified by me: Corsi 2009 (real, from memory), the HKUST 2023 project, the Cboe SPX CSV "from 1975" (GPT6 cites a third-party page, Quadesto), the FRED NASDAQ100 series and its end date, the Cboe/Census/BLS/ALFRED pages and coverage dates, the 1994-2011 "2:15 pm usual" FOMC time (consistent with what this project already used: about 14:15 before 2013).
+- Arithmetic rechecked: 8% / sqrt(147) x 2.8 = 1.85% (GPT6 1.9%); 4% / sqrt(430) x 2.8 = 0.54% (GPT6 0.55%). Both fine given their assumed SDs.
+- GPT6 did not supply the release-date CSV (it says the dates must be extracted and reconciled from ALFRED text files); item 1 is still open and needs Joe or another reviewer to fetch them. Cboe BXM/PUT: no verified CSV URL either.
+- Useful and free: FRED NASDAQ100 daily to Nov 2026 and Cboe SPX daily close from 1975 would extend my data past Apr 2024 and back before 1993, if Joe can download them.
+- Idea 3 (HAR-RV, GPT6's first pick) tests forecast accuracy of volatility, not a trading return. It is close to Idea 12 (vol-targeted sizing) and cannot, by itself, give a working rule; its pass criterion would need freezing as forecast-loss, not P&L.
+- Idea 17: GPT6 agrees with log-only. Idea 18: GPT6 says no new registration. Nothing registered; N 941,553.
