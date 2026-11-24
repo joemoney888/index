@@ -181,3 +181,7 @@ timestamp_utc,market,event,details
 2026-11-24T17:51:30Z,NAS100,move_stop,"{""trade"": ""472"", ""from"": 26485.0, ""to"": 26302.3}"
 2026-11-24T17:51:31Z,SPX500,move_stop,"{""trade"": ""476"", ""from"": 7247.7, ""to"": 7212.3}"
 2026-11-24T17:51:31Z,US30,move_stop,"{""trade"": ""480"", ""from"": 50190.3, ""to"": 50021.5}"
+2026-11-24T17:56:32Z,US30_USD,trade_closed,"{""key"": ""closed|480"", ""trade"": ""480"", ""open_price"": ""50011.2"", ""close_price"": ""50022.2"", ""units"": ""-0.03"", ""open_time"": ""2026-11-24T17:31:34.988738355Z"", ""close_time"": ""2026-11-24T17:56:19.101655002Z"", ""realized_pl"": ""-0.2540"", ""financing"": ""0.0000"", ""reason"": ""STOP_LOSS_ORDER"", ""fill_price"": ""50022.2"", ""bid"": ""50018.2"", ""ask"": ""50022.2""}"
+2026-11-24T17:56:32Z,SPX500_USD,trade_closed,"{""key"": ""closed|476"", ""trade"": ""476"", ""open_price"": ""7214.1"", ""close_price"": ""7212.3"", ""units"": ""-0.20"", ""open_time"": ""2026-11-24T17:31:34.259330170Z"", ""close_time"": ""2026-11-24T17:56:19.973427789Z"", ""realized_pl"": ""0.2716"", ""financing"": ""0.0000"", ""reason"": ""STOP_LOSS_ORDER"", ""fill_price"": ""7212.3"", ""bid"": ""7211.7"", ""ask"": ""7212.3""}"
+2026-11-24T17:56:32Z,NAS100,move_stop,"{""trade"": ""472"", ""from"": 26302.3, ""to"": 26285.3}"
+2026-11-24T17:56:34Z,US30,order_placed,"{""key"": ""US30|2026-11-24T17:50"", ""side"": -1, ""entry"": 50023.2, ""stop"": 50200.9, ""target"": 49797.2, ""units"": -0.03, ""risk_gbp"": 5.2002, ""atr"": 59.63298611111178, ""filled"": true, ""trade_id"": ""500"", ""price"": 50023.2}"
