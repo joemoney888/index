@@ -40,3 +40,19 @@ Frozen. Nothing tuned after results.
 **D1b turn-of-month: PASSES the frozen rule, but is NOT established.** 622 blocks, net +35.6 bp per block, NW t 4.35; thirds +57.6 / +26.7 / +22.4 bp (all positive, shrinking). Descriptive split: 1975-92 (unseen by D1) n 215, +54.7 bp, t 4.05; 1993-2026 n 407, +25.5 bp, t 2.50 (below 2.8 on its own, consistent with D1's near miss).
 Why not established (descriptive checks, not tests): (1) the rule tests against zero, and the market drifts up anyway: TOM days average +9.4 bp/day vs +2.9 bp on other days, excess +6.5 bp/day, Welch t 2.75. (2) The excess has decayed: 1975-89 +12.1 bp/day (t 3.09); 1990s +6.6 (t 1.43); 2000s +4.8 (t 0.69); 2010s +1.1 (t 0.23); 2020-26 +4.8 (t 0.66). (3) t 4.35 is below the project's luck bar at N 941,555 (about 5.75). (4) On a CFD, about three nights of financing (est. 5-6 bp per block) would be charged on top. Status: passes its frozen rule on a long history, the effect is mostly in 1975-89 and has largely faded; forward shadow only, no trading.
 **D3 announcement-day premium: FAIL, closed.** 1,841 event days (2,577 raw dates; 13 weekend and 18 non-trading dates dropped). Gross +5.3 bp on event days vs +3.9 bp on other days (gap +1.3 bp; published 11.4 bp); net of 3 bp +2.3 bp, t 0.89; thirds +1.5 / +3.8 / +1.5 bp.
+
+---
+# Addendum v1.2 (24 Nov 2026 07:4x UTC, registered before any run, on Joe's "go"): D4 VIX panic-spike long and D5 option-expiration-week long
+N: 941,555 -> 941,557 (+2). One run each, official S&P 500 daily close (1975-01-02 to 2026-11-20, closes only, so all returns are close-to-close) and Cboe VIX daily close (1990-01-02 to 2026-11-20). 3 bp round-trip cost charged per trade. Pass rule as D1: t >= 2.8, floor, >= 2 of 3 equal-count chronological thirds positive; opposite t <= -2.8 recorded, never traded.
+
+## D4 (GLM N1; Kudryavtsev 2017 existence only)
+Signal on day t (VIX and S&P both have a row): VIX close(t) >= 1.4 x median of the previous 10 VIX closes (t-10..t-1) AND VIX close(t) >= 20. Take the first signal; the next eligible signal is on or after the 10th session later. Long the S&P at close(t), exit at close(t+5 sessions). Signal dates 1990-01-02 .. 2026-11-13 only (later signals have unknown outcomes: the 20 Nov 2026 signal is forward, log only). NW 1 lag; floor net mean >= +30 bp per trade. Descriptive only: the unconditional mean 5-day return over all days (excess), and event counts and mean for sensitivities 1.35x/18 and 1.5x/25 (not decisive, not tested).
+Expected: ~45 events, SD ~3%, detectable ~1.25% per event.
+
+## D5 (GLM N3; Stivers and Sun, J. Banking and Finance 2013, existence only)
+Each month 1975-01 .. 2026-11: exit day = third Friday (if not a trading day, the previous trading day); entry day = the second Friday (the Friday 7 days earlier; previous trading day if a holiday). Long the S&P at close(entry), exit at close(exit); about 5 sessions. NW 1 lag; floor net mean >= +25 bp per week. Descriptive only: mean of all rolling 5-session returns over the same period (excess).
+Expected: ~623 weeks, SD ~2.2%, detectable ~25 bp per week.
+
+## Not registered (decided before running): BFG gap-day diagnostic
+On the data that can support a realistic-fill replay (NAS100 1-minute 2023-11-19 to 2026-11-19) only 21 days have |gap| >= 2% (59 at 1.5%; 131 at 1%). Detectable difference at t 2.8 with ~2R per-day SD is about 1.2R/day at 21 days, 0.7R/day at 59: it cannot answer the question, and N would be spent for a "can't tell". Counts only, no returns looked at. The gap flag stays a forward log (forward/daily_context.csv).
+Frozen. Nothing tuned after results.
