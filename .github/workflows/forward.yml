@@ -27,6 +27,10 @@ jobs:
         env:
           OANDA_API_TOKEN_INDEX: ${{ secrets.OANDA_API_TOKEN_INDEX }}
           OANDA_ACCOUNT_ID_INDEX: ${{ secrets.OANDA_ACCOUNT_ID_INDEX }}
+      - run: python forward_context.py   # log-only daily context + big-day flag (Idea 17), paper only, no orders (docs/FORWARD_CONTEXT.md)
+        env:
+          OANDA_API_TOKEN_INDEX: ${{ secrets.OANDA_API_TOKEN_INDEX }}
+          OANDA_ACCOUNT_ID_INDEX: ${{ secrets.OANDA_ACCOUNT_ID_INDEX }}
       - run: |
           git config user.name "gbpusd-agent"
           git config user.email "agent@users.noreply.github.com"

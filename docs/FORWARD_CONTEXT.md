@@ -1,0 +1,4 @@
+# Forward context log (log only; no N, no test, no orders)
+What: each trading day after 16:30 New York, `forward_context.py` writes one row per instrument (SPX500, NAS100, US30) to `forward/daily_context.csv`: prior close, 09:30 open, 10:30 price, 15:55 close, gap %, first-hour %, day %, and a **big-day flag** (|gap| >= 1.0% or |first hour| >= 0.75%). Starts 2026-11-23 (the Nvidia day). Thresholds fixed now, not tuned.
+Why: (1) Joe's Idea 17: a record of big, news-driven days to compare against BFG's results later, without a news feed (no timestamped news history exists and I may not sign up to a service). (2) Daily returns for following the turn-of-month near miss (D1, t 2.70) as a forward shadow: turn-of-month blocks are derived from these rows (last trading day of a month plus the first 3 of the next).
+Not evidence before at least 100 flagged days (months). Any rule built from it needs its own registration and N.
