@@ -573,3 +573,122 @@ Overall: the best immediate progress is improving the event log and data coverag
 - Useful and free: FRED NASDAQ100 daily to Nov 2026 and Cboe SPX daily close from 1975 would extend my data past Apr 2024 and back before 1993, if Joe can download them.
 - Idea 3 (HAR-RV, GPT6's first pick) tests forecast accuracy of volatility, not a trading return. It is close to Idea 12 (vol-targeted sizing) and cannot, by itself, give a working rule; its pass criterion would need freezing as forecast-loss, not P&L.
 - Idea 17: GPT6 agrees with log-only. Idea 18: GPT6 says no new registration. Nothing registered; N 941,553.
+
+
+---
+
+## GPT6 round 4 reply (SCORED round; prompt docs/ROUND4_PROMPT.md sent 01:53 UTC 24 Nov; attached 01:55; about 2 minutes, no speed penalty). Labelled "Blind review X" by the author. Verbatim. Scoring after all three answers are in.
+
+# **Round 4 — Blind review X**
+
+## **Part A — What to test, and in what order**
+
+**Recommendation: register three tests only.** Current N = 941,555; if all three run, final N = **941,558**.
+
+1\. **VIX panic-spike reversal — first; N +1; run by 29 November.**
+
+- Rule: when SPX falls at least 2% in a session and VIX rises at least 10% that same session, buy SPX at that day's close plus one session (next close); exit five trading sessions later. One position at a time; 2 bp round-trip assumed cost.
+- Data: daily SPX and VIX, 1990–2026. Expected 60–120 non-overlapping events (est.); count signals before examining forward returns.
+- Power: assuming 4.5% SD for five-day returns (est.), MDE = \\(2.8×4.5\\%/\sqrt{60\text{ to }120}\\) = **1.15–1.63% per event**. Weak power for modest effects.
+- Kill: fail if net event-minus-unconditional five-day return is below +0.25%, t below 2.8, or fewer than two of three chronological periods are positive.
+- Prior: 5–10%. Kudryavtsev reports reversals after large moves accompanied by opposite-direction VIX changes, but this is not strong enough evidence to assume an index-level edge.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://riskmarket.co.uk\&sz=32)
+
+  Home
+
+
+
+2\. **Monthly options-expiration week — N +1; run by 3 December.**
+
+- Rule: long SPX from the previous Friday close to the Friday close of the week containing the month's third Friday; compare with other non-overlapping trading weeks.
+- Data: SPX daily, 1983–2026; approximately 516 expiration weeks (est.).
+- Power: assuming 2.2% weekly SD (est.), MDE = \\(2.8×2.2\\%×\sqrt{1/516+1/2064}\\) = **about 31 bp per week**.
+- Kill: fail if excess net return is below 30 bp/week, t below 2.8, or fewer than two of three periods are positive.
+- Prior: 5–10%. Stivers and Sun found higher expiration-week returns for S&P 100 stocks, not proof of an S&P 500 index effect.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.sciencedirect.com\&sz=32)
+
+  ScienceDirect
+
+
+
+3\. **HAR-RV volatility forecast — N +1; run by 8 December.**
+
+- Rule: forecast next-session NAS100 realised variance using previous 1-day, 5-day and 22-day realised variance; compare with a frozen 20-day rolling-average forecast.
+- Data: existing 5-minute NAS100 bars, 2021–26; expanding training window and final 365 calendar days as the untouched exam.
+- Power: approximately 250 exam sessions (est.); detectable paired loss difference = \\(2.8/\sqrt{250}\\) = **0.177 standard deviations**, likely 0.20–0.25 after serial dependence (est.).
+- Kill: no run if the data cannot support a clean exam; otherwise fail if QLIKE loss improvement is below 5% or paired t below 2.8.
+- Prior: 25–35% for better volatility forecasts, **not** directional trading alpha. Corsi's HAR-RV paper supports the forecasting framework.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://academic.oup.com\&sz=32)
+
+  OUP Academic
+
+
+
+**Do not run:** another turn-of-month test (the excess-return comparison was already weak: t 2.75, with the effect fading); harmonic combinations (112,307 standalone variants, none passed); or the five-look options-index comparison (N +5, and it tests portfolio characteristics rather than a new signal). The repo records the turn-of-month decay and harmonic results.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://raw.githubusercontent.com\&sz=32)
+
+GitHub+1
+
+
+
+**Stop rule:** no new registrations after **30 November**. Finish registered runs by **12 December**; write up 13–19 December. The repo's old +6 N cap should be updated because your new instruction removes it.
+
+## **Part B — BFG, Monday 23 November**
+
+### **1. What Joe got right — and what was hindsight**
+
+- Correct: 33 orders, all short; approximately -1.5R. The Nvidia reinstatement was real and material. The SEC accepted Nvidia's 8-K at **08:57:54 New York time**; Reuters reported the news at 09:05.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://www.sec.gov\&sz=32)
+
+  SEC+1
+
+- Not established: that BFG should have been long all day. The overnight gaps were +4.81% SPX, +6.91% NAS100 and +2.72% US30. But from 09:30 open to 15:55 close, SPX and NAS100 fell 0.23% and 0.20%; US30 rose 0.32%. Most of the rally was already in the opening price.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://raw.githubusercontent.com\&sz=32)
+
+  GitHub
+
+- “Late” is only partly fair. Its first order was 09:01, before the cash open, and NAS100 was already about 5.83% above Friday's close at its 26,558 entry. It had not missed the move through slow processing; it was fading an already-large repricing.&#x20;
+
+  [image](https://www.google.com/s2/favicons?domain=https://raw.githubusercontent.com\&sz=32)
+
+  GitHub+1
+
+- The actual problem is structural: a fade system can repeatedly short a rising market. But one day does not prove a replacement rule works.
+
+### **2. Three possible frozen changes — none recommended for activation**
+
+The public `daily_context.csv` contains only the 23 November rows, not the five-year history. I cannot verify the number of qualifying gap days from the published files. At a 0.5-ATR threshold, **30–80 unique dates is an estimate**, not a measured count; count them before registering anything.
+
+1\. **Gap stand-down — N +1.** At 09:00 NY, calculate the gap from prior 16:00 close divided by prior 20-session ATR. If absolute gap ≥0.5 ATR, prohibit new BFG entries until 16:00. Mechanism: avoid fading unusually large repricings. Power: 30–80 days (est.); assuming paired daily SD 1.5R, MDE = \\(2.8×1.5/\sqrt{30\text{ to }80}\\) = **0.47–0.77R/day** (est.). Pass only if avoided-loss improvement ≥0.25R/day and day-clustered t ≥2.0. Prior: 10%.
+
+2\. **Gap-direction filter — N +1.** Same trigger; permit only BFG entries in the direction of the 09:00 gap until 16:00. Same estimated sample and power. Kill if incremental net result versus unfiltered BFG is ≤0 or t below 2.0. Prior: 5%.
+
+3\. **First-hour confirmation — N +1.** On qualifying gap days, wait until 10:30; only permit BFG entries in the direction of the 09:30–10:30 return if it agrees with the gap and exceeds 0.25 ATR. Estimated 15–40 qualifying dates; MDE about **0.66–1.08R/day** (est.). Kill if improvement is below 0.25R/day or t below 2.0. Prior: 5–10%.
+
+These three are related looks, not independent discoveries. I would **not register all three**. If Joe insists on one, test the stand-down first; do not switch BFG to long-only based on 23 November.
+
+### **3. Log going forward**
+
+Record every day, including no-trade days: 09:00 gap/ATR, first-hour return, VIX, orders and skipped signals, side, trigger, spread, entry/exit, slippage, stop/target, R, maximum favourable/adverse excursion, agent version and shadow results. Preserve original news publication time separately from collection time.
+
+### **4. What I would tell Joe**
+
+**No change is currently justified.** BFG has no demonstrated edge (about -0.01R/trade in the realistic backtest), and one bad day cannot identify a repair. Keep it frozen in paper mode; log the gap context; only register a filter if the historical sample is large enough to test it honestly.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://raw.githubusercontent.com\&sz=32)
+
+GitHub
+
+### Claude's checks (24 Nov, provisional; not the score)
+- Arithmetic rechecked and correct: VIX spike MDE 2.8 x 4.5% / sqrt(60..120) = 1.63%..1.15%; opex 2.8 x 2.2% x sqrt(1/516 + 1/2064) = 0.30% per week; HAR 2.8 / sqrt(250) = 0.177 SD; NAS100 entry 26,558 vs Friday close 25,096.2 = +5.82%.
+- Counts. GPT6 estimated 30-80 qualifying days for a 0.5-ATR gap filter and said it could not count them. Counted by me on our 5-minute bars 2021-26 (counts only, no returns; ATR = mean of the last 20 regular-session ranges): |gap| >= 0.5 ATR on 393 (NAS100), 393 (SPX500), 352 (US30) days of about 1,400; >= 1.0 ATR 92 / 100 / 79; >= 1.5 ATR 25 / 27 / 19. So its 30-80 estimate is about 5 times too low at 0.5 ATR (right at about 1.0-1.5 ATR); at 393 days the MDE is about 2.8 x 1.5R / sqrt(393) = 0.21R per day, not 0.47-0.77R.
+- News timing: the Nvidia 8-K and press release of 23 Nov exist on sec.gov (search), and NBC's story is stamped 8:59 AM EST, Variety 6:06am PT (9:06 ET), consistent with GPT6's 08:57:54 acceptance (the exact acceptance time itself I did not see). BUT our own log shows the move started well before that: three BFG shorts opened Friday 20 Nov were closed at 09:21 UTC Monday (04:21 New York) with NAS100 at 26,103, already about 4% above Friday's 15:55 close (25,096). So the 8-K at 08:57 ET cannot explain most of the gap; the rally was already priced from earlier reports (weekend or early-Monday; source not verified by me). BFG's first orders were at 14:01 UTC (09:01 NY), i.e. after the news and after most of the gap.
+- Sources: Kudryavtsev (existence only), Stivers and Sun (option-expiration-week returns, S&P 100 stocks; existence only, not checked), Corsi 2009 (real; from memory earlier). The repo claim "daily_context.csv holds only the 23 Nov rows" was true when read (the log started 23 Nov).
+- Rule detail: the VIX test is ambiguous ("buy at that day's close plus one session (next close); exit five sessions later" does not say whether the five sessions start from signal or entry) and differs from GLM's N1 (SPX -2% and VIX +10% same day vs VIX >= 1.4x median and >= 20); event count unknown.
+- Position: 3 tests (VIX spike, opex, HAR-RV), stop registrations 30 Nov; BFG: no change, log only; gap stand-down tested first if Joe insists. Close to Claude's own answer; differs on HAR-RV (Claude: skip) and on counts.
