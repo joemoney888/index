@@ -154,3 +154,6 @@ timestamp_utc,market,event,details
 2026-11-24T15:21:29Z,NAS100,move_stop,"{""trade"": ""394"", ""from"": 26271.9, ""to"": 26249.9}"
 2026-11-24T15:21:35Z,SPX500,move_stop,"{""trade"": ""406"", ""from"": 7240.0, ""to"": 7195.8}"
 2026-11-24T15:21:39Z,US30,move_stop,"{""trade"": ""410"", ""from"": 50066.8, ""to"": 49794.5}"
+2026-11-24T15:26:36Z,NAS100_USD,trade_closed,"{""key"": ""closed|394"", ""trade"": ""394"", ""open_price"": ""26369.9"", ""close_price"": ""26123.2"", ""units"": ""-0.03"", ""open_time"": ""2026-11-24T15:01:33.292468337Z"", ""close_time"": ""2026-11-24T15:25:44.427386639Z"", ""realized_pl"": ""5.5888"", ""financing"": ""0.0000"", ""reason"": ""TAKE_PROFIT_ORDER"", ""fill_price"": ""26123.2"", ""bid"": ""26121.9"", ""ask"": ""26123.2""}"
+2026-11-24T15:26:41Z,SPX500,move_stop,"{""trade"": ""406"", ""from"": 7195.8, ""to"": 7186.5}"
+2026-11-24T15:26:42Z,US30,move_stop,"{""trade"": ""410"", ""from"": 49794.5, ""to"": 49744.1}"
