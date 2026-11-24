@@ -135,3 +135,7 @@ Status: queued for phase 2. To be reviewed together with Ideas 17, 19 and 20.
 
 ## Phase plan (Joe, 24 Nov 2026 21:18 UTC)
 Finish phase 1 first (registration cut-off 30 Nov to 5 Dec, write-up due 19 Dec). Then review all new and queued ideas together and decide what phase 2 looks like. Nothing from Ideas 17 to 21 is registered or tested until then unless Joe says otherwise.
+
+## Dream - Phase 9 or 10 (Joe, 24 Nov 2026 21:20 UTC)  [DREAM ONLY: not a test, no N, no money]
+Joe's long-range goal: passive income of net 65,000 a year with all taxes paid and accounted for.
+Claude Sonnet 5.5 first look: needs a verified edge first (none exists yet; phase 1 is how we find out). Rough scale, not tax advice: about 65,000 net may need roughly 80,000 to 90,000 gross depending on how profits are taxed, which at a steady 10 percent a year means about 800,000 to 900,000 of capital and at 20 percent about 400,000 to 450,000, with drawdowns along the way. Paper only; nothing near real money without a verified edge and LIMITS=on.
