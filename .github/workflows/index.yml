@@ -32,3 +32,13 @@ jobs:
             git commit -m "index run $(date -u +%FT%TZ)"
             for i in 1 2 3 4 5; do git pull --rebase && git push && break || sleep 4; done
           fi
+      - name: Trigger the demo mirror after this run (does nothing unless both the secret and the variable are set)
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.MIRROR_DISPATCH_TOKEN }}
+          MIRROR_REPO: ${{ vars.MIRROR_REPO }}
+        run: |
+          if [ -n "$GH_TOKEN" ] && [ -n "$MIRROR_REPO" ]; then
+            gh api -X POST "repos/$MIRROR_REPO/actions/workflows/ctrader-mirror.yml/dispatches" -f ref=main -f 'inputs[mode]=mirror'
+          fi
