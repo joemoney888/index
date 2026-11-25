@@ -24,16 +24,18 @@ jobs:
           INDEX_TRADING: ${{ vars.INDEX_TRADING }}
           INDEX_COMPOUND: ${{ vars.INDEX_COMPOUND || 'true' }}     # ON from 23 Nov 2026 (the PM); set the repo variable to 'false' to turn off
           INDEX_COMPOUND_START: ${{ vars.INDEX_COMPOUND_START || '2026-11-18T00:00:00Z' }}     # counts every BFG trade closed since live trading began, so the base matches the account balance
-      - run: |
+      - id: commit
+        run: |
           git config user.name "gbpusd-agent"
           git config user.email "agent@users.noreply.github.com"
           git add -A logs
           if ! git diff --cached --quiet; then
             git commit -m "index run $(date -u +%FT%TZ)"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
             for i in 1 2 3 4 5; do git pull --rebase && git push && break || sleep 4; done
           fi
-      - name: Trigger the demo mirror after this run (does nothing unless both the secret and the variable are set)
-        if: always()
+      - name: Trigger the demo mirror only when this run logged something new (does nothing unless both the secret and the variable are set)
+        if: always() && steps.commit.outputs.changed == 'true'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.MIRROR_DISPATCH_TOKEN }}
