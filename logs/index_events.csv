@@ -284,3 +284,5 @@ timestamp_utc,market,event,details
 2026-11-25T20:16:35Z,SPX500,move_stop,"{""trade"": ""742"", ""from"": 7186.4, ""to"": 7184.4}"
 2026-11-25T20:26:29Z,SPX500_USD,trade_closed,"{""key"": ""closed|742"", ""trade"": ""742"", ""open_price"": ""7180.7"", ""close_price"": ""7184.4"", ""units"": ""-0.18"", ""open_time"": ""2026-11-25T19:56:53.328374195Z"", ""close_time"": ""2026-11-25T20:24:04.181425358Z"", ""realized_pl"": ""-0.5126"", ""financing"": ""0.0000"", ""reason"": ""STOP_LOSS_ORDER"", ""fill_price"": ""7184.4"", ""bid"": ""7184.0"", ""ask"": ""7184.4""}"
 2026-11-25T20:31:30Z,US30,move_stop,"{""trade"": ""746"", ""from"": 50426.7, ""to"": 50256.7}"
+2026-11-25T20:36:39Z,NAS100,move_stop,"{""trade"": ""738"", ""from"": 26018.0, ""to"": 25953.0}"
+2026-11-25T20:36:41Z,US30,move_stop,"{""trade"": ""746"", ""from"": 50256.7, ""to"": 50181.3}"
