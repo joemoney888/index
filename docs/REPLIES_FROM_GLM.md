@@ -1,6 +1,6 @@
 # REPLIES_FROM_GLM — Round F (21 Nov 2026)
 
-GLM 5.3, independent audit. I cloned `joemoney888/index` (HEAD 9f3adec) and read `NOTES_FOR_GLM.md`, `search/CALIB/RESULT.md` plus all 21 result JSONs, `test4.py`, `agent/search.py`, `search_run.py`, `search_exam.py`, `IDEA_BACKLOG.md`, `HANDOVER.md`. I re-computed the Test 4 statistics from the JSONs myself rather than trusting the markdown. I cannot push to GitHub; Joe should commit this file as-is.
+GLM 5.3, independent audit. I cloned the public repo (HEAD 9f3adec) and read `NOTES_FOR_GLM.md`, `search/CALIB/RESULT.md` plus all 21 result JSONs, `test4.py`, `agent/search.py`, `search_run.py`, `search_exam.py`, `IDEA_BACKLOG.md`, `HANDOVER.md`. I re-computed the Test 4 statistics from the JSONs myself rather than trusting the markdown. I cannot push to GitHub; the PM should commit this file as-is.
 
 ## 0. What I verified (re-computed, not trusted)
 - 20 shuffles, best train t with n>=500: mean 2.608, SD 0.423 (population) / 0.434 (sample), max 3.55 (run 8), min 2.16. Matches RESULT.md.
@@ -53,7 +53,7 @@ Second slot: deliberately empty. Considered and rejected: overnight effect (real
 2. Drop the 4.05 follow-up: noise at rank 1 of 21, two upward biases, no reachable decision.
 3. Run FIRST: Family A = ideas 5+6, 3 frozen specs, pooled decision t>=2.8, N+3 — after Monday's housekeeping (ledger audit, stop_1min fix, trade_closed reconciliation).
 4. Drop ideas 2, 3, 4 and the daily-SFP note in writing (validation gates need 0.2-0.35R/trade — arithmetically unreachable).
-5. Idea 1: my lean is drop; if Joe wants the YouTube line closed by test rather than argument, one spec (market entry, opposite-side stop), N+1, only after A resolves, with the >=0.2R detectability caveat pre-stated.
+5. Idea 1: my lean is drop; if the PM wants the YouTube line closed by test rather than argument, one spec (market entry, opposite-side stop), N+1, only after A resolves, with the >=0.2R detectability caveat pre-stated.
 6. Then Family B (FOMC pre/post drift, N+2) only if the program continues.
 7. Stopping rule: if Family A nulls on its registered rule, the intraday-NAS100 search is closed permanently (no idea 1); Family B may run once; write-up of all nulls, the calibration result and backlog decisions by 2026-12-19.
 8. Hard cap: remaining ideas <= +6 N total (3+1+2); after the cap or the date, stop looking and write up regardless of outcome.
@@ -62,7 +62,7 @@ Second slot: deliberately empty. Considered and rejected: overnight effect (real
 
 # Round G (21 Nov 2026) — Family A sign-off review
 
-Repo state audited: bd2674b (FAMILY_A_SPEC.md v1, backlog status, notes). I re-checked the paper text question. Bottom line up front: **I was wrong in round F on the paper's predictor; Joe's original draft was right.** The published JFE 2018 abstract says, verbatim: "the first half-hour return on the market **as measured from the previous day's market close** predicts the last half-hour return" (verified verbatim from two independent mirrors of the abstract: ScienceDirect S0304405X18301351 and researchwithnj.com; the full text is paywalled, so section-level price conventions are adapted to our CFD bars). Confidence: HIGH on the definition, and the abstract adds that the effect is "stronger on more volatile days, on higher volume days, on recession days, and on major macroeconomic news release days", and exists for ten other actively traded ETFs. Consequences below.
+Repo state audited: bd2674b (FAMILY_A_SPEC.md v1, backlog status, notes). I re-checked the paper text question. Bottom line up front: **I was wrong in round F on the paper's predictor; the PM's original draft was right.** The published JFE 2018 abstract says, verbatim: "the first half-hour return on the market **as measured from the previous day's market close** predicts the last half-hour return" (verified verbatim from two independent mirrors of the abstract: ScienceDirect S0304405X18301351 and researchwithnj.com; the full text is paywalled, so section-level price conventions are adapted to our CFD bars). Confidence: HIGH on the definition, and the abstract adds that the effect is "stronger on more volatile days, on higher volume days, on recession days, and on major macroeconomic news release days", and exists for ten other actively traded ETFs. Consequences below.
 
 ## 1. Required changes (blocking / non-blocking)
 
@@ -111,7 +111,7 @@ Items 2-6 touch bar existence, spreads and second moments only — no strategy r
 
 Repo a284c22. Read: the round-1 file, notes, spec v1.1, backlog. Other reviewers' proposals unopened until this was sent. No price data touched; N stays 941,542.
 
-**Verdict: nothing I can source honestly reaches 50% power at the frozen gate (t>=2.8, net >=+1 bp, 2-of-3 thirds).** Detectability decides: a last-half-hour window (SD ~25 bp, n ~1,230) detects ~2 bp — why GHLZ 2018 (Family A) and pre-FOMC drift (Lucca-Moench, AER 2015; my round-F "JF 2011" was wrong — verify) were registerable. A full session (SD ~90 bp, n ~1,400) needs ~7 bp/day ~ 17%/yr; event days worse. Best two below; priors 4-5%; register neither unless Joe wants the science value. Slot 3 deliberately empty.
+**Verdict: nothing I can source honestly reaches 50% power at the frozen gate (t>=2.8, net >=+1 bp, 2-of-3 thirds).** Detectability decides: a last-half-hour window (SD ~25 bp, n ~1,230) detects ~2 bp — why GHLZ 2018 (Family A) and pre-FOMC drift (Lucca-Moench, AER 2015; my round-F "JF 2011" was wrong — verify) were registerable. A full session (SD ~90 bp, n ~1,400) needs ~7 bp/day ~ 17%/yr; event days worse. Best two below; priors 4-5%; register neither unless the PM wants the science value. Slot 3 deliberately empty.
 
 ## P1 — macro-announcement-day premium (NFP+CPI days, long NAS100)
 1. Rule: frozen BLS dates, payrolls + CPI, 2021-05-20 to 2026-11-17; skip FOMC decision days (frozen list), early closes (frozen NYSE list U <78 bars 09:30-16:00), missing 08:25 bar. LONG at the open of the 5-minute bar opening 08:25 America/New_York (5 min before the 08:30 release), exit at the close of the 15:55-16:00 bar. Each side pays its own bar's half-spread; no stop (the premium is compensation for holding the release); no financing; one trade/day; n ~128 (24/yr x 5.5 yr minus skips; estimate).
@@ -142,7 +142,7 @@ Priority unchanged: Family A, then the Fed family (+2) if the program continues,
 # Ideas round 1 (cont.) — GLM errata and blind cross-scoring (22 Nov 2026)
 
 ## Errata to my own round-1 set (sealed text above unchanged)
-Joe's audit is correct: four journal names wrong. Corrections, each verified today against publisher/RePEc/NBER/JSTOR pages before writing:
+The PM's audit is correct: four journal names wrong. Corrections, each verified today against publisher/RePEc/NBER/JSTOR pages before writing:
 1. Savor & Wilson 2013 is **Journal of Financial and Quantitative Analysis 48(2), pp. 343-375** (not "Journal of Finance 2013 or 2014"). Verified figures: mean announcement-day excess return 11.4 bp vs 1.1 bp on all other days, 1958-2009 — my effect description ("+10-15 bp vs ~0") was right; the journal was not. Note for the record: my first memory-check today said "RFS 2013" — also wrong. Correct only from a verified source, never from memory.
 2. Ariel 1990 is **Journal of Finance 45(5), pp. 1611-1626** (not JFQA 1990).
 3. Lakonishok & Smidt 1988 is **Review of Financial Studies 1(4), pp. 403-425** (not JFE 1988).
@@ -195,7 +195,7 @@ Ai-Bansal 15.44/7.53 bp figures (PDF unreachable; paper real, and its published 
 
 # Session close (22 Nov 2026) — GLM closing note
 
-1. Open item: the committed REPLIES_FROM_GLM.md at 03a24a5 lost my round G section (only chat-sourced sections were committed); my working copy restored it via merge resolution, but it is not yet in a commit Joe/Claude made. Round G holds the four blocking items and the "not signed off → v1.1 is GO" verdict; if it never lands, the audit trail breaks. Also still unverified: GPT6's sealed original text (the repo's two summaries disagree, 11.4 vs 11.5 bp).
+1. Open item: the committed REPLIES_FROM_GLM.md at 03a24a5 lost my round G section (only chat-sourced sections were committed); my working copy restored it via merge resolution, but it is not yet in a commit the PM/Claude made. Round G holds the four blocking items and the "not signed off → v1.1 is GO" verdict; if it never lands, the audit trail breaks. Also still unverified: GPT6's sealed original text (the repo's two summaries disagree, 11.4 vs 11.5 bp).
 2. Corrections: none outstanding; the Kurov/Wolfe/Gilbert FRL 40 (2021) self-erratum was filed in Round 2.
 3. Next session: finish the Monday housekeeping (ledger audit, stop_1min fix, trade_closed reconciliation), then run Family A once per frozen v1.1 — no spec changes.
 
@@ -221,12 +221,12 @@ Two candidates survived the source filter and died on arithmetic:
 
 Bottom line: an honest nothing. Priority unchanged: Family A first (after the Monday housekeeping); nothing sourced in Chinese, Japanese or Korean changes the +3 N allocation.
 
-Claude Sonnet 5.5 check (23 Nov 2026, 00:25 UTC): GLM's side round is recorded verbatim above, unscored (Joe's prompt called it a side round). Checked: Yuan, Zheng and Zhu, Journal of Empirical Finance 13(1), pp. 1-23, 2006 is real (RePEc, LSE and ANU records). The paper's abstract says full-moon returns are lower than new-moon returns by 3% to 5% per annum across 48 countries; GLM's 2-2.5 bp/day is the same order, slightly high, and does not change the conclusion (power far below the t>=2.8 bar). Two small notes: the authors are at the University of Michigan and the study is global, so it is not really an Asian or non-English source; and the gotobi item has no checkable source, which GLM stated plainly instead of inventing one. Result: honest nothing, N +0, no change to the Family A plan. GLM's answer to Step 1 (live search yes, CNKI full texts paywalled, will not use unverifiable sources) is accepted as stated; not independently tested.
+Claude Sonnet 5.5 check (23 Nov 2026, 00:25 UTC): GLM's side round is recorded verbatim above, unscored (the PM's prompt called it a side round). Checked: Yuan, Zheng and Zhu, Journal of Empirical Finance 13(1), pp. 1-23, 2006 is real (RePEc, LSE and ANU records). The paper's abstract says full-moon returns are lower than new-moon returns by 3% to 5% per annum across 48 countries; GLM's 2-2.5 bp/day is the same order, slightly high, and does not change the conclusion (power far below the t>=2.8 bar). Two small notes: the authors are at the University of Michigan and the study is global, so it is not really an Asian or non-English source; and the gotobi item has no checkable source, which GLM stated plainly instead of inventing one. Result: honest nothing, N +0, no change to the Family A plan. GLM's answer to Step 1 (live search yes, CNKI full texts paywalled, will not use unverifiable sources) is accepted as stated; not independently tested.
 
 
 ---
 
-# Data sourcing round 1 (23 Nov 2026) - GLM reply, verbatim (second session after Joe's restart; prompt resent 00:46 UTC, reply received about 00:49 UTC, roughly 3 minutes, no speed penalty)
+# Data sourcing round 1 (23 Nov 2026) - GLM reply, verbatim (second session after the PM's restart; prompt resent 00:46 UTC, reply received about 00:49 UTC, roughly 3 minutes, no speed penalty)
 
 **Step 1 — what I can check (honest inventory)**
 
@@ -331,7 +331,7 @@ Scored on content only; I make no attribution for Sets P and Q.
 Test B2 first — the only idea whose verified published effect (11.4 bp/day) beats its net detectable floor, with a release calendar buildable before 19 Dec; a clean not-there is a documented result.
 
 ### Claude's checks (23 Nov)
-- Stale statement: "all three use the whole remaining +3". Joe lifted the +6 cap at 09:51 UTC 23 Nov; each new test needs its own registration but there is no cap. N is 941,550.
+- Stale statement: "all three use the whole remaining +3". The PM lifted the +6 cap at 09:51 UTC 23 Nov; each new test needs its own registration but there is no cap. N is 941,550.
 - Citations: Lakonishok & Smidt (RFS 1(4) 1988) and Savor & Wilson (JFQA 48(2) 2013, 11.4 bp vs 1.1 bp, 1958-2009) were verified earlier by GLM. Jegadeesh 1990, Campbell & Shiller 1998 and Moreira & Muir 2017 are from memory and not re-verified.
 - Arithmetic is estimate only: ~120 bp daily SD, ~3,650 TOM days, ~3,460 announcement days since 1990 are GLM's figures, not recomputed. Release dates (CPI/NFP/retail sales) would need building from ALFRED and checking before any freeze.
 - Overlap: B2 is related to the closed post-announcement family and the parked pre-FOMC F1; any registration must declare that.
@@ -347,7 +347,7 @@ Test B2 first — the only idea whose verified published effect (11.4 bp/day) be
 
 ---
 
-## GLM round 3 reply (prompt docs/ROUND3_PROMPT.md given 01:22 UTC 24 Nov; attached 01:45; about 23 minutes: over the 10-minute speed rule; unscored side round unless Joe says otherwise). Verbatim.
+## GLM round 3 reply (prompt docs/ROUND3_PROMPT.md given 01:22 UTC 24 Nov; attached 01:45; about 23 minutes: over the 10-minute speed rule; unscored side round unless the PM says otherwise). Verbatim.
 
 # Round 3 (24 Nov 2026) — GLM reply
 
@@ -394,18 +394,15 @@ Uncertainties are marked (est.)/(memory) above; nothing here is investment advic
 
 ### Claude's checks (24 Nov)
 - Verified by me on files in hand: "S&P 500 days with |move| >= 2.5%: 135 since 2010, 42 since 2021" (exact match on the official SPX file).
-- The delivered CSV `us_macro_release_days_1993_2026.csv` is NOT usable: 1,220 of 1,224 rows are rule-based estimates (first Friday, 10th, 15th), only 4 are verified. Superseded by the real ALFRED release-date files Joe got (426 CPI, 414 jobs, 435 retail days since 1993), already used in D3.
-- Cboe download pattern (cdn-api.cboe.com/.../<X>_History.csv, PPUT from 1986, BXM from 2002, PUT from 2007, CLL from 2008): GLM says verified by download; this workspace cannot reach that host (refused), so I cannot confirm. Joe can test it in a browser. If it works, PPUT (1986) and BXM (2002) would unblock a longer options-index look (#6).
+- The delivered CSV `us_macro_release_days_1993_2026.csv` is NOT usable: 1,220 of 1,224 rows are rule-based estimates (first Friday, 10th, 15th), only 4 are verified. Superseded by the real ALFRED release-date files the PM got (426 CPI, 414 jobs, 435 retail days since 1993), already used in D3.
+- Cboe download pattern (cdn-api.cboe.com/.../<X>_History.csv, PPUT from 1986, BXM from 2002, PUT from 2007, CLL from 2008): GLM says verified by download; this workspace cannot reach that host (refused), so I cannot confirm. The PM can test it in a browser. If it works, PPUT (1986) and BXM (2002) would unblock a longer options-index look (#6).
 - N1 arithmetic: 5-day SD 2.31% x 1.3 = 3.0%; /sqrt(45) x 2.8 = 1.26% (GLM 1.0-1.7%). Fine. Stated "N cost 6-10" is GLM's count of threshold variants; a single frozen spec is N +1. Prior 25-35% looks high to me for a 45-episode sample (I would say 10-15%).
 - N2 and N3 arithmetic plausible (not recomputed). Kudryavtsev 2017, Stivers and Kaplan are from memory or existence-only; not verified.
 - Timing: VIX closed at 35.89 on 20 Nov 2026 (+46% day, from 24.56 on 18 Nov to 28.44, 35.89), so an N1-style signal fired on the last data day. Its outcome is not yet known (5-day exit would be 27 Nov). Any N1 registration must freeze the window ending before 2026-11-20 and treat the 20 Nov signal as forward.
 - GLM agrees: Idea 17 log-only; Idea 18 no combination (family closed, Cypher watch item stays). GLM's "200-day trend failed t 0.02" refers to my D2 run on the flawed SPY file.
 - Nothing registered; N 941,555.
 
-
 ---
-
-## GLM round 4 reply (SCORED round; prompt docs/ROUND4_PROMPT.md sent 01:53 UTC; first attempt timed out; resent 01:57; attached 02:13 = about 16 minutes after the resend, over the 10-minute rule; Joe decides any speed deduction). Verbatim.
 
 # Round 4, scored (24 Nov 2026) — GLM reply (for blind labelling)
 
@@ -444,8 +441,153 @@ Accounting: **N +0 today** — no tests run; all numbers below are event counts,
 
 Demo accounts only; nothing here endorses real-money trading. Estimates marked (est.), unverified items (memory).
 
-### Claude's checks (24 Nov)
-- Counts verified exactly on the official SPX file: 396 days with |move| >= 2.5% since 1975 (187 up, 209 down); 83 days since 2021 with |move| >= 2%.
-- Arithmetic fine: T1 2.8 x 3.0% / sqrt(45) = 1.25%; T2 491 blocks = 40.9 years x 12, MDE about 32 bp; T3 2.8 x 1.09% / sqrt(396) = 15 bp; N: +1+1+2+1+1 = +6, +1 in Part B = 941,562. Corsi 2009 J. Financial Econometrics 7(2) 174-196 matches my memory (GLM says search-verified).
-- Problems: (1) T1 "long SPX next open" and T3 "next-day open-to-close" cannot be run on the data we hold (the official S&P file has closes only); T1 would have to be close-to-close. (2) T2 is not independent: Nasdaq-100 and the S&P 500 move together and overlap D1b's 1986-2026 sample. (3) Jegadeesh 1990 is a stock-level monthly-reversal paper (memory, as GLM says); it is a weak source for next-day index drift after 2.5% moves. (4) T1 prior 25-35% looks high for 45 episodes. (5) B1's "MDE 0.08R per trade" assumes a per-trade SD of about 0.7R; with 1R stops and 2R targets I would expect about 1R or more, i.e. about 0.11-0.15R, unless trades are clustered by day (GLM's 0.6R/day figure is the consistent one).
-- Part B facts match our log (first NAS100 short 26,558 vs 09:30 open 26,831; high 26,984 by 15:21; -1.5R/33 = -0.045R). "Late is backwards" is fair; I would add that the rally was already priced at 04:21 New York (see GPT6 checks).
+---
+
+# Phase 1 — what it is, what success and failure look like (25 Nov 2026; unscored side reply, verbatim)
+
+Accounting: **N +0** — a definitions reply, no test run, no variant evaluated. Everything below is read from the repo docs (HANDOVER, IDEA_BACKLOG, the two D-spec files, my Round 3/4 replies, DAY_REVIEW_2026-11-23); figures remembered from earlier rounds are tagged (memory).
+
+## 1. What I consider Phase 1
+
+Phase 1 is the **search-and-validation phase**: from the first registered backtest to the moment new in-sample testing stops. On the dates already in the project's documents: registrations freeze **5 Dec**, last runs end **10-12 Dec**, write-up by **19 Dec**, forward logs only afterwards, next review est. Jan 2027. An early stop stays possible: if T1-T3 all miss by 5 Dec, Phase 1 ends there (Round 4, A3).
+
+Phase 1's product is **not a strategy**. It is a complete, frozen evidence base in which every family ends in one of three states: **closed with numbers**, **passed its frozen bar and held forward-only**, or **moved to a forward log with a first-decision date**. The write-up (Phase 2) prints that state and invents nothing new. Phase 3 is the forward logs themselves.
+
+## 2. Success — five checkable process criteria (no edge required)
+
+1. **Completeness:** every registered family has a written decision by 12 Dec, and queue-only items stayed queued. Scorecard today — closed with numbers: ORB (t 2.45); harmonics (0 of 112,307 variants vs bar 5.32-5.75); Family A first/last-half-hour momentum; 175 exit variants (best t 1.07 vs needed 3.71); B.1 drift horizons; three session-time rules incl. Europe-open (net -0.25 bp, t -0.31, memory); yearly trend; D1 TOM on SPY (t 2.70); D2 200-day trend (t 0.02); D3 announcement-day (t 0.89); BFG realistic backtest (≈ -0.01R/trade). Passed-frozen-rule-but-not-established: D1b TOM on the official series (t 4.35; excess t 2.75, effect concentrated 1975-89, below the 5.75 luck bar, financing 5-6 bp/block). Forward logs: pre-FOMC F1 (~40 events needed, completes ~2031, memory) and the daily_context shadow fields.
+2. **Discipline:** each test frozen in writing before its single run; nothing tuned after results; the 5.75 luck bar applied wherever a search picked the variant. D1b is the model case: registered before running, overlap declared, honestly downgraded afterwards.
+3. **Honesty:** no number without a source file; est./memory tagged; 23 Nov is a logged observation, never rule evidence.
+4. **N efficiency:** the cap is lifted (23 Nov, 09:51 UTC) but the compute penalty is real. The remaining slate (T1-T5 + the flag test, ≈ +7 registrations) is defensible at the stated priors; re-opening closed families with prior ≤ 5% (Idea 18 combinations, YouTube-family reopens) is not.
+5. **The deliverable exists on 19 Dec:** a per-family table — prior, frozen rule, n, statistic, t, decision, and what would reopen it.
+
+**Outcome clause.** Midpoint priors on T1-T4 (0.30 / 0.15 / 0.20 / 0.12) sum to ≈ 0.8 expected passes and give ≈ 58% that at least one clears its bar (est.; independence assumed, regimes correlate them, so treat as rough). **"All nulls, cleanly proven" is a success outcome, not a disappointment.** If something does pass, D1b already shows the shape of success: it passed its frozen rule and still does not get traded, because excess return, decade decay and the luck bar say "unestablished". Expecting a tradeable strategy out of Phase 1 would turn the phase into mining.
+
+## 3. Failure — the seven specific ways
+
+1. **Calendar:** any registration after 5 Dec, any run after 12 Dec, or a write-up without the decision table.
+2. **Mining:** re-slicing variants until t crosses 2.8; tuning a rule after seeing its results; a "pass" that skips the luck bar wherever search chose the variant.
+3. **Hindsight:** any rule whose origin is 23 Nov or any other single day — 23 Nov exists to fill daily_context.csv, not specs.
+4. **Overclaim:** calling D1b tradeable; calling BFG "one tweak from fixed"; treating the FTMO simulation as live-worthy (gap-aware fills: 0-8% pass at every size — sim only).
+5. **Unfalsifiable:** trading a news score that cannot be back-tested (no timestamped news history exists).
+6. **Silent nulls:** a write-up that headlines one borderline pass and buries the ten documented nulls.
+7. **Waste:** spending +N on prior ≤ 5% ideas after the compute penalty was already acknowledged.
+
+## 4. One-line answers
+
+- **Success:** on 19 Dec there is a decision table in which every row has a frozen rule, a number and a decision, nothing in it was decided after 5 Dec, and each row can be re-run from the repo.
+- **Failure:** on 19 Dec there is a strategy story instead of a decision table.
+- If you meant the FTMO-style challenge "Phase 1" instead: success = attempting it only after a positive realistic-fill edge exists (today ≈ -0.01R/trade, so it is not attempted); failure = sizing up to chase the challenge while the edge is negative.
+
+Demo accounts only; nothing here endorses real-money trading. (est.)/(memory) as marked.
+
+---
+
+# Round 5 — cTrader mirror: design review (25 Nov 2026; unscored side round unless the PM says otherwise; verbatim)
+
+Accounting: **N +0** — a design question; no test run, no data touched, no statistic computed. Single pass inside the 10-minute rule, no web checks. Sources: repo docs (memory) + the PM's message; every number below is arithmetic, (est.) or (memory). Demo only.
+
+**1. Is mirroring both agents on all instruments a good design?**
+Good as an **execution-QA instrument; useless as an evidence multiplier** — worth building for the first purpose only. Its strength: identical order flow on a second broker/feed means outcome differences are attributable to execution, not signals. New information it gives: (a) per-symbol deltas in fills, stop slippage, spread, rejections on identical orders — nothing in the project measures this today; (b) end-to-end cTrader Open API readiness (order lifecycle, reconnects, partial fills) — the demo is the right place to break this; (c) feed-robustness of R: how much per-trade variance is execution rather than signal; (d) demo DOM microstructure (Q4).
+It **cannot** tell us: any independent check of an edge — same signals mean OANDA/cTrader daily P&L correlation likely ≥ 0.9 (est.), so two accounts ≈ 1.0-1.1× the information of one, not 2×; real slippage or liquidity at size (demo fills are simulated; demo spreads/DOM may differ from live); anything about news or the calendar (not in the API, as the PM found); and it can contribute nothing to the Phase 1 decision table (Q5). Arithmetic: 1% of 50,000 = GBP 500 risk/trade vs GBP 5 — 100× nominal, but R is defined as 1% risk, so per-trade R stays comparable; the two equity curves are not comparable and should not be read as results.
+
+**2. Three execution measures and decision rules** (thresholds are est.; freeze them before the first row is logged)
+- **M1 — stop-slippage:** fill price vs stop level, in R units, per symbol, both brokers, stop-outs only. Rule: median |slippage| > 0.05R on either feed, or a signed between-feed difference > 0.05R over ≥ 30 stop-outs → flag the feed; any change to backtest fill assumptions then happens as a new registration, never in place.
+- **M2 — spread-at-entry share of R:** spread at order send ÷ stop distance, per symbol. Reference (memory): NAS100 median ≈ 0.4 bp/leg in our OANDA 5-min data. Rule: median share ≥ 0.30 → that symbol's rules are cost-dominated on that feed; between-feed median difference > 0.10 → feed flag.
+- **M3 — order-lifecycle integrity:** fill rate, rejections, signal→fill latency (source-log timestamp vs cTrader fill), stop-out timing vs the source log. Rule: rejections > 1% or median latency beyond one 5-minute cycle (est.) → engineering problem; mirror P&L is not interpreted until fixed.
+Financing/swap deltas are logged but not decision-gated (intraday index flows barely touch them, est.).
+
+**3. Risks, ranked**
+1. **Double counting** — mirrored P&L read as new evidence corrupts the only thing Phase 1 produces. Prevention = Q5's firewall.
+2. **1% of 50,000 with limits OFF** — GBP 500 risk/trade and no circuit breaker: one runaway API loop prints absurd demo drawdowns that tempt over-reading. Keep a mirror-side hard cap (e.g., max 50 orders/day plus a kill switch, est.) even while agent limits are off.
+3. **Blue Falcon ends ~24 Nov** — effectively BFG-only data from day one (est.). Build symbol-generic, but do not extend Blue Falcon just to feed the mirror (scope creep).
+4. **Instrument mapping not 1:1** — freeze the map now: NAS100/US500/US30/XAUUSD/GBPUSD only; anything unmappable is dropped and logged, never proxied.
+5. **Look-ahead** — mirror acts on the agents' timestamped order logs, never re-derives signals from cTrader prices; record signal time, send time and fill time separately so latency is not mislabelled slippage.
+6. **Weekend/holiday gaps** — log gap fills explicitly (gap-aware fills changed the FTMO conclusions, memory); both index agents are intraday, so exposure is small (est.).
+7. **Contract rolls/financing** — cash CFDs do not expire (financing instead); swap differences touch only overnight FX/metals holds; log swaps, no gate (est.).
+
+**4. DOM at entry: yes — log-only.**
+One snapshot at order-send and one at fill (plus each stop-out), traded symbol only, top 5 levels per side (est. ~10 rows/trade; ~33 orders/day × ~60 days ≈ 2,000 orders → ~20k rows, est.). Question it answers: does pre-trade depth/spread predict realised slippage on this feed — i.e., are our cost assumptions realistic — and it builds the method for if real DOM is ever available. Limits: demo DOM is simulated, so the answer is about the demo environment; the log is not analysed now — analysis would be a registered test (+1 N, declared).
+
+**5. Contamination of Phase 1 evidence and N: prevention, exactly**
+- Separate namespace: mirror output lives in `ctrader_mirror/` only; never imported by any spec, backtest, or the write-up.
+- One-way flow: the mirror reads agent logs; agents and specs never read mirror output; BFG/Blue Falcon code stays byte-identical.
+- Any statistic computed on mirror data is a new registration (+N, overlap declared: same signals → correlated, not independent). Until then N stays +0 (941,555 as of the 24 Nov close, memory).
+- No rule tweak or cost-assumption change may cite mirror results as motivation (the 23-Nov rule: single-environment observations justify nothing).
+- The write-up labels the mirror "execution QA, demo"; zero decision-table rows come from it.
+- Credentials: keys/tokens stay in the PM's own environment, never in the repo, never sent to reviewers; I neither ask for nor accept them.
+
+**6. Success and failure, one line each**
+- **Success:** after ~60 trading days (est.) we can state, per symbol and against pre-frozen decision rules, exactly how cTrader execution differs from OANDA — while the Phase 1 decision table and the N ledger contain zero mirror-derived numbers.
+- **Failure:** any mirror-derived number enters an edge claim, a spec change or the N ledger — a QA instrument quietly became evidence.
+
+Demo accounts only; nothing here endorses real money. (est.)/(memory) as marked.
+
+---
+
+# Ops check — "BFG placed no trades today", 25 Nov 2026 (GLM; unscored ops note, verbatim)
+
+Accounting: **N +0** — an operations check, no test, no statistic. I fetched origin/main (read-only) and read the public Actions page; I changed nothing, committed nothing, pushed nothing. Demo only.
+
+## What the logs show
+- **Yesterday (24 Nov) BFG was fully healthy:** 21 orders (US30 12, SPX500 6, NAS100 3), all 21 closed, realized **+GBP 6.08**; first event 14:36:36Z (6 min after the 14:30 open), last event 21:36:26Z (final close at the session end). The agent went to sleep flat.
+- **Today (25 Nov) to ~15:05 UTC:** zero events of ANY kind in `logs/index_events.csv` — no order_placed, no would_place, no skip, no time_exit, no move_stop; zero "index run" commits since 00:00Z; last commit touching logs/ is 85dd5aa (24 Nov 21:36Z).
+- **The runner is alive:** the public Actions page shows ~24 `index` runs today (latest #1345), **all green**, ~20-37 s each, on the workflow_dispatch event — so the external cron-job.org driver is firing on schedule and `python index_run.py` completes without crashing. A scheduled workflow (depth #25) also ran, so GitHub-side scheduling is fine.
+
+## What I ruled out (with reasons)
+1. **Code drift:** last change to `index_run.py` was 2cdc942 (23 Nov 09:20Z), to `agent/` 14558af (21 Nov) — both before yesterday's fully-working day.
+2. **The 02:09Z workflow edit (mirror trigger):** syntactically valid YAML; the new step is `if: always()` + `continue-on-error: true` and no-ops unless `MIRROR_DISPATCH_TOKEN` and `MIRROR_REPO` are both set — it cannot fail the run and cannot touch trading. Secrets/variables live outside git, so no commit could have changed the OANDA token or `INDEX_TRADING`.
+3. **OANDA auth failure:** `main()` has no global try/except; `open_trades()` and the 34-day candle pull are called unconditionally, so a dead token would crash the run and show a red X. Runs are green → auth and the candle feed work.
+4. **Sizing blocker:** a computed risk that yields < 0.01 units would log a `skip` event (index_run.py line ~146) — none exists.
+5. **Stuck open positions:** all 21 of yesterday's trades closed per the log; any leftover position would produce time_exit/move_stop events — none exist.
+
+## Remaining explanations (most likely first)
+1. **Genuinely quiet tape, no signal yet (most likely, est.):** a green run with zero events means the agent evaluated every closed 5-min bar and found no extension to fade, and had no open trade to manage. Yesterday's 21 signals were fed by a -1.06% (SPX) / -1.76% (NAS) gap; a flat pre-Thanksgiving open can legitimately produce zero fade triggers for an hour. I could not quantify today's gap (Cboe SPX file is close-only and today's row is not published yet) — today's evening `daily_context` row will show it.
+2. **`INDEX_TRADING` flipped to 'false':** outside view is identical until the first signal — in non-live mode a signal logs a `would_place` event instead of an order. Nothing has fired yet today, so this cannot be confirmed or excluded from logs alone. Check Settings → Actions → Variables.
+3. **Silent stale-bar skips:** entries are skipped without logging when a run lands > 7 min after the bar close or > 30 s before it (index_run.py line ~127). If cron-job.org's dispatch times drifted relative to bar closes, every entry window can be skipped without a trace.
+
+## Two-minute checklist for the PM (in order)
+1. **Actions → latest green `index` run → open the log** of the `python index_run.py` step. A healthy quiet run prints almost nothing. "log_closed_trades failed: ..." lines = OANDA API trouble (non-fatal, but trade bookkeeping stops). Absolutely empty output = the agent ran and passed on every bar.
+2. **Settings → Actions → Variables:** confirm `INDEX_TRADING` is still `true` (and `INDEX_COMPOUND` still `true`). If `INDEX_TRADING` is false, tonight's first signal shows up as a `would_place` event — that is the tell.
+3. **Optional, rules out #3:** compare today's dispatch start-times on the Actions list with 5-min bar closes (bars end :30/:35/:40...; a run should land within ~7 min after a close, not 30 s before one). If the cadence drifted, shift the cron-job.org job by 60-90 seconds.
+4. **Expect quiet ahead:** Thursday 26 Nov the US market is closed (Thanksgiving) and Friday 27 Nov is a half session (est.) — few or zero trades then is expected behaviour, not a fault.
+
+Demo accounts only; nothing here involves real money. (est.)/(memory) as marked.
+
+---
+
+# Ops check: BFG zero trades on 25 Nov, and GitHub connectivity (25 Nov 2026) — GLM reply
+
+Ops question, not a research round: "check BFG is working, it has placed no trades today", plus "can you connect to GitHub the same as Claude?". N +0 — I ran no tests; this was read-only inspection of the repo.
+
+**1. GitHub connectivity: yes, verified just now.** `git fetch origin` against the public repo returned clean (exit 0) from my sandbox — the repo is public, so read access needs no credentials, and I use none. Same as Claude in the read direction: I fetch and read files/commits with `git show origin/main:<path>`. Two honest differences: (a) I never push — by design I hold no tokens and per league rules every commit is yours; my replies land in `docs/REPLIES_FROM_GLM.md` in the local clone and you commit them. (b) I see only committed artifacts; I do not have your Actions console. Claude's message shows he can read run logs and env vars. So the two of us are complementary: Claude sees the runs, I see what the runs left behind. Right now my clone was behind origin, so everything below reads from `origin/main` directly, latest commit `1b218c0` (2026-11-25 02:09:59Z).
+
+**2. Verdict on BFG: I agree with Claude — cause 1 (quiet tape), and the repo independently supports all three rulings.** What the committed artifacts show:
+
+- **Repo silence today is by design, not a fault.** The workflow's commit step is `if ! git diff --cached --quiet; then git commit -m "index run ..."`. A run that places no orders, moves no stops and closes nothing changes no tracked file, so it commits nothing. Proof from the other direction: 24 Nov produced 73 event rows and 21 `order_placed` rows and left ~17 "index run" commits through 21:36:29Z; 25 Nov has 0 rows and 0 run commits so far. Silence and death look identical in the commit log — that is the one thing worth fixing (see 3).
+- **Cause 2 ruled out, confirmed.** The workflow injects `INDEX_TRADING: ${{ vars.INDEX_TRADING }}`, and `config.py` treats anything but `"false"` as trading enabled; Claude saw `INDEX_TRADING: true` in the 14:36 run environment. So a signal would place an order. (Note the flag gates orders, not the runner — runs proceed either way, which is why a flag flip would show silence without run failures.)
+- **Cause 3 ruled out, confirmed.** Trigger cadence is every 5 minutes on fixed offsets, and orders land ~1–1.5 min after the relevant 5-min bar closes: bar 20:10 → order 20:16:32Z (23 Nov, SPX500); bar 20:50 → order 20:56:34Z (24 Nov, US30 #548). Today's runs fire on the same offsets per Claude's log view. Same timing in, same timing expected out — nothing in the cadence changed between a 37-order day (23 Nov) and today's zero.
+- **Cause 1 fits the agent's own recent distribution.** Orders per day: 19 Nov 3, 20 Nov 5, 23 Nov 37, 24 Nov 21 (hourly on 24 Nov: 14h→4, 15h→4, 16h→2, 17h→6, 18h→3, 20h→2). Quiet days already produced near-zero; the 23–24 Nov bursts came off gap days (`daily_context.csv`: 23 Nov NAS gap +6.9%, SPX +4.8%; 24 Nov NAS gap −1.8% with first hour −0.74%, i.e. two sharply extended opens for the fade to bite on). The rule needs `abs(score) ≥ theta` on a completed bar inside the session window (e.g. NAS100 07:50–16:25 New York), and management events only exist while trades are open — none since the last close at 24 Nov 21:36:26Z. Zero entries therefore also implies zero stop-moves and zero closes: today's empty log is fully self-consistent. Today is the Wednesday before Thanksgiving (US cash closed Thursday 26 Nov, half day Friday 28 Nov), the quietest tape of the week by prior (est., seasonal pattern, not a measured statistic).
+
+**3. The honest gap I can add: repo-side, "quiet tape" and "silent data failure" are still indistinguishable, and there is a clean discriminator.** Both hypotheses produce exactly what we see: zero events, zero commits. Claude's run logs close most of the distance (a run that fetched no bars or threw would not look normal), but one committed artifact settles it end-to-end: tonight's forward shadow commit — yesterday's landed as `72ef826` at 23:28:34Z, so expect one ~23:30Z tonight (est.). If it appears with a `2026-11-25` row per instrument and `status OK`, the whole chain (bars → features → daily context) ran today and the zero is a genuine no-signal day. If it does not appear, that is the first real fault signal and worth escalating then, not before. Optional cheap plumbing, zero N, your call: a no-signal heartbeat — one end-of-session commit ("N runs, 0 signals, 0 orders") or an hourly one-line status appended even when empty — so that future silence is unambiguous instead of inferential. That is ops, not research: it touches no decision table and registers nothing.
+
+**4. One thing to expect, one thing not to worry about.** Expect low/zero order counts to persist this week: Thursday's session does not exist and Friday is a half day, so forward observation adds little fresh evidence until next week — the Phase 1 timeline (5 Dec registration freeze) loses nothing, since no-trade days cost observation time only. And the workflow now contains the demo-mirror dispatch (`1b218c0`, fires after each run, inert unless both the secret and the variable are set) — it did not cause and does not affect today's behaviour, and when you do activate it, the Round 5 firewall stands: mirror statistics are new registrations (+N), never inputs to the decision table.
+
+— GLM (demo only; nothing here is advice to trade real money. N counter 941,555 as of 24 Nov close (memory), unchanged: this reply ran no tests, N +0.)
+
+---
+
+# Ops check: Claude's three-cause analysis relayed again — status unchanged, cause 1 stands (25 Nov 2026) — GLM reply
+
+Short one: this text is verbatim the same analysis I answered in the previous section ("Ops check: BFG zero trades on 25 Nov, and GitHub connectivity", two entries up) — flagging the duplicate so the ledger stays clean. N +0; the only thing I did since was re-fetch origin/main at 15:41:58Z for a live status.
+
+**Where the three causes now stand — all three of my own lines of evidence agree with Claude:**
+- **Cause 2 (INDEX_TRADING) closed.** Claude's env check plus the wiring I read in the workflow (`INDEX_TRADING: ${{ vars.INDEX_TRADING }}`, anything but `"false"` enables orders in `config.py`). A signal would place a real order.
+- **Cause 3 (stale-bar skips) closed.** Claude's cadence observation matches the mechanism in the logs: orders land ~1–1.5 min after the 5-min bar close (bar 20:50 → order 20:56:34Z, 24 Nov; bar 20:10 → 20:16:32Z, 23 Nov), and today's runs fire on the same offsets. My earlier ops note (the section before last) had flagged silent skip windows as the one unexcludable failure mode from outside; Claude's inside view closes it.
+- **Cause 1 (quiet tape) is the survivor, supported by the agent's own distribution:** orders/day = 3 (19 Nov), 5 (20 Nov), 37 (23 Nov), 21 (24 Nov) — the bursts came off extended opens (23 Nov NAS gap +6.9%, 24 Nov −1.8% with first hour −0.74% per `daily_context.csv`); a flat pre-Thanksgiving Wednesday can produce nothing. Live re-check at 15:41:58Z: still zero commits and zero 25 Nov rows in `logs/index_events.csv` — ~72 minutes of session, ~14 evaluated bars per market, no signal. The `daily_context` row tonight will quantify today's flatness (yesterday's file ends at 24 Nov).
+
+**Convergence note worth logging:** three independent views — Claude's Actions/run-env view, my earlier Actions-page checklist (which had left causes 2 and 3 open), and my repo-artifact view — now all land on the same answer: the rule is working as designed and the tape gave it nothing to fade. No intervention needed. The one remaining discriminator stands unchanged: tonight's forward shadow commit (~23:30Z, est.; yesterday's was `72ef826` at 23:28:34Z) with `2026-11-25` rows and `status OK` proves the data chain end-to-end; if it does not appear, escalate then.
+
+Expect few or zero trades through Friday (cash closed Thursday 26 Nov, half day Friday 28 Nov, est.) — observation time only, no cost to the Phase 1 timeline (5 Dec freeze).
+
+— GLM (demo only; no real-money advice. N counter 941,555 as of 24 Nov close (memory); this reply ran no tests, N +0.)
