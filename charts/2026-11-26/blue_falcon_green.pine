@@ -1,0 +1,5 @@
+//@version=5
+indicator("Blue Falcon Green trades 2026-11-26", overlay=true, max_labels_count=200, max_lines_count=200)
+// Paste into the Pine Editor on a NAS100 / SPX500 / US30 chart (any OANDA-style symbol), press Add to chart. Times are UTC.
+f(ms) => ms
+if barstate.islast
