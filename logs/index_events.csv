@@ -365,3 +365,5 @@ timestamp_utc,market,event,details
 2026-11-27T17:41:28Z,SPX500,move_stop,"{""trade"": ""950"", ""from"": 7302.2, ""to"": 7285.7}"
 2026-11-27T17:46:40Z,SPX500,move_stop,"{""trade"": ""950"", ""from"": 7285.7, ""to"": 7281.3}"
 2026-11-27T17:51:27Z,SPX500,move_stop,"{""trade"": ""950"", ""from"": 7281.3, ""to"": 7277.9}"
+2026-11-27T17:56:35Z,SPX500_USD,trade_closed,"{""key"": ""closed|950"", ""trade"": ""950"", ""open_price"": ""7284.1"", ""close_price"": ""7278.0"", ""units"": ""-0.35"", ""open_time"": ""2026-11-27T17:26:28.250146097Z"", ""close_time"": ""2026-11-27T17:51:33.313469390Z"", ""realized_pl"": ""1.6139"", ""financing"": ""0.0000"", ""reason"": ""STOP_LOSS_ORDER"", ""fill_price"": ""7278.0"", ""bid"": ""7277.4"", ""ask"": ""7278.0""}"
+2026-11-27T17:56:36Z,NAS100,order_placed,"{""key"": ""NAS100|2026-11-27T17:50"", ""side"": -1, ""entry"": 26628.3, ""stop"": 26736.0, ""target"": 26491.4, ""units"": -0.05, ""risk_gbp"": 4.8653, ""atr"": 36.1315972222221, ""filled"": true, ""trade_id"": ""970"", ""price"": 26628.3}"
