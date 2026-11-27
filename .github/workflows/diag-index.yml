@@ -2,6 +2,10 @@ name: diag-index
 # Manual, read-only: prints why the index agent did or did not find a signal today. Places no orders and commits nothing.
 on:
   workflow_dispatch:
+    inputs:
+      script:
+        description: "diag_index.py or sim_no_trail.py"
+        default: "diag_index.py"
 permissions:
   contents: read
 jobs:
@@ -14,7 +18,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python diag_index.py
+      - run: |
+          case "$SCRIPT" in
+            diag_index.py|sim_no_trail.py) python "$SCRIPT" ;;
+            *) echo "unknown script"; exit 1 ;;
+          esac
         env:
+          SCRIPT: ${{ github.event.inputs.script || 'diag_index.py' }}
           OANDA_API_TOKEN_INDEX: ${{ secrets.OANDA_API_TOKEN_INDEX }}
           OANDA_ACCOUNT_ID_INDEX: ${{ secrets.OANDA_ACCOUNT_ID_INDEX }}
