@@ -317,3 +317,4 @@ timestamp_utc,market,event,details
 2026-11-27T13:51:27Z,US30_USD,trade_closed,"{""key"": ""closed|808"", ""trade"": ""808"", ""open_price"": ""50895.3"", ""close_price"": ""50880.8"", ""units"": ""-0.07"", ""open_time"": ""2026-11-27T13:06:40.237356091Z"", ""close_time"": ""2026-11-27T13:47:39.552412742Z"", ""realized_pl"": ""0.7660"", ""financing"": ""0.0000"", ""reason"": ""STOP_LOSS_ORDER"", ""fill_price"": ""50880.8"", ""bid"": ""50876.3"", ""ask"": ""50880.8""}"
 2026-11-27T13:56:30Z,NAS100,move_stop,"{""trade"": ""834"", ""from"": 26761.0, ""to"": 26668.2}"
 2026-11-27T14:01:30Z,NAS100,move_stop,"{""trade"": ""834"", ""from"": 26668.2, ""to"": 26656.4}"
+2026-11-27T14:06:40Z,NAS100,move_stop,"{""trade"": ""834"", ""from"": 26656.4, ""to"": 26624.4}"
