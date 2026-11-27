@@ -22,11 +22,11 @@ Frozen. Nothing tuned after results. Each runs once.
 Caveats: SPY ETF with assumed flat 1 bp per leg, no CFD financing; data ends Apr 2024.
 
 ## DATA-QUALITY NOTE (24 Nov 2026, added after the results; the results above are NOT changed)
-Joe supplied the official S&P 500 daily closes (1975-01-02 to 2026-11-20) and FRED Nasdaq-100 (1986-2026). Comparing them with the SPY file used for D1/D2: daily returns disagree by more than 0.5% on 333 of 7,856 common days (for example 2000-01-07: SPX +2.7%, SPY file +5.8%; 2008-10-13: +11.6% vs +14.5%), correlation 0.98 instead of about 0.99+. The SPY file has bad closes on some days, so the D1 near miss (t 2.70) and the D2 null are on flawed data. The frozen D1/D2 results stand as recorded. Any re-run on the official series is a new registration (N +1 each) and must be declared as overlapping; it would also add 1975-92 (unseen) and 2024-26 (unseen) data.
+The PM supplied the official S&P 500 daily closes (1975-01-02 to 2026-11-20) and FRED Nasdaq-100 (1986-2026). Comparing them with the SPY file used for D1/D2: daily returns disagree by more than 0.5% on 333 of 7,856 common days (for example 2000-01-07: SPX +2.7%, SPY file +5.8%; 2008-10-13: +11.6% vs +14.5%), correlation 0.98 instead of about 0.99+. The SPY file has bad closes on some days, so the D1 near miss (t 2.70) and the D2 null are on flawed data. The frozen D1/D2 results stand as recorded. Any re-run on the official series is a new registration (N +1 each) and must be declared as overlapping; it would also add 1975-92 (unseen) and 2024-26 (unseen) data.
 
 ---
 # Addendum v1.1 (24 Nov 2026, registered before running): D1b and D3 on the official S&P 500 series
-Data: Cboe/official S&P 500 daily close, 1975-01-02 to 2026-11-20 (file stored outside the repo), price index (no dividends; about 0.7 bp/day understated, same for all days). Release dates: ALFRED lists for CPI (release 10), Employment Situation (50), Advance Retail Sales (9), supplied by Joe. N: 941,553 -> 941,555 (+2: D1b, D3). One run each.
+Data: Cboe/official S&P 500 daily close, 1975-01-02 to 2026-11-20 (file stored outside the repo), price index (no dividends; about 0.7 bp/day understated, same for all days). Release dates: ALFRED lists for CPI (release 10), Employment Situation (50), Advance Retail Sales (9), supplied by the PM. N: 941,553 -> 941,555 (+2: D1b, D3). One run each.
 ALFRED caveat (from GPT6, confirmed in the files): some dates are weekends or provider dates. Frozen cleaning: drop duplicate and weekend dates and any date that is not an S&P 500 trading day; count them; a day with several releases counts once; only dates 1975-01-02 or later.
 
 ## D1b: turn-of-month, same rule as D1 on the official series
@@ -42,7 +42,7 @@ Why not established (descriptive checks, not tests): (1) the rule tests against 
 **D3 announcement-day premium: FAIL, closed.** 1,841 event days (2,577 raw dates; 13 weekend and 18 non-trading dates dropped). Gross +5.3 bp on event days vs +3.9 bp on other days (gap +1.3 bp; published 11.4 bp); net of 3 bp +2.3 bp, t 0.89; thirds +1.5 / +3.8 / +1.5 bp.
 
 ---
-# Addendum v1.2 (24 Nov 2026 07:4x UTC, registered before any run, on Joe's "go"): D4 VIX panic-spike long and D5 option-expiration-week long
+# Addendum v1.2 (24 Nov 2026 07:4x UTC, registered before any run, on the PM's "go"): D4 VIX panic-spike long and D5 option-expiration-week long
 N: 941,555 -> 941,557 (+2). One run each, official S&P 500 daily close (1975-01-02 to 2026-11-20, closes only, so all returns are close-to-close) and Cboe VIX daily close (1990-01-02 to 2026-11-20). 3 bp round-trip cost charged per trade. Pass rule as D1: t >= 2.8, floor, >= 2 of 3 equal-count chronological thirds positive; opposite t <= -2.8 recorded, never traded.
 
 ## D4 (GLM N1; Kudryavtsev 2017 existence only)

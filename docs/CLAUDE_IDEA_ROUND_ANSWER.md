@@ -1,10 +1,10 @@
-# Claude Sonnet 5.5's own answer to the idea review round and the options question (23 Nov 2026, committed after Joe confirmed the prompts were sent at 20:10 UTC, per amendment (a)). Unscored side round. Nothing here was run; all figures are rough estimates and marked.
+# Claude Sonnet 5.5's own answer to the idea review round and the options question (23 Nov 2026, committed after the PM confirmed the prompts were sent at 20:10 UTC, per amendment (a)). Unscored side round. Nothing here was run; all figures are rough estimates and marked.
 
 ## Options versus CFDs (Idea 8), short answer
 1. Wrapping a signal in options does not make the signal real; it changes payoff shape and cost. None of the failed or unconfirmed signals would pass.
 2. Real world for a small UK account, my view (not tax advice; general knowledge, unverified for current broker terms): options on US indexes (XND/SPX style) have large contract sizes for a small account, wider spreads in percentage terms, assignment risk on American-style stock options, and a defined maximum loss for spreads and puts. CFDs are granular, cheap to size, and carry financing and gap risk. Covered calls and collars need the underlying (shares or an ETF); PMCC and verticals need option-chain quotes with real spreads. The honest edge available from options is the premium for selling insurance, which historically shows lower volatility and drawdown but not reliably higher risk-adjusted return, and the Cboe indexes are hypothetical.
 3. Free testable route: Cboe strategy-index histories (BXM, PUT, CLL, PPUT, CLLZ) versus the S&P 500, N +5, risk-adjusted metric. PMCC and verticals need paid option history.
-4. Verdict: worth one cheap registered test of the Cboe indexes only if Joe wants the "options do not rescue it" fact in the write-up; otherwise not worth it. Probability it overturns the project's null: low.
+4. Verdict: worth one cheap registered test of the Cboe indexes only if the PM wants the "options do not rescue it" fact in the write-up; otherwise not worth it. Probability it overturns the project's null: low.
 
 ## Part A: the open ideas (one line each)
 - Idea 1 fade: maybe. The breakout came out +0.077R, t 2.45; a fade is the mirror image so it would be negative, and would cost N +1 to confirm a known-bad direction. No.

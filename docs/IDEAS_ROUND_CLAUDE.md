@@ -1,5 +1,5 @@
 # Ideas round 1 - Claude's own proposals (committed BEFORE reading any reviewer's proposals; 22 Nov 2026)
-Same rules and rubric as the other participants (see docs/IDEAS_ROUND_1.md). Sources are cited from memory and MUST be verified by the scorer before credit is given. N cap context: Family A uses +3 of the +6 further N, so at most +3 remain unless Joe raises the cap. Nothing here is run until signed off.
+Same rules and rubric as the other participants (see docs/IDEAS_ROUND_1.md). Sources are cited from memory and MUST be verified by the scorer before credit is given. N cap context: Family A uses +3 of the +6 further N, so at most +3 remain unless the PM raises the cap. Nothing here is run until signed off.
 
 ## C1. Overnight versus intraday drift on NAS100 (Kelly and Clark 2011, "Returns in trading versus non-trading hours: the difference is day and night", Journal of Investing / related literature)
 Rule: long NAS100 CFD from the 16:00 New York close bar to the 09:30 New York open bar, one trade per night, skip weekends' rollovers handled as one trade Friday-Monday, no stop. Net of half-spread on both bars and the logged overnight financing.

@@ -1,5 +1,5 @@
-# Idea 8 (Joe): options vs plain index, zero-N descriptive look at the Cboe BuyWrite index (24 Nov 2026)
-Data: Cboe BXM daily close 2002-03-22 to 2026-11-23 (supplied by Joe, stored outside the repo) vs official S&P 500 price index, common days to 2026-11-20 (6,205). Descriptive only, NOT a test, N unchanged (941,555). BXM is a hypothetical covered-call index (long the index, sell one-month at-the-money calls); it ignores real option spreads, margin and taxes. Whether BXM counts dividends is unverified by me; the S&P comparison is the price index.
+# Idea 8 (the PM): options vs plain index, zero-N descriptive look at the Cboe BuyWrite index (24 Nov 2026)
+Data: Cboe BXM daily close 2002-03-22 to 2026-11-23 (supplied by the PM, stored outside the repo) vs official S&P 500 price index, common days to 2026-11-20 (6,205). Descriptive only, NOT a test, N unchanged (941,555). BXM is a hypothetical covered-call index (long the index, sell one-month at-the-money calls); it ignores real option spreads, margin and taxes. Whether BXM counts dividends is unverified by me; the S&P comparison is the price index.
 
 | Period | BXM CAGR | S&P CAGR | BXM vol | S&P vol | BXM max drawdown | S&P max drawdown |
 |---|---|---|---|---|---|---|
