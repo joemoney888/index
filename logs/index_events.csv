@@ -302,3 +302,5 @@ timestamp_utc,market,event,details
 2026-11-27T13:06:36Z,NAS100,order_placed,"{""key"": ""NAS100|2026-11-27T13:00"", ""side"": -1, ""entry"": 26676.5, ""stop"": 26767.5, ""target"": 26560.7, ""units"": -0.06, ""risk_gbp"": 4.7591, ""atr"": 30.54166666666687, ""filled"": true, ""trade_id"": ""800"", ""price"": 26676.2}"
 2026-11-27T13:06:37Z,SPX500,order_placed,"{""key"": ""SPX500|2026-11-27T13:00"", ""side"": -1, ""entry"": 7306.1, ""stop"": 7321.3, ""target"": 7286.7, ""units"": -0.41, ""risk_gbp"": 4.7591, ""atr"": 5.105902777778182, ""filled"": true, ""trade_id"": ""804"", ""price"": 7306.1}"
 2026-11-27T13:06:40Z,US30,order_placed,"{""key"": ""US30|2026-11-27T13:00"", ""side"": -1, ""entry"": 50895.3, ""stop"": 50984.4, ""target"": 50782.0, ""units"": -0.07, ""risk_gbp"": 4.7591, ""atr"": 29.901041666666668, ""filled"": true, ""trade_id"": ""808"", ""price"": 50895.3}"
+2026-11-27T13:21:28Z,NAS100,move_stop,"{""trade"": ""800"", ""from"": 26767.5, ""to"": 26678.9}"
+2026-11-27T13:21:29Z,SPX500,move_stop,"{""trade"": ""804"", ""from"": 7321.3, ""to"": 7308.3}"
