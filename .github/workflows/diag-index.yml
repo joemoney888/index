@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       script:
-        description: "diag_index.py or sim_no_trail.py"
+        description: "diag_index.py, sim_no_trail.py or sim_partial_be.py"
         default: "diag_index.py"
 permissions:
   contents: read
@@ -20,7 +20,7 @@ jobs:
       - run: pip install -r requirements.txt
       - run: |
           case "$SCRIPT" in
-            diag_index.py|sim_no_trail.py) python "$SCRIPT" ;;
+            diag_index.py|sim_no_trail.py|sim_partial_be.py) python "$SCRIPT" ;;
             *) echo "unknown script"; exit 1 ;;
           esac
         env:
