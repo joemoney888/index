@@ -320,3 +320,4 @@ timestamp_utc,market,event,details
 2026-11-27T14:06:40Z,NAS100,move_stop,"{""trade"": ""834"", ""from"": 26656.4, ""to"": 26624.4}"
 2026-11-27T14:11:33Z,NAS100,move_stop,"{""trade"": ""834"", ""from"": 26624.4, ""to"": 26623.0}"
 2026-11-27T14:16:33Z,NAS100,move_stop,"{""trade"": ""834"", ""from"": 26623.0, ""to"": 26620.4}"
+2026-11-27T14:21:30Z,NAS100,move_stop,"{""trade"": ""834"", ""from"": 26620.4, ""to"": 26601.2}"
